@@ -1,0 +1,5821 @@
+dn: dc=someu,dc=edu
+objectClass: top
+objectClass: domain
+dc: someu
+
+dn: ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: accounts
+description: This is the People container
+
+dn: ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Aerospace Engineering
+description: This is the Aerospace Engineering organizational unit
+
+dn: cn=Smith\, John,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Smith
+cn: Smith, John
+displayName: John Smith
+employeeid: 0
+uid: 0
+mail: John.Smith@someu.edu
+userPassword: password
+samaccountname: JSmith0
+
+dn: cn=Williams\, Jim,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Williams
+cn: Williams, Jim
+displayName: Jim Williams
+employeeid: 1
+uid: 1
+mail: Jim.Williams@someu.edu
+userPassword: password
+samaccountname: JWilliams1
+
+dn: cn=Evans\, Sally,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Evans
+cn: Evans, Sally
+displayName: Sally Evans
+employeeid: 2
+uid: 2
+mail: Sally.Evans@someu.edu
+userPassword: password
+samaccountname: SEvans2
+
+dn: cn=Rockland\, Mabel,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Rockland
+cn: Rockland, Mabel
+displayName: Mabel Rockland
+employeeid: 3
+uid: 3
+mail: Mabel.Rockland@someu.edu
+userPassword: password
+samaccountname: MRockland3
+
+dn: cn=Peters\, Frank,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Peters
+cn: Peters, Frank
+displayName: Frank Peters
+employeeid: 4
+uid: 4
+mail: Frank.Peters@someu.edu
+userPassword: password
+samaccountname: FPeters4
+
+dn: cn=Love\, Peter,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Love
+cn: Love, Peter
+displayName: Peter Love
+employeeid: 5
+uid: 5
+mail: Peter.Love@someu.edu
+userPassword: password
+samaccountname: PLove5
+
+dn: cn=Nguyen\, Julie,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Nguyen
+cn: Nguyen, Julie
+displayName: Julie Nguyen
+employeeid: 6
+uid: 6
+mail: Julie.Nguyen@someu.edu
+userPassword: password
+samaccountname: JNguyen6
+
+dn: cn=James\, Sandy,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: James
+cn: James, Sandy
+displayName: Sandy James
+employeeid: 7
+uid: 7
+mail: Sandy.James@someu.edu
+userPassword: password
+samaccountname: SJames7
+
+dn: cn=Adams\, Jennifer,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Adams
+cn: Adams, Jennifer
+displayName: Jennifer Adams
+employeeid: 8
+uid: 8
+mail: Jennifer.Adams@someu.edu
+userPassword: password
+samaccountname: JAdams8
+
+dn: cn=Ball\, Ann,ou=Aerospace Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Ball
+cn: Ball, Ann
+displayName: Ann Ball
+employeeid: 9
+uid: 9
+mail: Ann.Ball@someu.edu
+userPassword: password
+samaccountname: ABall9
+
+dn: ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Anthropology
+description: This is the Anthropology organizational unit
+
+dn: cn=Chu\, Jill,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Chu
+cn: Chu, Jill
+displayName: Jill Chu
+employeeid: 10
+uid: 10
+mail: Jill.Chu@someu.edu
+userPassword: password
+samaccountname: JChu10
+
+dn: cn=Conner\, Roland,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Conner
+cn: Conner, Roland
+displayName: Roland Conner
+employeeid: 11
+uid: 11
+mail: Roland.Conner@someu.edu
+userPassword: password
+samaccountname: RConner11
+
+dn: cn=Cotten\, Philip,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Cotten
+cn: Cotten, Philip
+displayName: Philip Cotten
+employeeid: 12
+uid: 12
+mail: Philip.Cotten@someu.edu
+userPassword: password
+samaccountname: PCotten12
+
+dn: cn=Edmondson\, Russ,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Edmondson
+cn: Edmondson, Russ
+displayName: Russ Edmondson
+employeeid: 13
+uid: 13
+mail: Russ.Edmondson@someu.edu
+userPassword: password
+samaccountname: REdmondson13
+
+dn: cn=Ellison\, Debbie,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Ellison
+cn: Ellison, Debbie
+displayName: Debbie Ellison
+employeeid: 14
+uid: 14
+mail: Debbie.Ellison@someu.edu
+userPassword: password
+samaccountname: DEllison14
+
+dn: cn=Erickson\, Rebecca,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Erickson
+cn: Erickson, Rebecca
+displayName: Rebecca Erickson
+employeeid: 15
+uid: 15
+mail: Rebecca.Erickson@someu.edu
+userPassword: password
+samaccountname: RErickson15
+
+dn: cn=Everitt\, Wendy,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Everitt
+cn: Everitt, Wendy
+displayName: Wendy Everitt
+employeeid: 16
+uid: 16
+mail: Wendy.Everitt@someu.edu
+userPassword: password
+samaccountname: WEveritt16
+
+dn: cn=Fanthome\, Kate,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Fanthome
+cn: Fanthome, Kate
+displayName: Kate Fanthome
+employeeid: 17
+uid: 17
+mail: Kate.Fanthome@someu.edu
+userPassword: password
+samaccountname: KFanthome17
+
+dn: cn=Favrot\, Catherine,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Favrot
+cn: Favrot, Catherine
+displayName: Catherine Favrot
+employeeid: 18
+uid: 18
+mail: Catherine.Favrot@someu.edu
+userPassword: password
+samaccountname: CFavrot18
+
+dn: cn=Fetting\, Matthew,ou=Anthropology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Fetting
+cn: Fetting, Matthew
+displayName: Matthew Fetting
+employeeid: 19
+uid: 19
+mail: Matthew.Fetting@someu.edu
+userPassword: password
+samaccountname: MFetting19
+
+dn: ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Architecture
+description: This is the Architecture organizational unit
+
+dn: cn=Findlay\, Luke,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Findlay
+cn: Findlay, Luke
+displayName: Luke Findlay
+employeeid: 20
+uid: 20
+mail: Luke.Findlay@someu.edu
+userPassword: password
+samaccountname: LFindlay20
+
+dn: cn=Gallman\, Mark,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Gallman
+cn: Gallman, Mark
+displayName: Mark Gallman
+employeeid: 21
+uid: 21
+mail: Mark.Gallman@someu.edu
+userPassword: password
+samaccountname: MGallman21
+
+dn: cn=Garmon\, Karen,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Garmon
+cn: Garmon, Karen
+displayName: Karen Garmon
+employeeid: 22
+uid: 22
+mail: Karen.Garmon@someu.edu
+userPassword: password
+samaccountname: KGarmon22
+
+dn: cn=Gebrael\, Kelly,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Gebrael
+cn: Gebrael, Kelly
+displayName: Kelly Gebrael
+employeeid: 23
+uid: 23
+mail: Kelly.Gebrael@someu.edu
+userPassword: password
+samaccountname: KGebrael23
+
+dn: cn=Gidaro\, William,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Gidaro
+cn: Gidaro, William
+displayName: William Gidaro
+employeeid: 24
+uid: 24
+mail: William.Gidaro@someu.edu
+userPassword: password
+samaccountname: WGidaro24
+
+dn: cn=Goyette\, Jonathan,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Goyette
+cn: Goyette, Jonathan
+displayName: Jonathan Goyette
+employeeid: 25
+uid: 25
+mail: Jonathan.Goyette@someu.edu
+userPassword: password
+samaccountname: JGoyette25
+
+dn: cn=Hadley\, Doug,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Hadley
+cn: Hadley, Doug
+displayName: Doug Hadley
+employeeid: 26
+uid: 26
+mail: Doug.Hadley@someu.edu
+userPassword: password
+samaccountname: DHadley26
+
+dn: cn=Hagewood\, Noreen,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Hagewood
+cn: Hagewood, Noreen
+displayName: Noreen Hagewood
+employeeid: 27
+uid: 27
+mail: Noreen.Hagewood@someu.edu
+userPassword: password
+samaccountname: NHagewood27
+
+dn: cn=Hampshire\, Bill,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Hampshire
+cn: Hampshire, Bill
+displayName: Bill Hampshire
+employeeid: 28
+uid: 28
+mail: Bill.Hampshire@someu.edu
+userPassword: password
+samaccountname: BHampshire28
+
+dn: cn=Ingram\, Jessica,ou=Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Ingram
+cn: Ingram, Jessica
+displayName: Jessica Ingram
+employeeid: 29
+uid: 29
+mail: Jessica.Ingram@someu.edu
+userPassword: password
+samaccountname: JIngram29
+
+dn: ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Astronomy
+description: This is the Astronomy organizational unit
+
+dn: cn=Isherwood\, John,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Isherwood
+cn: Isherwood, John
+displayName: John Isherwood
+employeeid: 30
+uid: 30
+mail: John.Isherwood@someu.edu
+userPassword: password
+samaccountname: JIsherwood30
+
+dn: cn=Jalilvand\, Jim,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Jalilvand
+cn: Jalilvand, Jim
+displayName: Jim Jalilvand
+employeeid: 31
+uid: 31
+mail: Jim.Jalilvand@someu.edu
+userPassword: password
+samaccountname: JJalilvand31
+
+dn: cn=Jaworski\, Sally,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Jaworski
+cn: Jaworski, Sally
+displayName: Sally Jaworski
+employeeid: 32
+uid: 32
+mail: Sally.Jaworski@someu.edu
+userPassword: password
+samaccountname: SJaworski32
+
+dn: cn=Kahtasian\, Mabel,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Kahtasian
+cn: Kahtasian, Mabel
+displayName: Mabel Kahtasian
+employeeid: 33
+uid: 33
+mail: Mabel.Kahtasian@someu.edu
+userPassword: password
+samaccountname: MKahtasian33
+
+dn: cn=Kannel\, Frank,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Kannel
+cn: Kannel, Frank
+displayName: Frank Kannel
+employeeid: 34
+uid: 34
+mail: Frank.Kannel@someu.edu
+userPassword: password
+samaccountname: FKannel34
+
+dn: cn=Kasbia\, Peter,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Kasbia
+cn: Kasbia, Peter
+displayName: Peter Kasbia
+employeeid: 35
+uid: 35
+mail: Peter.Kasbia@someu.edu
+userPassword: password
+samaccountname: PKasbia35
+
+dn: cn=Kazimierski\, Julie,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Kazimierski
+cn: Kazimierski, Julie
+displayName: Julie Kazimierski
+employeeid: 36
+uid: 36
+mail: Julie.Kazimierski@someu.edu
+userPassword: password
+samaccountname: JKazimierski36
+
+dn: cn=Kelley\, Sandy,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Kelley
+cn: Kelley, Sandy
+displayName: Sandy Kelley
+employeeid: 37
+uid: 37
+mail: Sandy.Kelley@someu.edu
+userPassword: password
+samaccountname: SKelley37
+
+dn: cn=Kempster\, Jennifer,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Kempster
+cn: Kempster, Jennifer
+displayName: Jennifer Kempster
+employeeid: 38
+uid: 38
+mail: Jennifer.Kempster@someu.edu
+userPassword: password
+samaccountname: JKempster38
+
+dn: cn=Kerlovich\, Ann,ou=Astronomy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Kerlovich
+cn: Kerlovich, Ann
+displayName: Ann Kerlovich
+employeeid: 39
+uid: 39
+mail: Ann.Kerlovich@someu.edu
+userPassword: password
+samaccountname: AKerlovich39
+
+dn: ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Bioengineering
+description: This is the Bioengineering organizational unit
+
+dn: cn=Kikuta\, Jill,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Kikuta
+cn: Kikuta, Jill
+displayName: Jill Kikuta
+employeeid: 40
+uid: 40
+mail: Jill.Kikuta@someu.edu
+userPassword: password
+samaccountname: JKikuta40
+
+dn: cn=Kinsman\, Roland,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Kinsman
+cn: Kinsman, Roland
+displayName: Roland Kinsman
+employeeid: 41
+uid: 41
+mail: Roland.Kinsman@someu.edu
+userPassword: password
+samaccountname: RKinsman41
+
+dn: cn=Lampman\, Philip,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Lampman
+cn: Lampman, Philip
+displayName: Philip Lampman
+employeeid: 42
+uid: 42
+mail: Philip.Lampman@someu.edu
+userPassword: password
+samaccountname: PLampman42
+
+dn: cn=Lavers\, Russ,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Lavers
+cn: Lavers, Russ
+displayName: Russ Lavers
+employeeid: 43
+uid: 43
+mail: Russ.Lavers@someu.edu
+userPassword: password
+samaccountname: RLavers43
+
+dn: cn=Letchworth\, Debbie,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Letchworth
+cn: Letchworth, Debbie
+displayName: Debbie Letchworth
+employeeid: 44
+uid: 44
+mail: Debbie.Letchworth@someu.edu
+userPassword: password
+samaccountname: DLetchworth44
+
+dn: cn=Linke\, Rebecca,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Linke
+cn: Linke, Rebecca
+displayName: Rebecca Linke
+employeeid: 45
+uid: 45
+mail: Rebecca.Linke@someu.edu
+userPassword: password
+samaccountname: RLinke45
+
+dn: cn=Macnicoll\, Wendy,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Macnicoll
+cn: Macnicoll, Wendy
+displayName: Wendy Macnicoll
+employeeid: 46
+uid: 46
+mail: Wendy.Macnicoll@someu.edu
+userPassword: password
+samaccountname: WMacnicoll46
+
+dn: cn=Malhotra\, Kate,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Malhotra
+cn: Malhotra, Kate
+displayName: Kate Malhotra
+employeeid: 47
+uid: 47
+mail: Kate.Malhotra@someu.edu
+userPassword: password
+samaccountname: KMalhotra47
+
+dn: cn=Martins\, Catherine,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Martins
+cn: Martins, Catherine
+displayName: Catherine Martins
+employeeid: 48
+uid: 48
+mail: Catherine.Martins@someu.edu
+userPassword: password
+samaccountname: CMartins48
+
+dn: cn=Nakatsu\, Matthew,ou=Bioengineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Nakatsu
+cn: Nakatsu, Matthew
+displayName: Matthew Nakatsu
+employeeid: 49
+uid: 49
+mail: Matthew.Nakatsu@someu.edu
+userPassword: password
+samaccountname: MNakatsu49
+
+dn: ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Biology
+description: This is the Biology organizational unit
+
+dn: cn=Neumann\, Luke,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Neumann
+cn: Neumann, Luke
+displayName: Luke Neumann
+employeeid: 50
+uid: 50
+mail: Luke.Neumann@someu.edu
+userPassword: password
+samaccountname: LNeumann50
+
+dn: cn=Nishimura\, Mark,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Nishimura
+cn: Nishimura, Mark
+displayName: Mark Nishimura
+employeeid: 51
+uid: 51
+mail: Mark.Nishimura@someu.edu
+userPassword: password
+samaccountname: MNishimura51
+
+dn: cn=O'Malley\, Karen,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: O'Malley
+cn: O'Malley, Karen
+displayName: Karen O'Malley
+employeeid: 52
+uid: 52
+mail: Karen.O'Malley@someu.edu
+userPassword: password
+samaccountname: KO'Malley52
+
+dn: cn=O'Toole\, Kelly,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: O'Toole
+cn: O'Toole, Kelly
+displayName: Kelly O'Toole
+employeeid: 53
+uid: 53
+mail: Kelly.O'Toole@someu.edu
+userPassword: password
+samaccountname: KO'Toole53
+
+dn: cn=Ong\, William,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Ong
+cn: Ong, William
+displayName: William Ong
+employeeid: 54
+uid: 54
+mail: William.Ong@someu.edu
+userPassword: password
+samaccountname: WOng54
+
+dn: cn=Paluso\, Jonathan,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Paluso
+cn: Paluso, Jonathan
+displayName: Jonathan Paluso
+employeeid: 55
+uid: 55
+mail: Jonathan.Paluso@someu.edu
+userPassword: password
+samaccountname: JPaluso55
+
+dn: cn=Paris\, Doug,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Paris
+cn: Paris, Doug
+displayName: Doug Paris
+employeeid: 56
+uid: 56
+mail: Doug.Paris@someu.edu
+userPassword: password
+samaccountname: DParis56
+
+dn: cn=Pritchett\, Noreen,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Pritchett
+cn: Pritchett, Noreen
+displayName: Noreen Pritchett
+employeeid: 57
+uid: 57
+mail: Noreen.Pritchett@someu.edu
+userPassword: password
+samaccountname: NPritchett57
+
+dn: cn=Quayle\, Bill,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Quayle
+cn: Quayle, Bill
+displayName: Bill Quayle
+employeeid: 58
+uid: 58
+mail: Bill.Quayle@someu.edu
+userPassword: password
+samaccountname: BQuayle58
+
+dn: cn=Rafferty\, Jessica,ou=Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Rafferty
+cn: Rafferty, Jessica
+displayName: Jessica Rafferty
+employeeid: 59
+uid: 59
+mail: Jessica.Rafferty@someu.edu
+userPassword: password
+samaccountname: JRafferty59
+
+dn: ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Business
+description: This is the Business organizational unit
+
+dn: cn=Randall\, John,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Randall
+cn: Randall, John
+displayName: John Randall
+employeeid: 60
+uid: 60
+mail: John.Randall@someu.edu
+userPassword: password
+samaccountname: JRandall60
+
+dn: cn=Reidelberger\, Jim,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Reidelberger
+cn: Reidelberger, Jim
+displayName: Jim Reidelberger
+employeeid: 61
+uid: 61
+mail: Jim.Reidelberger@someu.edu
+userPassword: password
+samaccountname: JReidelberger61
+
+dn: cn=Riccitelli\, Sally,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Riccitelli
+cn: Riccitelli, Sally
+displayName: Sally Riccitelli
+employeeid: 62
+uid: 62
+mail: Sally.Riccitelli@someu.edu
+userPassword: password
+samaccountname: SRiccitelli62
+
+dn: cn=Saito\, Mabel,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Saito
+cn: Saito, Mabel
+displayName: Mabel Saito
+employeeid: 63
+uid: 63
+mail: Mabel.Saito@someu.edu
+userPassword: password
+samaccountname: MSaito63
+
+dn: cn=Sanford\, Frank,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Sanford
+cn: Sanford, Frank
+displayName: Frank Sanford
+employeeid: 64
+uid: 64
+mail: Frank.Sanford@someu.edu
+userPassword: password
+samaccountname: FSanford64
+
+dn: cn=Scheffler\, Peter,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Scheffler
+cn: Scheffler, Peter
+displayName: Peter Scheffler
+employeeid: 65
+uid: 65
+mail: Peter.Scheffler@someu.edu
+userPassword: password
+samaccountname: PScheffler65
+
+dn: cn=Shillinger\, Julie,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Shillinger
+cn: Shillinger, Julie
+displayName: Julie Shillinger
+employeeid: 66
+uid: 66
+mail: Julie.Shillinger@someu.edu
+userPassword: password
+samaccountname: JShillinger66
+
+dn: cn=St.Clair-Holmes\, Sandy,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: St.Clair-Holmes
+cn: St.Clair-Holmes, Sandy
+displayName: Sandy St.Clair-Holmes
+employeeid: 67
+uid: 67
+mail: Sandy.St.Clair-Holmes@someu.edu
+userPassword: password
+samaccountname: SSt.Clair-Holmes67
+
+dn: cn=Tandiono\, Jennifer,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Tandiono
+cn: Tandiono, Jennifer
+displayName: Jennifer Tandiono
+employeeid: 68
+uid: 68
+mail: Jennifer.Tandiono@someu.edu
+userPassword: password
+samaccountname: JTandiono68
+
+dn: cn=Tarrant\, Ann,ou=Business,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Tarrant
+cn: Tarrant, Ann
+displayName: Ann Tarrant
+employeeid: 69
+uid: 69
+mail: Ann.Tarrant@someu.edu
+userPassword: password
+samaccountname: ATarrant69
+
+dn: ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Central IT
+description: This is the Central IT organizational unit
+
+dn: cn=Thibault\, Jill,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Thibault
+cn: Thibault, Jill
+displayName: Jill Thibault
+employeeid: 70
+uid: 70
+mail: Jill.Thibault@someu.edu
+userPassword: password
+samaccountname: JThibault70
+
+dn: cn=Tolson\, Roland,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Tolson
+cn: Tolson, Roland
+displayName: Roland Tolson
+employeeid: 71
+uid: 71
+mail: Roland.Tolson@someu.edu
+userPassword: password
+samaccountname: RTolson71
+
+dn: cn=Tsitsior\, Philip,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Tsitsior
+cn: Tsitsior, Philip
+displayName: Philip Tsitsior
+employeeid: 72
+uid: 72
+mail: Philip.Tsitsior@someu.edu
+userPassword: password
+samaccountname: PTsitsior72
+
+dn: cn=Underwood\, Russ,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Underwood
+cn: Underwood, Russ
+displayName: Russ Underwood
+employeeid: 73
+uid: 73
+mail: Russ.Underwood@someu.edu
+userPassword: password
+samaccountname: RUnderwood73
+
+dn: cn=Utas\, Debbie,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Utas
+cn: Utas, Debbie
+displayName: Debbie Utas
+employeeid: 74
+uid: 74
+mail: Debbie.Utas@someu.edu
+userPassword: password
+samaccountname: DUtas74
+
+dn: cn=Upton\, Rebecca,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Upton
+cn: Upton, Rebecca
+displayName: Rebecca Upton
+employeeid: 75
+uid: 75
+mail: Rebecca.Upton@someu.edu
+userPassword: password
+samaccountname: RUpton75
+
+dn: cn=Valia\, Wendy,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Valia
+cn: Valia, Wendy
+displayName: Wendy Valia
+employeeid: 76
+uid: 76
+mail: Wendy.Valia@someu.edu
+userPassword: password
+samaccountname: WValia76
+
+dn: cn=Van Loon\, Kate,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Van Loon
+cn: Van Loon, Kate
+displayName: Kate Van Loon
+employeeid: 77
+uid: 77
+mail: Kate.Van Loon@someu.edu
+userPassword: password
+samaccountname: KVan Loon77
+
+dn: cn=Vanderpol\, Catherine,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Vanderpol
+cn: Vanderpol, Catherine
+displayName: Catherine Vanderpol
+employeeid: 78
+uid: 78
+mail: Catherine.Vanderpol@someu.edu
+userPassword: password
+samaccountname: CVanderpol78
+
+dn: cn=Varughese\, Matthew,ou=Central IT,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Varughese
+cn: Varughese, Matthew
+displayName: Matthew Varughese
+employeeid: 79
+uid: 79
+mail: Matthew.Varughese@someu.edu
+userPassword: password
+samaccountname: MVarughese79
+
+dn: ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Chemical Engineering
+description: This is the Chemical Engineering organizational unit
+
+dn: cn=Verville\, Luke,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Verville
+cn: Verville, Luke
+displayName: Luke Verville
+employeeid: 80
+uid: 80
+mail: Luke.Verville@someu.edu
+userPassword: password
+samaccountname: LVerville80
+
+dn: cn=Waigh\, Mark,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Waigh
+cn: Waigh, Mark
+displayName: Mark Waigh
+employeeid: 81
+uid: 81
+mail: Mark.Waigh@someu.edu
+userPassword: password
+samaccountname: MWaigh81
+
+dn: cn=Wakefield\, Karen,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Wakefield
+cn: Wakefield, Karen
+displayName: Karen Wakefield
+employeeid: 82
+uid: 82
+mail: Karen.Wakefield@someu.edu
+userPassword: password
+samaccountname: KWakefield82
+
+dn: cn=Walters\, Kelly,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Walters
+cn: Walters, Kelly
+displayName: Kelly Walters
+employeeid: 83
+uid: 83
+mail: Kelly.Walters@someu.edu
+userPassword: password
+samaccountname: KWalters83
+
+dn: cn=Warwick\, William,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Warwick
+cn: Warwick, William
+displayName: William Warwick
+employeeid: 84
+uid: 84
+mail: William.Warwick@someu.edu
+userPassword: password
+samaccountname: WWarwick84
+
+dn: cn=Wetzel\, Jonathan,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Wetzel
+cn: Wetzel, Jonathan
+displayName: Jonathan Wetzel
+employeeid: 85
+uid: 85
+mail: Jonathan.Wetzel@someu.edu
+userPassword: password
+samaccountname: JWetzel85
+
+dn: cn=Wiedman\, Doug,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Wiedman
+cn: Wiedman, Doug
+displayName: Doug Wiedman
+employeeid: 86
+uid: 86
+mail: Doug.Wiedman@someu.edu
+userPassword: password
+samaccountname: DWiedman86
+
+dn: cn=Xavier\, Noreen,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Xavier
+cn: Xavier, Noreen
+displayName: Noreen Xavier
+employeeid: 87
+uid: 87
+mail: Noreen.Xavier@someu.edu
+userPassword: password
+samaccountname: NXavier87
+
+dn: cn=Xu\, Bill,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Xu
+cn: Xu, Bill
+displayName: Bill Xu
+employeeid: 88
+uid: 88
+mail: Bill.Xu@someu.edu
+userPassword: password
+samaccountname: BXu88
+
+dn: cn=Yamamoto\, Jessica,ou=Chemical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Yamamoto
+cn: Yamamoto, Jessica
+displayName: Jessica Yamamoto
+employeeid: 89
+uid: 89
+mail: Jessica.Yamamoto@someu.edu
+userPassword: password
+samaccountname: JYamamoto89
+
+dn: ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Chemistry
+description: This is the Chemistry organizational unit
+
+dn: cn=Yarbrough\, John,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Yarbrough
+cn: Yarbrough, John
+displayName: John Yarbrough
+employeeid: 90
+uid: 90
+mail: John.Yarbrough@someu.edu
+userPassword: password
+samaccountname: JYarbrough90
+
+dn: cn=Yuan\, Jim,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Yuan
+cn: Yuan, Jim
+displayName: Jim Yuan
+employeeid: 91
+uid: 91
+mail: Jim.Yuan@someu.edu
+userPassword: password
+samaccountname: JYuan91
+
+dn: cn=Zabek\, Sally,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Zabek
+cn: Zabek, Sally
+displayName: Sally Zabek
+employeeid: 92
+uid: 92
+mail: Sally.Zabek@someu.edu
+userPassword: password
+samaccountname: SZabek92
+
+dn: cn=Zaleski\, Mabel,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Zaleski
+cn: Zaleski, Mabel
+displayName: Mabel Zaleski
+employeeid: 93
+uid: 93
+mail: Mabel.Zaleski@someu.edu
+userPassword: password
+samaccountname: MZaleski93
+
+dn: cn=Zeigler\, Frank,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Zeigler
+cn: Zeigler, Frank
+displayName: Frank Zeigler
+employeeid: 94
+uid: 94
+mail: Frank.Zeigler@someu.edu
+userPassword: password
+samaccountname: FZeigler94
+
+dn: cn=Zimmerman\, Peter,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Zimmerman
+cn: Zimmerman, Peter
+displayName: Peter Zimmerman
+employeeid: 95
+uid: 95
+mail: Peter.Zimmerman@someu.edu
+userPassword: password
+samaccountname: PZimmerman95
+
+dn: cn=Smith\, Julie,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Smith
+cn: Smith, Julie
+displayName: Julie Smith
+employeeid: 96
+uid: 96
+mail: Julie.Smith@someu.edu
+userPassword: password
+samaccountname: JSmith96
+
+dn: cn=Williams\, Sandy,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Williams
+cn: Williams, Sandy
+displayName: Sandy Williams
+employeeid: 97
+uid: 97
+mail: Sandy.Williams@someu.edu
+userPassword: password
+samaccountname: SWilliams97
+
+dn: cn=Evans\, Jennifer,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Evans
+cn: Evans, Jennifer
+displayName: Jennifer Evans
+employeeid: 98
+uid: 98
+mail: Jennifer.Evans@someu.edu
+userPassword: password
+samaccountname: JEvans98
+
+dn: cn=Rockland\, Ann,ou=Chemistry,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Rockland
+cn: Rockland, Ann
+displayName: Ann Rockland
+employeeid: 99
+uid: 99
+mail: Ann.Rockland@someu.edu
+userPassword: password
+samaccountname: ARockland99
+
+dn: ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: City and Regional Planning
+description: This is the City and Regional Planning organizational unit
+
+dn: cn=Peters\, Jill,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Peters
+cn: Peters, Jill
+displayName: Jill Peters
+employeeid: 100
+uid: 100
+mail: Jill.Peters@someu.edu
+userPassword: password
+samaccountname: JPeters100
+
+dn: cn=Love\, Roland,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Love
+cn: Love, Roland
+displayName: Roland Love
+employeeid: 101
+uid: 101
+mail: Roland.Love@someu.edu
+userPassword: password
+samaccountname: RLove101
+
+dn: cn=Nguyen\, Philip,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Nguyen
+cn: Nguyen, Philip
+displayName: Philip Nguyen
+employeeid: 102
+uid: 102
+mail: Philip.Nguyen@someu.edu
+userPassword: password
+samaccountname: PNguyen102
+
+dn: cn=James\, Russ,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: James
+cn: James, Russ
+displayName: Russ James
+employeeid: 103
+uid: 103
+mail: Russ.James@someu.edu
+userPassword: password
+samaccountname: RJames103
+
+dn: cn=Adams\, Debbie,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Adams
+cn: Adams, Debbie
+displayName: Debbie Adams
+employeeid: 104
+uid: 104
+mail: Debbie.Adams@someu.edu
+userPassword: password
+samaccountname: DAdams104
+
+dn: cn=Ball\, Rebecca,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Ball
+cn: Ball, Rebecca
+displayName: Rebecca Ball
+employeeid: 105
+uid: 105
+mail: Rebecca.Ball@someu.edu
+userPassword: password
+samaccountname: RBall105
+
+dn: cn=Chu\, Wendy,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Chu
+cn: Chu, Wendy
+displayName: Wendy Chu
+employeeid: 106
+uid: 106
+mail: Wendy.Chu@someu.edu
+userPassword: password
+samaccountname: WChu106
+
+dn: cn=Conner\, Kate,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Conner
+cn: Conner, Kate
+displayName: Kate Conner
+employeeid: 107
+uid: 107
+mail: Kate.Conner@someu.edu
+userPassword: password
+samaccountname: KConner107
+
+dn: cn=Cotten\, Catherine,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Cotten
+cn: Cotten, Catherine
+displayName: Catherine Cotten
+employeeid: 108
+uid: 108
+mail: Catherine.Cotten@someu.edu
+userPassword: password
+samaccountname: CCotten108
+
+dn: cn=Edmondson\, Matthew,ou=City and Regional Planning,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Edmondson
+cn: Edmondson, Matthew
+displayName: Matthew Edmondson
+employeeid: 109
+uid: 109
+mail: Matthew.Edmondson@someu.edu
+userPassword: password
+samaccountname: MEdmondson109
+
+dn: ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Earth and Planetary Sciences
+description: This is the Earth and Planetary Sciences organizational unit
+
+dn: cn=Ellison\, Luke,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Ellison
+cn: Ellison, Luke
+displayName: Luke Ellison
+employeeid: 110
+uid: 110
+mail: Luke.Ellison@someu.edu
+userPassword: password
+samaccountname: LEllison110
+
+dn: cn=Erickson\, Mark,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Erickson
+cn: Erickson, Mark
+displayName: Mark Erickson
+employeeid: 111
+uid: 111
+mail: Mark.Erickson@someu.edu
+userPassword: password
+samaccountname: MErickson111
+
+dn: cn=Everitt\, Karen,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Everitt
+cn: Everitt, Karen
+displayName: Karen Everitt
+employeeid: 112
+uid: 112
+mail: Karen.Everitt@someu.edu
+userPassword: password
+samaccountname: KEveritt112
+
+dn: cn=Fanthome\, Kelly,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Fanthome
+cn: Fanthome, Kelly
+displayName: Kelly Fanthome
+employeeid: 113
+uid: 113
+mail: Kelly.Fanthome@someu.edu
+userPassword: password
+samaccountname: KFanthome113
+
+dn: cn=Favrot\, William,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Favrot
+cn: Favrot, William
+displayName: William Favrot
+employeeid: 114
+uid: 114
+mail: William.Favrot@someu.edu
+userPassword: password
+samaccountname: WFavrot114
+
+dn: cn=Fetting\, Jonathan,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Fetting
+cn: Fetting, Jonathan
+displayName: Jonathan Fetting
+employeeid: 115
+uid: 115
+mail: Jonathan.Fetting@someu.edu
+userPassword: password
+samaccountname: JFetting115
+
+dn: cn=Findlay\, Doug,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Findlay
+cn: Findlay, Doug
+displayName: Doug Findlay
+employeeid: 116
+uid: 116
+mail: Doug.Findlay@someu.edu
+userPassword: password
+samaccountname: DFindlay116
+
+dn: cn=Gallman\, Noreen,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Gallman
+cn: Gallman, Noreen
+displayName: Noreen Gallman
+employeeid: 117
+uid: 117
+mail: Noreen.Gallman@someu.edu
+userPassword: password
+samaccountname: NGallman117
+
+dn: cn=Garmon\, Bill,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Garmon
+cn: Garmon, Bill
+displayName: Bill Garmon
+employeeid: 118
+uid: 118
+mail: Bill.Garmon@someu.edu
+userPassword: password
+samaccountname: BGarmon118
+
+dn: cn=Gebrael\, Jessica,ou=Earth and Planetary Sciences,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Gebrael
+cn: Gebrael, Jessica
+displayName: Jessica Gebrael
+employeeid: 119
+uid: 119
+mail: Jessica.Gebrael@someu.edu
+userPassword: password
+samaccountname: JGebrael119
+
+dn: ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: East Asian Languages & Cultures
+description: This is the East Asian Languages & Cultures organizational unit
+
+dn: cn=Gidaro\, John,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Gidaro
+cn: Gidaro, John
+displayName: John Gidaro
+employeeid: 120
+uid: 120
+mail: John.Gidaro@someu.edu
+userPassword: password
+samaccountname: JGidaro120
+
+dn: cn=Goyette\, Jim,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Goyette
+cn: Goyette, Jim
+displayName: Jim Goyette
+employeeid: 121
+uid: 121
+mail: Jim.Goyette@someu.edu
+userPassword: password
+samaccountname: JGoyette121
+
+dn: cn=Hadley\, Sally,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Hadley
+cn: Hadley, Sally
+displayName: Sally Hadley
+employeeid: 122
+uid: 122
+mail: Sally.Hadley@someu.edu
+userPassword: password
+samaccountname: SHadley122
+
+dn: cn=Hagewood\, Mabel,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Hagewood
+cn: Hagewood, Mabel
+displayName: Mabel Hagewood
+employeeid: 123
+uid: 123
+mail: Mabel.Hagewood@someu.edu
+userPassword: password
+samaccountname: MHagewood123
+
+dn: cn=Hampshire\, Frank,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Hampshire
+cn: Hampshire, Frank
+displayName: Frank Hampshire
+employeeid: 124
+uid: 124
+mail: Frank.Hampshire@someu.edu
+userPassword: password
+samaccountname: FHampshire124
+
+dn: cn=Ingram\, Peter,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Ingram
+cn: Ingram, Peter
+displayName: Peter Ingram
+employeeid: 125
+uid: 125
+mail: Peter.Ingram@someu.edu
+userPassword: password
+samaccountname: PIngram125
+
+dn: cn=Isherwood\, Julie,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Isherwood
+cn: Isherwood, Julie
+displayName: Julie Isherwood
+employeeid: 126
+uid: 126
+mail: Julie.Isherwood@someu.edu
+userPassword: password
+samaccountname: JIsherwood126
+
+dn: cn=Jalilvand\, Sandy,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Jalilvand
+cn: Jalilvand, Sandy
+displayName: Sandy Jalilvand
+employeeid: 127
+uid: 127
+mail: Sandy.Jalilvand@someu.edu
+userPassword: password
+samaccountname: SJalilvand127
+
+dn: cn=Jaworski\, Jennifer,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Jaworski
+cn: Jaworski, Jennifer
+displayName: Jennifer Jaworski
+employeeid: 128
+uid: 128
+mail: Jennifer.Jaworski@someu.edu
+userPassword: password
+samaccountname: JJaworski128
+
+dn: cn=Kahtasian\, Ann,ou=East Asian Languages & Cultures,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Kahtasian
+cn: Kahtasian, Ann
+displayName: Ann Kahtasian
+employeeid: 129
+uid: 129
+mail: Ann.Kahtasian@someu.edu
+userPassword: password
+samaccountname: AKahtasian129
+
+dn: ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Economics
+description: This is the Economics organizational unit
+
+dn: cn=Kannel\, Jill,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Kannel
+cn: Kannel, Jill
+displayName: Jill Kannel
+employeeid: 130
+uid: 130
+mail: Jill.Kannel@someu.edu
+userPassword: password
+samaccountname: JKannel130
+
+dn: cn=Kasbia\, Roland,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Kasbia
+cn: Kasbia, Roland
+displayName: Roland Kasbia
+employeeid: 131
+uid: 131
+mail: Roland.Kasbia@someu.edu
+userPassword: password
+samaccountname: RKasbia131
+
+dn: cn=Kazimierski\, Philip,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Kazimierski
+cn: Kazimierski, Philip
+displayName: Philip Kazimierski
+employeeid: 132
+uid: 132
+mail: Philip.Kazimierski@someu.edu
+userPassword: password
+samaccountname: PKazimierski132
+
+dn: cn=Kelley\, Russ,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Kelley
+cn: Kelley, Russ
+displayName: Russ Kelley
+employeeid: 133
+uid: 133
+mail: Russ.Kelley@someu.edu
+userPassword: password
+samaccountname: RKelley133
+
+dn: cn=Kempster\, Debbie,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Kempster
+cn: Kempster, Debbie
+displayName: Debbie Kempster
+employeeid: 134
+uid: 134
+mail: Debbie.Kempster@someu.edu
+userPassword: password
+samaccountname: DKempster134
+
+dn: cn=Kerlovich\, Rebecca,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Kerlovich
+cn: Kerlovich, Rebecca
+displayName: Rebecca Kerlovich
+employeeid: 135
+uid: 135
+mail: Rebecca.Kerlovich@someu.edu
+userPassword: password
+samaccountname: RKerlovich135
+
+dn: cn=Kikuta\, Wendy,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Kikuta
+cn: Kikuta, Wendy
+displayName: Wendy Kikuta
+employeeid: 136
+uid: 136
+mail: Wendy.Kikuta@someu.edu
+userPassword: password
+samaccountname: WKikuta136
+
+dn: cn=Kinsman\, Kate,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Kinsman
+cn: Kinsman, Kate
+displayName: Kate Kinsman
+employeeid: 137
+uid: 137
+mail: Kate.Kinsman@someu.edu
+userPassword: password
+samaccountname: KKinsman137
+
+dn: cn=Lampman\, Catherine,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Lampman
+cn: Lampman, Catherine
+displayName: Catherine Lampman
+employeeid: 138
+uid: 138
+mail: Catherine.Lampman@someu.edu
+userPassword: password
+samaccountname: CLampman138
+
+dn: cn=Lavers\, Matthew,ou=Economics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Lavers
+cn: Lavers, Matthew
+displayName: Matthew Lavers
+employeeid: 139
+uid: 139
+mail: Matthew.Lavers@someu.edu
+userPassword: password
+samaccountname: MLavers139
+
+dn: ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: English
+description: This is the English organizational unit
+
+dn: cn=Letchworth\, Luke,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Letchworth
+cn: Letchworth, Luke
+displayName: Luke Letchworth
+employeeid: 140
+uid: 140
+mail: Luke.Letchworth@someu.edu
+userPassword: password
+samaccountname: LLetchworth140
+
+dn: cn=Linke\, Mark,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Linke
+cn: Linke, Mark
+displayName: Mark Linke
+employeeid: 141
+uid: 141
+mail: Mark.Linke@someu.edu
+userPassword: password
+samaccountname: MLinke141
+
+dn: cn=Macnicoll\, Karen,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Macnicoll
+cn: Macnicoll, Karen
+displayName: Karen Macnicoll
+employeeid: 142
+uid: 142
+mail: Karen.Macnicoll@someu.edu
+userPassword: password
+samaccountname: KMacnicoll142
+
+dn: cn=Malhotra\, Kelly,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Malhotra
+cn: Malhotra, Kelly
+displayName: Kelly Malhotra
+employeeid: 143
+uid: 143
+mail: Kelly.Malhotra@someu.edu
+userPassword: password
+samaccountname: KMalhotra143
+
+dn: cn=Martins\, William,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Martins
+cn: Martins, William
+displayName: William Martins
+employeeid: 144
+uid: 144
+mail: William.Martins@someu.edu
+userPassword: password
+samaccountname: WMartins144
+
+dn: cn=Nakatsu\, Jonathan,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Nakatsu
+cn: Nakatsu, Jonathan
+displayName: Jonathan Nakatsu
+employeeid: 145
+uid: 145
+mail: Jonathan.Nakatsu@someu.edu
+userPassword: password
+samaccountname: JNakatsu145
+
+dn: cn=Neumann\, Doug,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Neumann
+cn: Neumann, Doug
+displayName: Doug Neumann
+employeeid: 146
+uid: 146
+mail: Doug.Neumann@someu.edu
+userPassword: password
+samaccountname: DNeumann146
+
+dn: cn=Nishimura\, Noreen,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Nishimura
+cn: Nishimura, Noreen
+displayName: Noreen Nishimura
+employeeid: 147
+uid: 147
+mail: Noreen.Nishimura@someu.edu
+userPassword: password
+samaccountname: NNishimura147
+
+dn: cn=O'Malley\, Bill,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: O'Malley
+cn: O'Malley, Bill
+displayName: Bill O'Malley
+employeeid: 148
+uid: 148
+mail: Bill.O'Malley@someu.edu
+userPassword: password
+samaccountname: BO'Malley148
+
+dn: cn=O'Toole\, Jessica,ou=English,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: O'Toole
+cn: O'Toole, Jessica
+displayName: Jessica O'Toole
+employeeid: 149
+uid: 149
+mail: Jessica.O'Toole@someu.edu
+userPassword: password
+samaccountname: JO'Toole149
+
+dn: ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Geography
+description: This is the Geography organizational unit
+
+dn: cn=Ong\, John,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Ong
+cn: Ong, John
+displayName: John Ong
+employeeid: 150
+uid: 150
+mail: John.Ong@someu.edu
+userPassword: password
+samaccountname: JOng150
+
+dn: cn=Paluso\, Jim,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Paluso
+cn: Paluso, Jim
+displayName: Jim Paluso
+employeeid: 151
+uid: 151
+mail: Jim.Paluso@someu.edu
+userPassword: password
+samaccountname: JPaluso151
+
+dn: cn=Paris\, Sally,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Paris
+cn: Paris, Sally
+displayName: Sally Paris
+employeeid: 152
+uid: 152
+mail: Sally.Paris@someu.edu
+userPassword: password
+samaccountname: SParis152
+
+dn: cn=Pritchett\, Mabel,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Pritchett
+cn: Pritchett, Mabel
+displayName: Mabel Pritchett
+employeeid: 153
+uid: 153
+mail: Mabel.Pritchett@someu.edu
+userPassword: password
+samaccountname: MPritchett153
+
+dn: cn=Quayle\, Frank,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Quayle
+cn: Quayle, Frank
+displayName: Frank Quayle
+employeeid: 154
+uid: 154
+mail: Frank.Quayle@someu.edu
+userPassword: password
+samaccountname: FQuayle154
+
+dn: cn=Rafferty\, Peter,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Rafferty
+cn: Rafferty, Peter
+displayName: Peter Rafferty
+employeeid: 155
+uid: 155
+mail: Peter.Rafferty@someu.edu
+userPassword: password
+samaccountname: PRafferty155
+
+dn: cn=Randall\, Julie,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Randall
+cn: Randall, Julie
+displayName: Julie Randall
+employeeid: 156
+uid: 156
+mail: Julie.Randall@someu.edu
+userPassword: password
+samaccountname: JRandall156
+
+dn: cn=Reidelberger\, Sandy,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Reidelberger
+cn: Reidelberger, Sandy
+displayName: Sandy Reidelberger
+employeeid: 157
+uid: 157
+mail: Sandy.Reidelberger@someu.edu
+userPassword: password
+samaccountname: SReidelberger157
+
+dn: cn=Riccitelli\, Jennifer,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Riccitelli
+cn: Riccitelli, Jennifer
+displayName: Jennifer Riccitelli
+employeeid: 158
+uid: 158
+mail: Jennifer.Riccitelli@someu.edu
+userPassword: password
+samaccountname: JRiccitelli158
+
+dn: cn=Saito\, Ann,ou=Geography,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Saito
+cn: Saito, Ann
+displayName: Ann Saito
+employeeid: 159
+uid: 159
+mail: Ann.Saito@someu.edu
+userPassword: password
+samaccountname: ASaito159
+
+dn: ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: History
+description: This is the History organizational unit
+
+dn: cn=Sanford\, Jill,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Sanford
+cn: Sanford, Jill
+displayName: Jill Sanford
+employeeid: 160
+uid: 160
+mail: Jill.Sanford@someu.edu
+userPassword: password
+samaccountname: JSanford160
+
+dn: cn=Scheffler\, Roland,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Scheffler
+cn: Scheffler, Roland
+displayName: Roland Scheffler
+employeeid: 161
+uid: 161
+mail: Roland.Scheffler@someu.edu
+userPassword: password
+samaccountname: RScheffler161
+
+dn: cn=Shillinger\, Philip,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Shillinger
+cn: Shillinger, Philip
+displayName: Philip Shillinger
+employeeid: 162
+uid: 162
+mail: Philip.Shillinger@someu.edu
+userPassword: password
+samaccountname: PShillinger162
+
+dn: cn=St.Clair-Holmes\, Russ,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: St.Clair-Holmes
+cn: St.Clair-Holmes, Russ
+displayName: Russ St.Clair-Holmes
+employeeid: 163
+uid: 163
+mail: Russ.St.Clair-Holmes@someu.edu
+userPassword: password
+samaccountname: RSt.Clair-Holmes163
+
+dn: cn=Tandiono\, Debbie,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Tandiono
+cn: Tandiono, Debbie
+displayName: Debbie Tandiono
+employeeid: 164
+uid: 164
+mail: Debbie.Tandiono@someu.edu
+userPassword: password
+samaccountname: DTandiono164
+
+dn: cn=Tarrant\, Rebecca,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Tarrant
+cn: Tarrant, Rebecca
+displayName: Rebecca Tarrant
+employeeid: 165
+uid: 165
+mail: Rebecca.Tarrant@someu.edu
+userPassword: password
+samaccountname: RTarrant165
+
+dn: cn=Thibault\, Wendy,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Thibault
+cn: Thibault, Wendy
+displayName: Wendy Thibault
+employeeid: 166
+uid: 166
+mail: Wendy.Thibault@someu.edu
+userPassword: password
+samaccountname: WThibault166
+
+dn: cn=Tolson\, Kate,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Tolson
+cn: Tolson, Kate
+displayName: Kate Tolson
+employeeid: 167
+uid: 167
+mail: Kate.Tolson@someu.edu
+userPassword: password
+samaccountname: KTolson167
+
+dn: cn=Tsitsior\, Catherine,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Tsitsior
+cn: Tsitsior, Catherine
+displayName: Catherine Tsitsior
+employeeid: 168
+uid: 168
+mail: Catherine.Tsitsior@someu.edu
+userPassword: password
+samaccountname: CTsitsior168
+
+dn: cn=Underwood\, Matthew,ou=History,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Underwood
+cn: Underwood, Matthew
+displayName: Matthew Underwood
+employeeid: 169
+uid: 169
+mail: Matthew.Underwood@someu.edu
+userPassword: password
+samaccountname: MUnderwood169
+
+dn: ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Landscape Architecture
+description: This is the Landscape Architecture organizational unit
+
+dn: cn=Utas\, Luke,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Utas
+cn: Utas, Luke
+displayName: Luke Utas
+employeeid: 170
+uid: 170
+mail: Luke.Utas@someu.edu
+userPassword: password
+samaccountname: LUtas170
+
+dn: cn=Upton\, Mark,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Upton
+cn: Upton, Mark
+displayName: Mark Upton
+employeeid: 171
+uid: 171
+mail: Mark.Upton@someu.edu
+userPassword: password
+samaccountname: MUpton171
+
+dn: cn=Valia\, Karen,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Valia
+cn: Valia, Karen
+displayName: Karen Valia
+employeeid: 172
+uid: 172
+mail: Karen.Valia@someu.edu
+userPassword: password
+samaccountname: KValia172
+
+dn: cn=Van Loon\, Kelly,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Van Loon
+cn: Van Loon, Kelly
+displayName: Kelly Van Loon
+employeeid: 173
+uid: 173
+mail: Kelly.Van Loon@someu.edu
+userPassword: password
+samaccountname: KVan Loon173
+
+dn: cn=Vanderpol\, William,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Vanderpol
+cn: Vanderpol, William
+displayName: William Vanderpol
+employeeid: 174
+uid: 174
+mail: William.Vanderpol@someu.edu
+userPassword: password
+samaccountname: WVanderpol174
+
+dn: cn=Varughese\, Jonathan,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Varughese
+cn: Varughese, Jonathan
+displayName: Jonathan Varughese
+employeeid: 175
+uid: 175
+mail: Jonathan.Varughese@someu.edu
+userPassword: password
+samaccountname: JVarughese175
+
+dn: cn=Verville\, Doug,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Verville
+cn: Verville, Doug
+displayName: Doug Verville
+employeeid: 176
+uid: 176
+mail: Doug.Verville@someu.edu
+userPassword: password
+samaccountname: DVerville176
+
+dn: cn=Waigh\, Noreen,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Waigh
+cn: Waigh, Noreen
+displayName: Noreen Waigh
+employeeid: 177
+uid: 177
+mail: Noreen.Waigh@someu.edu
+userPassword: password
+samaccountname: NWaigh177
+
+dn: cn=Wakefield\, Bill,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Wakefield
+cn: Wakefield, Bill
+displayName: Bill Wakefield
+employeeid: 178
+uid: 178
+mail: Bill.Wakefield@someu.edu
+userPassword: password
+samaccountname: BWakefield178
+
+dn: cn=Walters\, Jessica,ou=Landscape Architecture,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Walters
+cn: Walters, Jessica
+displayName: Jessica Walters
+employeeid: 179
+uid: 179
+mail: Jessica.Walters@someu.edu
+userPassword: password
+samaccountname: JWalters179
+
+dn: ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Law
+description: This is the Law organizational unit
+
+dn: cn=Warwick\, John,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Warwick
+cn: Warwick, John
+displayName: John Warwick
+employeeid: 180
+uid: 180
+mail: John.Warwick@someu.edu
+userPassword: password
+samaccountname: JWarwick180
+
+dn: cn=Wetzel\, Jim,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Wetzel
+cn: Wetzel, Jim
+displayName: Jim Wetzel
+employeeid: 181
+uid: 181
+mail: Jim.Wetzel@someu.edu
+userPassword: password
+samaccountname: JWetzel181
+
+dn: cn=Wiedman\, Sally,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Wiedman
+cn: Wiedman, Sally
+displayName: Sally Wiedman
+employeeid: 182
+uid: 182
+mail: Sally.Wiedman@someu.edu
+userPassword: password
+samaccountname: SWiedman182
+
+dn: cn=Xavier\, Mabel,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Xavier
+cn: Xavier, Mabel
+displayName: Mabel Xavier
+employeeid: 183
+uid: 183
+mail: Mabel.Xavier@someu.edu
+userPassword: password
+samaccountname: MXavier183
+
+dn: cn=Xu\, Frank,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Xu
+cn: Xu, Frank
+displayName: Frank Xu
+employeeid: 184
+uid: 184
+mail: Frank.Xu@someu.edu
+userPassword: password
+samaccountname: FXu184
+
+dn: cn=Yamamoto\, Peter,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Yamamoto
+cn: Yamamoto, Peter
+displayName: Peter Yamamoto
+employeeid: 185
+uid: 185
+mail: Peter.Yamamoto@someu.edu
+userPassword: password
+samaccountname: PYamamoto185
+
+dn: cn=Yarbrough\, Julie,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Yarbrough
+cn: Yarbrough, Julie
+displayName: Julie Yarbrough
+employeeid: 186
+uid: 186
+mail: Julie.Yarbrough@someu.edu
+userPassword: password
+samaccountname: JYarbrough186
+
+dn: cn=Yuan\, Sandy,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Yuan
+cn: Yuan, Sandy
+displayName: Sandy Yuan
+employeeid: 187
+uid: 187
+mail: Sandy.Yuan@someu.edu
+userPassword: password
+samaccountname: SYuan187
+
+dn: cn=Zabek\, Jennifer,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Zabek
+cn: Zabek, Jennifer
+displayName: Jennifer Zabek
+employeeid: 188
+uid: 188
+mail: Jennifer.Zabek@someu.edu
+userPassword: password
+samaccountname: JZabek188
+
+dn: cn=Zaleski\, Ann,ou=Law,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Zaleski
+cn: Zaleski, Ann
+displayName: Ann Zaleski
+employeeid: 189
+uid: 189
+mail: Ann.Zaleski@someu.edu
+userPassword: password
+samaccountname: AZaleski189
+
+dn: ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Library
+description: This is the Library organizational unit
+
+dn: cn=Zeigler\, Jill,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Zeigler
+cn: Zeigler, Jill
+displayName: Jill Zeigler
+employeeid: 190
+uid: 190
+mail: Jill.Zeigler@someu.edu
+userPassword: password
+samaccountname: JZeigler190
+
+dn: cn=Zimmerman\, Roland,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Zimmerman
+cn: Zimmerman, Roland
+displayName: Roland Zimmerman
+employeeid: 191
+uid: 191
+mail: Roland.Zimmerman@someu.edu
+userPassword: password
+samaccountname: RZimmerman191
+
+dn: cn=Smith\, Philip,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Smith
+cn: Smith, Philip
+displayName: Philip Smith
+employeeid: 192
+uid: 192
+mail: Philip.Smith@someu.edu
+userPassword: password
+samaccountname: PSmith192
+
+dn: cn=Williams\, Russ,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Williams
+cn: Williams, Russ
+displayName: Russ Williams
+employeeid: 193
+uid: 193
+mail: Russ.Williams@someu.edu
+userPassword: password
+samaccountname: RWilliams193
+
+dn: cn=Evans\, Debbie,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Evans
+cn: Evans, Debbie
+displayName: Debbie Evans
+employeeid: 194
+uid: 194
+mail: Debbie.Evans@someu.edu
+userPassword: password
+samaccountname: DEvans194
+
+dn: cn=Rockland\, Rebecca,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Rockland
+cn: Rockland, Rebecca
+displayName: Rebecca Rockland
+employeeid: 195
+uid: 195
+mail: Rebecca.Rockland@someu.edu
+userPassword: password
+samaccountname: RRockland195
+
+dn: cn=Peters\, Wendy,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Peters
+cn: Peters, Wendy
+displayName: Wendy Peters
+employeeid: 196
+uid: 196
+mail: Wendy.Peters@someu.edu
+userPassword: password
+samaccountname: WPeters196
+
+dn: cn=Love\, Kate,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Love
+cn: Love, Kate
+displayName: Kate Love
+employeeid: 197
+uid: 197
+mail: Kate.Love@someu.edu
+userPassword: password
+samaccountname: KLove197
+
+dn: cn=Nguyen\, Catherine,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Nguyen
+cn: Nguyen, Catherine
+displayName: Catherine Nguyen
+employeeid: 198
+uid: 198
+mail: Catherine.Nguyen@someu.edu
+userPassword: password
+samaccountname: CNguyen198
+
+dn: cn=James\, Matthew,ou=Library,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: James
+cn: James, Matthew
+displayName: Matthew James
+employeeid: 199
+uid: 199
+mail: Matthew.James@someu.edu
+userPassword: password
+samaccountname: MJames199
+
+dn: ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Linguistics
+description: This is the Linguistics organizational unit
+
+dn: cn=Adams\, Luke,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Adams
+cn: Adams, Luke
+displayName: Luke Adams
+employeeid: 200
+uid: 200
+mail: Luke.Adams@someu.edu
+userPassword: password
+samaccountname: LAdams200
+
+dn: cn=Ball\, Mark,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Ball
+cn: Ball, Mark
+displayName: Mark Ball
+employeeid: 201
+uid: 201
+mail: Mark.Ball@someu.edu
+userPassword: password
+samaccountname: MBall201
+
+dn: cn=Chu\, Karen,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Chu
+cn: Chu, Karen
+displayName: Karen Chu
+employeeid: 202
+uid: 202
+mail: Karen.Chu@someu.edu
+userPassword: password
+samaccountname: KChu202
+
+dn: cn=Conner\, Kelly,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Conner
+cn: Conner, Kelly
+displayName: Kelly Conner
+employeeid: 203
+uid: 203
+mail: Kelly.Conner@someu.edu
+userPassword: password
+samaccountname: KConner203
+
+dn: cn=Cotten\, William,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Cotten
+cn: Cotten, William
+displayName: William Cotten
+employeeid: 204
+uid: 204
+mail: William.Cotten@someu.edu
+userPassword: password
+samaccountname: WCotten204
+
+dn: cn=Edmondson\, Jonathan,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Edmondson
+cn: Edmondson, Jonathan
+displayName: Jonathan Edmondson
+employeeid: 205
+uid: 205
+mail: Jonathan.Edmondson@someu.edu
+userPassword: password
+samaccountname: JEdmondson205
+
+dn: cn=Ellison\, Doug,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Ellison
+cn: Ellison, Doug
+displayName: Doug Ellison
+employeeid: 206
+uid: 206
+mail: Doug.Ellison@someu.edu
+userPassword: password
+samaccountname: DEllison206
+
+dn: cn=Erickson\, Noreen,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Erickson
+cn: Erickson, Noreen
+displayName: Noreen Erickson
+employeeid: 207
+uid: 207
+mail: Noreen.Erickson@someu.edu
+userPassword: password
+samaccountname: NErickson207
+
+dn: cn=Everitt\, Bill,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Everitt
+cn: Everitt, Bill
+displayName: Bill Everitt
+employeeid: 208
+uid: 208
+mail: Bill.Everitt@someu.edu
+userPassword: password
+samaccountname: BEveritt208
+
+dn: cn=Fanthome\, Jessica,ou=Linguistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Fanthome
+cn: Fanthome, Jessica
+displayName: Jessica Fanthome
+employeeid: 209
+uid: 209
+mail: Jessica.Fanthome@someu.edu
+userPassword: password
+samaccountname: JFanthome209
+
+dn: ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Logistics
+description: This is the Logistics organizational unit
+
+dn: cn=Favrot\, John,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Favrot
+cn: Favrot, John
+displayName: John Favrot
+employeeid: 210
+uid: 210
+mail: John.Favrot@someu.edu
+userPassword: password
+samaccountname: JFavrot210
+
+dn: cn=Fetting\, Jim,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Fetting
+cn: Fetting, Jim
+displayName: Jim Fetting
+employeeid: 211
+uid: 211
+mail: Jim.Fetting@someu.edu
+userPassword: password
+samaccountname: JFetting211
+
+dn: cn=Findlay\, Sally,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Findlay
+cn: Findlay, Sally
+displayName: Sally Findlay
+employeeid: 212
+uid: 212
+mail: Sally.Findlay@someu.edu
+userPassword: password
+samaccountname: SFindlay212
+
+dn: cn=Gallman\, Mabel,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Gallman
+cn: Gallman, Mabel
+displayName: Mabel Gallman
+employeeid: 213
+uid: 213
+mail: Mabel.Gallman@someu.edu
+userPassword: password
+samaccountname: MGallman213
+
+dn: cn=Garmon\, Frank,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Garmon
+cn: Garmon, Frank
+displayName: Frank Garmon
+employeeid: 214
+uid: 214
+mail: Frank.Garmon@someu.edu
+userPassword: password
+samaccountname: FGarmon214
+
+dn: cn=Gebrael\, Peter,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Gebrael
+cn: Gebrael, Peter
+displayName: Peter Gebrael
+employeeid: 215
+uid: 215
+mail: Peter.Gebrael@someu.edu
+userPassword: password
+samaccountname: PGebrael215
+
+dn: cn=Gidaro\, Julie,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Gidaro
+cn: Gidaro, Julie
+displayName: Julie Gidaro
+employeeid: 216
+uid: 216
+mail: Julie.Gidaro@someu.edu
+userPassword: password
+samaccountname: JGidaro216
+
+dn: cn=Goyette\, Sandy,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Goyette
+cn: Goyette, Sandy
+displayName: Sandy Goyette
+employeeid: 217
+uid: 217
+mail: Sandy.Goyette@someu.edu
+userPassword: password
+samaccountname: SGoyette217
+
+dn: cn=Hadley\, Jennifer,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Hadley
+cn: Hadley, Jennifer
+displayName: Jennifer Hadley
+employeeid: 218
+uid: 218
+mail: Jennifer.Hadley@someu.edu
+userPassword: password
+samaccountname: JHadley218
+
+dn: cn=Hagewood\, Ann,ou=Logistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Hagewood
+cn: Hagewood, Ann
+displayName: Ann Hagewood
+employeeid: 219
+uid: 219
+mail: Ann.Hagewood@someu.edu
+userPassword: password
+samaccountname: AHagewood219
+
+dn: ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Materials Science and Engineering
+description: This is the Materials Science and Engineering organizational unit
+
+dn: cn=Hampshire\, Jill,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Hampshire
+cn: Hampshire, Jill
+displayName: Jill Hampshire
+employeeid: 220
+uid: 220
+mail: Jill.Hampshire@someu.edu
+userPassword: password
+samaccountname: JHampshire220
+
+dn: cn=Ingram\, Roland,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Ingram
+cn: Ingram, Roland
+displayName: Roland Ingram
+employeeid: 221
+uid: 221
+mail: Roland.Ingram@someu.edu
+userPassword: password
+samaccountname: RIngram221
+
+dn: cn=Isherwood\, Philip,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Isherwood
+cn: Isherwood, Philip
+displayName: Philip Isherwood
+employeeid: 222
+uid: 222
+mail: Philip.Isherwood@someu.edu
+userPassword: password
+samaccountname: PIsherwood222
+
+dn: cn=Jalilvand\, Russ,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Jalilvand
+cn: Jalilvand, Russ
+displayName: Russ Jalilvand
+employeeid: 223
+uid: 223
+mail: Russ.Jalilvand@someu.edu
+userPassword: password
+samaccountname: RJalilvand223
+
+dn: cn=Jaworski\, Debbie,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Jaworski
+cn: Jaworski, Debbie
+displayName: Debbie Jaworski
+employeeid: 224
+uid: 224
+mail: Debbie.Jaworski@someu.edu
+userPassword: password
+samaccountname: DJaworski224
+
+dn: cn=Kahtasian\, Rebecca,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Kahtasian
+cn: Kahtasian, Rebecca
+displayName: Rebecca Kahtasian
+employeeid: 225
+uid: 225
+mail: Rebecca.Kahtasian@someu.edu
+userPassword: password
+samaccountname: RKahtasian225
+
+dn: cn=Kannel\, Wendy,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Kannel
+cn: Kannel, Wendy
+displayName: Wendy Kannel
+employeeid: 226
+uid: 226
+mail: Wendy.Kannel@someu.edu
+userPassword: password
+samaccountname: WKannel226
+
+dn: cn=Kasbia\, Kate,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Kasbia
+cn: Kasbia, Kate
+displayName: Kate Kasbia
+employeeid: 227
+uid: 227
+mail: Kate.Kasbia@someu.edu
+userPassword: password
+samaccountname: KKasbia227
+
+dn: cn=Kazimierski\, Catherine,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Kazimierski
+cn: Kazimierski, Catherine
+displayName: Catherine Kazimierski
+employeeid: 228
+uid: 228
+mail: Catherine.Kazimierski@someu.edu
+userPassword: password
+samaccountname: CKazimierski228
+
+dn: cn=Kelley\, Matthew,ou=Materials Science and Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Kelley
+cn: Kelley, Matthew
+displayName: Matthew Kelley
+employeeid: 229
+uid: 229
+mail: Matthew.Kelley@someu.edu
+userPassword: password
+samaccountname: MKelley229
+
+dn: ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Mathematics
+description: This is the Mathematics organizational unit
+
+dn: cn=Kempster\, Luke,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Kempster
+cn: Kempster, Luke
+displayName: Luke Kempster
+employeeid: 230
+uid: 230
+mail: Luke.Kempster@someu.edu
+userPassword: password
+samaccountname: LKempster230
+
+dn: cn=Kerlovich\, Mark,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Kerlovich
+cn: Kerlovich, Mark
+displayName: Mark Kerlovich
+employeeid: 231
+uid: 231
+mail: Mark.Kerlovich@someu.edu
+userPassword: password
+samaccountname: MKerlovich231
+
+dn: cn=Kikuta\, Karen,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Kikuta
+cn: Kikuta, Karen
+displayName: Karen Kikuta
+employeeid: 232
+uid: 232
+mail: Karen.Kikuta@someu.edu
+userPassword: password
+samaccountname: KKikuta232
+
+dn: cn=Kinsman\, Kelly,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Kinsman
+cn: Kinsman, Kelly
+displayName: Kelly Kinsman
+employeeid: 233
+uid: 233
+mail: Kelly.Kinsman@someu.edu
+userPassword: password
+samaccountname: KKinsman233
+
+dn: cn=Lampman\, William,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Lampman
+cn: Lampman, William
+displayName: William Lampman
+employeeid: 234
+uid: 234
+mail: William.Lampman@someu.edu
+userPassword: password
+samaccountname: WLampman234
+
+dn: cn=Lavers\, Jonathan,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Lavers
+cn: Lavers, Jonathan
+displayName: Jonathan Lavers
+employeeid: 235
+uid: 235
+mail: Jonathan.Lavers@someu.edu
+userPassword: password
+samaccountname: JLavers235
+
+dn: cn=Letchworth\, Doug,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Letchworth
+cn: Letchworth, Doug
+displayName: Doug Letchworth
+employeeid: 236
+uid: 236
+mail: Doug.Letchworth@someu.edu
+userPassword: password
+samaccountname: DLetchworth236
+
+dn: cn=Linke\, Noreen,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Linke
+cn: Linke, Noreen
+displayName: Noreen Linke
+employeeid: 237
+uid: 237
+mail: Noreen.Linke@someu.edu
+userPassword: password
+samaccountname: NLinke237
+
+dn: cn=Macnicoll\, Bill,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Macnicoll
+cn: Macnicoll, Bill
+displayName: Bill Macnicoll
+employeeid: 238
+uid: 238
+mail: Bill.Macnicoll@someu.edu
+userPassword: password
+samaccountname: BMacnicoll238
+
+dn: cn=Malhotra\, Jessica,ou=Mathematics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Malhotra
+cn: Malhotra, Jessica
+displayName: Jessica Malhotra
+employeeid: 239
+uid: 239
+mail: Jessica.Malhotra@someu.edu
+userPassword: password
+samaccountname: JMalhotra239
+
+dn: ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Mechanical Engineering
+description: This is the Mechanical Engineering organizational unit
+
+dn: cn=Martins\, John,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Martins
+cn: Martins, John
+displayName: John Martins
+employeeid: 240
+uid: 240
+mail: John.Martins@someu.edu
+userPassword: password
+samaccountname: JMartins240
+
+dn: cn=Nakatsu\, Jim,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Nakatsu
+cn: Nakatsu, Jim
+displayName: Jim Nakatsu
+employeeid: 241
+uid: 241
+mail: Jim.Nakatsu@someu.edu
+userPassword: password
+samaccountname: JNakatsu241
+
+dn: cn=Neumann\, Sally,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Neumann
+cn: Neumann, Sally
+displayName: Sally Neumann
+employeeid: 242
+uid: 242
+mail: Sally.Neumann@someu.edu
+userPassword: password
+samaccountname: SNeumann242
+
+dn: cn=Nishimura\, Mabel,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Nishimura
+cn: Nishimura, Mabel
+displayName: Mabel Nishimura
+employeeid: 243
+uid: 243
+mail: Mabel.Nishimura@someu.edu
+userPassword: password
+samaccountname: MNishimura243
+
+dn: cn=O'Malley\, Frank,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: O'Malley
+cn: O'Malley, Frank
+displayName: Frank O'Malley
+employeeid: 244
+uid: 244
+mail: Frank.O'Malley@someu.edu
+userPassword: password
+samaccountname: FO'Malley244
+
+dn: cn=O'Toole\, Peter,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: O'Toole
+cn: O'Toole, Peter
+displayName: Peter O'Toole
+employeeid: 245
+uid: 245
+mail: Peter.O'Toole@someu.edu
+userPassword: password
+samaccountname: PO'Toole245
+
+dn: cn=Ong\, Julie,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Ong
+cn: Ong, Julie
+displayName: Julie Ong
+employeeid: 246
+uid: 246
+mail: Julie.Ong@someu.edu
+userPassword: password
+samaccountname: JOng246
+
+dn: cn=Paluso\, Sandy,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Paluso
+cn: Paluso, Sandy
+displayName: Sandy Paluso
+employeeid: 247
+uid: 247
+mail: Sandy.Paluso@someu.edu
+userPassword: password
+samaccountname: SPaluso247
+
+dn: cn=Paris\, Jennifer,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Paris
+cn: Paris, Jennifer
+displayName: Jennifer Paris
+employeeid: 248
+uid: 248
+mail: Jennifer.Paris@someu.edu
+userPassword: password
+samaccountname: JParis248
+
+dn: cn=Pritchett\, Ann,ou=Mechanical Engineering,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Pritchett
+cn: Pritchett, Ann
+displayName: Ann Pritchett
+employeeid: 249
+uid: 249
+mail: Ann.Pritchett@someu.edu
+userPassword: password
+samaccountname: APritchett249
+
+dn: ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Molecular and Cell Biology
+description: This is the Molecular and Cell Biology organizational unit
+
+dn: cn=Quayle\, Jill,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Quayle
+cn: Quayle, Jill
+displayName: Jill Quayle
+employeeid: 250
+uid: 250
+mail: Jill.Quayle@someu.edu
+userPassword: password
+samaccountname: JQuayle250
+
+dn: cn=Rafferty\, Roland,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Rafferty
+cn: Rafferty, Roland
+displayName: Roland Rafferty
+employeeid: 251
+uid: 251
+mail: Roland.Rafferty@someu.edu
+userPassword: password
+samaccountname: RRafferty251
+
+dn: cn=Randall\, Philip,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Randall
+cn: Randall, Philip
+displayName: Philip Randall
+employeeid: 252
+uid: 252
+mail: Philip.Randall@someu.edu
+userPassword: password
+samaccountname: PRandall252
+
+dn: cn=Reidelberger\, Russ,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Reidelberger
+cn: Reidelberger, Russ
+displayName: Russ Reidelberger
+employeeid: 253
+uid: 253
+mail: Russ.Reidelberger@someu.edu
+userPassword: password
+samaccountname: RReidelberger253
+
+dn: cn=Riccitelli\, Debbie,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Riccitelli
+cn: Riccitelli, Debbie
+displayName: Debbie Riccitelli
+employeeid: 254
+uid: 254
+mail: Debbie.Riccitelli@someu.edu
+userPassword: password
+samaccountname: DRiccitelli254
+
+dn: cn=Saito\, Rebecca,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Saito
+cn: Saito, Rebecca
+displayName: Rebecca Saito
+employeeid: 255
+uid: 255
+mail: Rebecca.Saito@someu.edu
+userPassword: password
+samaccountname: RSaito255
+
+dn: cn=Sanford\, Wendy,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Sanford
+cn: Sanford, Wendy
+displayName: Wendy Sanford
+employeeid: 256
+uid: 256
+mail: Wendy.Sanford@someu.edu
+userPassword: password
+samaccountname: WSanford256
+
+dn: cn=Scheffler\, Kate,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Scheffler
+cn: Scheffler, Kate
+displayName: Kate Scheffler
+employeeid: 257
+uid: 257
+mail: Kate.Scheffler@someu.edu
+userPassword: password
+samaccountname: KScheffler257
+
+dn: cn=Shillinger\, Catherine,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Shillinger
+cn: Shillinger, Catherine
+displayName: Catherine Shillinger
+employeeid: 258
+uid: 258
+mail: Catherine.Shillinger@someu.edu
+userPassword: password
+samaccountname: CShillinger258
+
+dn: cn=St.Clair-Holmes\, Matthew,ou=Molecular and Cell Biology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: St.Clair-Holmes
+cn: St.Clair-Holmes, Matthew
+displayName: Matthew St.Clair-Holmes
+employeeid: 259
+uid: 259
+mail: Matthew.St.Clair-Holmes@someu.edu
+userPassword: password
+samaccountname: MSt.Clair-Holmes259
+
+dn: ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Music
+description: This is the Music organizational unit
+
+dn: cn=Tandiono\, Luke,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Tandiono
+cn: Tandiono, Luke
+displayName: Luke Tandiono
+employeeid: 260
+uid: 260
+mail: Luke.Tandiono@someu.edu
+userPassword: password
+samaccountname: LTandiono260
+
+dn: cn=Tarrant\, Mark,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Tarrant
+cn: Tarrant, Mark
+displayName: Mark Tarrant
+employeeid: 261
+uid: 261
+mail: Mark.Tarrant@someu.edu
+userPassword: password
+samaccountname: MTarrant261
+
+dn: cn=Thibault\, Karen,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Thibault
+cn: Thibault, Karen
+displayName: Karen Thibault
+employeeid: 262
+uid: 262
+mail: Karen.Thibault@someu.edu
+userPassword: password
+samaccountname: KThibault262
+
+dn: cn=Tolson\, Kelly,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Tolson
+cn: Tolson, Kelly
+displayName: Kelly Tolson
+employeeid: 263
+uid: 263
+mail: Kelly.Tolson@someu.edu
+userPassword: password
+samaccountname: KTolson263
+
+dn: cn=Tsitsior\, William,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Tsitsior
+cn: Tsitsior, William
+displayName: William Tsitsior
+employeeid: 264
+uid: 264
+mail: William.Tsitsior@someu.edu
+userPassword: password
+samaccountname: WTsitsior264
+
+dn: cn=Underwood\, Jonathan,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Underwood
+cn: Underwood, Jonathan
+displayName: Jonathan Underwood
+employeeid: 265
+uid: 265
+mail: Jonathan.Underwood@someu.edu
+userPassword: password
+samaccountname: JUnderwood265
+
+dn: cn=Utas\, Doug,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Utas
+cn: Utas, Doug
+displayName: Doug Utas
+employeeid: 266
+uid: 266
+mail: Doug.Utas@someu.edu
+userPassword: password
+samaccountname: DUtas266
+
+dn: cn=Upton\, Noreen,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Upton
+cn: Upton, Noreen
+displayName: Noreen Upton
+employeeid: 267
+uid: 267
+mail: Noreen.Upton@someu.edu
+userPassword: password
+samaccountname: NUpton267
+
+dn: cn=Valia\, Bill,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Valia
+cn: Valia, Bill
+displayName: Bill Valia
+employeeid: 268
+uid: 268
+mail: Bill.Valia@someu.edu
+userPassword: password
+samaccountname: BValia268
+
+dn: cn=Van Loon\, Jessica,ou=Music,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Van Loon
+cn: Van Loon, Jessica
+displayName: Jessica Van Loon
+employeeid: 269
+uid: 269
+mail: Jessica.Van Loon@someu.edu
+userPassword: password
+samaccountname: JVan Loon269
+
+dn: ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Philosophy
+description: This is the Philosophy organizational unit
+
+dn: cn=Vanderpol\, John,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Vanderpol
+cn: Vanderpol, John
+displayName: John Vanderpol
+employeeid: 270
+uid: 270
+mail: John.Vanderpol@someu.edu
+userPassword: password
+samaccountname: JVanderpol270
+
+dn: cn=Varughese\, Jim,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Varughese
+cn: Varughese, Jim
+displayName: Jim Varughese
+employeeid: 271
+uid: 271
+mail: Jim.Varughese@someu.edu
+userPassword: password
+samaccountname: JVarughese271
+
+dn: cn=Verville\, Sally,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Verville
+cn: Verville, Sally
+displayName: Sally Verville
+employeeid: 272
+uid: 272
+mail: Sally.Verville@someu.edu
+userPassword: password
+samaccountname: SVerville272
+
+dn: cn=Waigh\, Mabel,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Waigh
+cn: Waigh, Mabel
+displayName: Mabel Waigh
+employeeid: 273
+uid: 273
+mail: Mabel.Waigh@someu.edu
+userPassword: password
+samaccountname: MWaigh273
+
+dn: cn=Wakefield\, Frank,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Wakefield
+cn: Wakefield, Frank
+displayName: Frank Wakefield
+employeeid: 274
+uid: 274
+mail: Frank.Wakefield@someu.edu
+userPassword: password
+samaccountname: FWakefield274
+
+dn: cn=Walters\, Peter,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Walters
+cn: Walters, Peter
+displayName: Peter Walters
+employeeid: 275
+uid: 275
+mail: Peter.Walters@someu.edu
+userPassword: password
+samaccountname: PWalters275
+
+dn: cn=Warwick\, Julie,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Warwick
+cn: Warwick, Julie
+displayName: Julie Warwick
+employeeid: 276
+uid: 276
+mail: Julie.Warwick@someu.edu
+userPassword: password
+samaccountname: JWarwick276
+
+dn: cn=Wetzel\, Sandy,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Wetzel
+cn: Wetzel, Sandy
+displayName: Sandy Wetzel
+employeeid: 277
+uid: 277
+mail: Sandy.Wetzel@someu.edu
+userPassword: password
+samaccountname: SWetzel277
+
+dn: cn=Wiedman\, Jennifer,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Wiedman
+cn: Wiedman, Jennifer
+displayName: Jennifer Wiedman
+employeeid: 278
+uid: 278
+mail: Jennifer.Wiedman@someu.edu
+userPassword: password
+samaccountname: JWiedman278
+
+dn: cn=Xavier\, Ann,ou=Philosophy,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Xavier
+cn: Xavier, Ann
+displayName: Ann Xavier
+employeeid: 279
+uid: 279
+mail: Ann.Xavier@someu.edu
+userPassword: password
+samaccountname: AXavier279
+
+dn: ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Physics
+description: This is the Physics organizational unit
+
+dn: cn=Xu\, Jill,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Xu
+cn: Xu, Jill
+displayName: Jill Xu
+employeeid: 280
+uid: 280
+mail: Jill.Xu@someu.edu
+userPassword: password
+samaccountname: JXu280
+
+dn: cn=Yamamoto\, Roland,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Yamamoto
+cn: Yamamoto, Roland
+displayName: Roland Yamamoto
+employeeid: 281
+uid: 281
+mail: Roland.Yamamoto@someu.edu
+userPassword: password
+samaccountname: RYamamoto281
+
+dn: cn=Yarbrough\, Philip,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Yarbrough
+cn: Yarbrough, Philip
+displayName: Philip Yarbrough
+employeeid: 282
+uid: 282
+mail: Philip.Yarbrough@someu.edu
+userPassword: password
+samaccountname: PYarbrough282
+
+dn: cn=Yuan\, Russ,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Yuan
+cn: Yuan, Russ
+displayName: Russ Yuan
+employeeid: 283
+uid: 283
+mail: Russ.Yuan@someu.edu
+userPassword: password
+samaccountname: RYuan283
+
+dn: cn=Zabek\, Debbie,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Zabek
+cn: Zabek, Debbie
+displayName: Debbie Zabek
+employeeid: 284
+uid: 284
+mail: Debbie.Zabek@someu.edu
+userPassword: password
+samaccountname: DZabek284
+
+dn: cn=Zaleski\, Rebecca,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Zaleski
+cn: Zaleski, Rebecca
+displayName: Rebecca Zaleski
+employeeid: 285
+uid: 285
+mail: Rebecca.Zaleski@someu.edu
+userPassword: password
+samaccountname: RZaleski285
+
+dn: cn=Zeigler\, Wendy,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Zeigler
+cn: Zeigler, Wendy
+displayName: Wendy Zeigler
+employeeid: 286
+uid: 286
+mail: Wendy.Zeigler@someu.edu
+userPassword: password
+samaccountname: WZeigler286
+
+dn: cn=Zimmerman\, Kate,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Zimmerman
+cn: Zimmerman, Kate
+displayName: Kate Zimmerman
+employeeid: 287
+uid: 287
+mail: Kate.Zimmerman@someu.edu
+userPassword: password
+samaccountname: KZimmerman287
+
+dn: cn=Smith\, Catherine,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Smith
+cn: Smith, Catherine
+displayName: Catherine Smith
+employeeid: 288
+uid: 288
+mail: Catherine.Smith@someu.edu
+userPassword: password
+samaccountname: CSmith288
+
+dn: cn=Williams\, Matthew,ou=Physics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Williams
+cn: Williams, Matthew
+displayName: Matthew Williams
+employeeid: 289
+uid: 289
+mail: Matthew.Williams@someu.edu
+userPassword: password
+samaccountname: MWilliams289
+
+dn: ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Police
+description: This is the Police organizational unit
+
+dn: cn=Evans\, Luke,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Evans
+cn: Evans, Luke
+displayName: Luke Evans
+employeeid: 290
+uid: 290
+mail: Luke.Evans@someu.edu
+userPassword: password
+samaccountname: LEvans290
+
+dn: cn=Rockland\, Mark,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Rockland
+cn: Rockland, Mark
+displayName: Mark Rockland
+employeeid: 291
+uid: 291
+mail: Mark.Rockland@someu.edu
+userPassword: password
+samaccountname: MRockland291
+
+dn: cn=Peters\, Karen,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Peters
+cn: Peters, Karen
+displayName: Karen Peters
+employeeid: 292
+uid: 292
+mail: Karen.Peters@someu.edu
+userPassword: password
+samaccountname: KPeters292
+
+dn: cn=Love\, Kelly,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Love
+cn: Love, Kelly
+displayName: Kelly Love
+employeeid: 293
+uid: 293
+mail: Kelly.Love@someu.edu
+userPassword: password
+samaccountname: KLove293
+
+dn: cn=Nguyen\, William,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Nguyen
+cn: Nguyen, William
+displayName: William Nguyen
+employeeid: 294
+uid: 294
+mail: William.Nguyen@someu.edu
+userPassword: password
+samaccountname: WNguyen294
+
+dn: cn=James\, Jonathan,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: James
+cn: James, Jonathan
+displayName: Jonathan James
+employeeid: 295
+uid: 295
+mail: Jonathan.James@someu.edu
+userPassword: password
+samaccountname: JJames295
+
+dn: cn=Adams\, Doug,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Adams
+cn: Adams, Doug
+displayName: Doug Adams
+employeeid: 296
+uid: 296
+mail: Doug.Adams@someu.edu
+userPassword: password
+samaccountname: DAdams296
+
+dn: cn=Ball\, Noreen,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Ball
+cn: Ball, Noreen
+displayName: Noreen Ball
+employeeid: 297
+uid: 297
+mail: Noreen.Ball@someu.edu
+userPassword: password
+samaccountname: NBall297
+
+dn: cn=Chu\, Bill,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Chu
+cn: Chu, Bill
+displayName: Bill Chu
+employeeid: 298
+uid: 298
+mail: Bill.Chu@someu.edu
+userPassword: password
+samaccountname: BChu298
+
+dn: cn=Conner\, Jessica,ou=Police,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Conner
+cn: Conner, Jessica
+displayName: Jessica Conner
+employeeid: 299
+uid: 299
+mail: Jessica.Conner@someu.edu
+userPassword: password
+samaccountname: JConner299
+
+dn: ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Political Science
+description: This is the Political Science organizational unit
+
+dn: cn=Cotten\, John,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Cotten
+cn: Cotten, John
+displayName: John Cotten
+employeeid: 300
+uid: 300
+mail: John.Cotten@someu.edu
+userPassword: password
+samaccountname: JCotten300
+
+dn: cn=Edmondson\, Jim,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Edmondson
+cn: Edmondson, Jim
+displayName: Jim Edmondson
+employeeid: 301
+uid: 301
+mail: Jim.Edmondson@someu.edu
+userPassword: password
+samaccountname: JEdmondson301
+
+dn: cn=Ellison\, Sally,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Ellison
+cn: Ellison, Sally
+displayName: Sally Ellison
+employeeid: 302
+uid: 302
+mail: Sally.Ellison@someu.edu
+userPassword: password
+samaccountname: SEllison302
+
+dn: cn=Erickson\, Mabel,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Erickson
+cn: Erickson, Mabel
+displayName: Mabel Erickson
+employeeid: 303
+uid: 303
+mail: Mabel.Erickson@someu.edu
+userPassword: password
+samaccountname: MErickson303
+
+dn: cn=Everitt\, Frank,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Everitt
+cn: Everitt, Frank
+displayName: Frank Everitt
+employeeid: 304
+uid: 304
+mail: Frank.Everitt@someu.edu
+userPassword: password
+samaccountname: FEveritt304
+
+dn: cn=Fanthome\, Peter,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Fanthome
+cn: Fanthome, Peter
+displayName: Peter Fanthome
+employeeid: 305
+uid: 305
+mail: Peter.Fanthome@someu.edu
+userPassword: password
+samaccountname: PFanthome305
+
+dn: cn=Favrot\, Julie,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Favrot
+cn: Favrot, Julie
+displayName: Julie Favrot
+employeeid: 306
+uid: 306
+mail: Julie.Favrot@someu.edu
+userPassword: password
+samaccountname: JFavrot306
+
+dn: cn=Fetting\, Sandy,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Fetting
+cn: Fetting, Sandy
+displayName: Sandy Fetting
+employeeid: 307
+uid: 307
+mail: Sandy.Fetting@someu.edu
+userPassword: password
+samaccountname: SFetting307
+
+dn: cn=Findlay\, Jennifer,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Findlay
+cn: Findlay, Jennifer
+displayName: Jennifer Findlay
+employeeid: 308
+uid: 308
+mail: Jennifer.Findlay@someu.edu
+userPassword: password
+samaccountname: JFindlay308
+
+dn: cn=Gallman\, Ann,ou=Political Science,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Gallman
+cn: Gallman, Ann
+displayName: Ann Gallman
+employeeid: 309
+uid: 309
+mail: Ann.Gallman@someu.edu
+userPassword: password
+samaccountname: AGallman309
+
+dn: ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Psychology
+description: This is the Psychology organizational unit
+
+dn: cn=Garmon\, Jill,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: Garmon
+cn: Garmon, Jill
+displayName: Jill Garmon
+employeeid: 310
+uid: 310
+mail: Jill.Garmon@someu.edu
+userPassword: password
+samaccountname: JGarmon310
+
+dn: cn=Gebrael\, Roland,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: Gebrael
+cn: Gebrael, Roland
+displayName: Roland Gebrael
+employeeid: 311
+uid: 311
+mail: Roland.Gebrael@someu.edu
+userPassword: password
+samaccountname: RGebrael311
+
+dn: cn=Gidaro\, Philip,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Gidaro
+cn: Gidaro, Philip
+displayName: Philip Gidaro
+employeeid: 312
+uid: 312
+mail: Philip.Gidaro@someu.edu
+userPassword: password
+samaccountname: PGidaro312
+
+dn: cn=Goyette\, Russ,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Goyette
+cn: Goyette, Russ
+displayName: Russ Goyette
+employeeid: 313
+uid: 313
+mail: Russ.Goyette@someu.edu
+userPassword: password
+samaccountname: RGoyette313
+
+dn: cn=Hadley\, Debbie,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Hadley
+cn: Hadley, Debbie
+displayName: Debbie Hadley
+employeeid: 314
+uid: 314
+mail: Debbie.Hadley@someu.edu
+userPassword: password
+samaccountname: DHadley314
+
+dn: cn=Hagewood\, Rebecca,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Hagewood
+cn: Hagewood, Rebecca
+displayName: Rebecca Hagewood
+employeeid: 315
+uid: 315
+mail: Rebecca.Hagewood@someu.edu
+userPassword: password
+samaccountname: RHagewood315
+
+dn: cn=Hampshire\, Wendy,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Hampshire
+cn: Hampshire, Wendy
+displayName: Wendy Hampshire
+employeeid: 316
+uid: 316
+mail: Wendy.Hampshire@someu.edu
+userPassword: password
+samaccountname: WHampshire316
+
+dn: cn=Ingram\, Kate,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Ingram
+cn: Ingram, Kate
+displayName: Kate Ingram
+employeeid: 317
+uid: 317
+mail: Kate.Ingram@someu.edu
+userPassword: password
+samaccountname: KIngram317
+
+dn: cn=Isherwood\, Catherine,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Isherwood
+cn: Isherwood, Catherine
+displayName: Catherine Isherwood
+employeeid: 318
+uid: 318
+mail: Catherine.Isherwood@someu.edu
+userPassword: password
+samaccountname: CIsherwood318
+
+dn: cn=Jalilvand\, Matthew,ou=Psychology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Jalilvand
+cn: Jalilvand, Matthew
+displayName: Matthew Jalilvand
+employeeid: 319
+uid: 319
+mail: Matthew.Jalilvand@someu.edu
+userPassword: password
+samaccountname: MJalilvand319
+
+dn: ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Rhetoric
+description: This is the Rhetoric organizational unit
+
+dn: cn=Jaworski\, Luke,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Luke
+sn: Jaworski
+cn: Jaworski, Luke
+displayName: Luke Jaworski
+employeeid: 320
+uid: 320
+mail: Luke.Jaworski@someu.edu
+userPassword: password
+samaccountname: LJaworski320
+
+dn: cn=Kahtasian\, Mark,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mark
+sn: Kahtasian
+cn: Kahtasian, Mark
+displayName: Mark Kahtasian
+employeeid: 321
+uid: 321
+mail: Mark.Kahtasian@someu.edu
+userPassword: password
+samaccountname: MKahtasian321
+
+dn: cn=Kannel\, Karen,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Karen
+sn: Kannel
+cn: Kannel, Karen
+displayName: Karen Kannel
+employeeid: 322
+uid: 322
+mail: Karen.Kannel@someu.edu
+userPassword: password
+samaccountname: KKannel322
+
+dn: cn=Kasbia\, Kelly,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kelly
+sn: Kasbia
+cn: Kasbia, Kelly
+displayName: Kelly Kasbia
+employeeid: 323
+uid: 323
+mail: Kelly.Kasbia@someu.edu
+userPassword: password
+samaccountname: KKasbia323
+
+dn: cn=Kazimierski\, William,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: William
+sn: Kazimierski
+cn: Kazimierski, William
+displayName: William Kazimierski
+employeeid: 324
+uid: 324
+mail: William.Kazimierski@someu.edu
+userPassword: password
+samaccountname: WKazimierski324
+
+dn: cn=Kelley\, Jonathan,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jonathan
+sn: Kelley
+cn: Kelley, Jonathan
+displayName: Jonathan Kelley
+employeeid: 325
+uid: 325
+mail: Jonathan.Kelley@someu.edu
+userPassword: password
+samaccountname: JKelley325
+
+dn: cn=Kempster\, Doug,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Doug
+sn: Kempster
+cn: Kempster, Doug
+displayName: Doug Kempster
+employeeid: 326
+uid: 326
+mail: Doug.Kempster@someu.edu
+userPassword: password
+samaccountname: DKempster326
+
+dn: cn=Kerlovich\, Noreen,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Noreen
+sn: Kerlovich
+cn: Kerlovich, Noreen
+displayName: Noreen Kerlovich
+employeeid: 327
+uid: 327
+mail: Noreen.Kerlovich@someu.edu
+userPassword: password
+samaccountname: NKerlovich327
+
+dn: cn=Kikuta\, Bill,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Bill
+sn: Kikuta
+cn: Kikuta, Bill
+displayName: Bill Kikuta
+employeeid: 328
+uid: 328
+mail: Bill.Kikuta@someu.edu
+userPassword: password
+samaccountname: BKikuta328
+
+dn: cn=Kinsman\, Jessica,ou=Rhetoric,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jessica
+sn: Kinsman
+cn: Kinsman, Jessica
+displayName: Jessica Kinsman
+employeeid: 329
+uid: 329
+mail: Jessica.Kinsman@someu.edu
+userPassword: password
+samaccountname: JKinsman329
+
+dn: ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Sociology
+description: This is the Sociology organizational unit
+
+dn: cn=Lampman\, John,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: John
+sn: Lampman
+cn: Lampman, John
+displayName: John Lampman
+employeeid: 330
+uid: 330
+mail: John.Lampman@someu.edu
+userPassword: password
+samaccountname: JLampman330
+
+dn: cn=Lavers\, Jim,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jim
+sn: Lavers
+cn: Lavers, Jim
+displayName: Jim Lavers
+employeeid: 331
+uid: 331
+mail: Jim.Lavers@someu.edu
+userPassword: password
+samaccountname: JLavers331
+
+dn: cn=Letchworth\, Sally,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sally
+sn: Letchworth
+cn: Letchworth, Sally
+displayName: Sally Letchworth
+employeeid: 332
+uid: 332
+mail: Sally.Letchworth@someu.edu
+userPassword: password
+samaccountname: SLetchworth332
+
+dn: cn=Linke\, Mabel,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Mabel
+sn: Linke
+cn: Linke, Mabel
+displayName: Mabel Linke
+employeeid: 333
+uid: 333
+mail: Mabel.Linke@someu.edu
+userPassword: password
+samaccountname: MLinke333
+
+dn: cn=Macnicoll\, Frank,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Frank
+sn: Macnicoll
+cn: Macnicoll, Frank
+displayName: Frank Macnicoll
+employeeid: 334
+uid: 334
+mail: Frank.Macnicoll@someu.edu
+userPassword: password
+samaccountname: FMacnicoll334
+
+dn: cn=Malhotra\, Peter,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Peter
+sn: Malhotra
+cn: Malhotra, Peter
+displayName: Peter Malhotra
+employeeid: 335
+uid: 335
+mail: Peter.Malhotra@someu.edu
+userPassword: password
+samaccountname: PMalhotra335
+
+dn: cn=Martins\, Julie,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Julie
+sn: Martins
+cn: Martins, Julie
+displayName: Julie Martins
+employeeid: 336
+uid: 336
+mail: Julie.Martins@someu.edu
+userPassword: password
+samaccountname: JMartins336
+
+dn: cn=Nakatsu\, Sandy,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Sandy
+sn: Nakatsu
+cn: Nakatsu, Sandy
+displayName: Sandy Nakatsu
+employeeid: 337
+uid: 337
+mail: Sandy.Nakatsu@someu.edu
+userPassword: password
+samaccountname: SNakatsu337
+
+dn: cn=Neumann\, Jennifer,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jennifer
+sn: Neumann
+cn: Neumann, Jennifer
+displayName: Jennifer Neumann
+employeeid: 338
+uid: 338
+mail: Jennifer.Neumann@someu.edu
+userPassword: password
+samaccountname: JNeumann338
+
+dn: cn=Nishimura\, Ann,ou=Sociology,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Ann
+sn: Nishimura
+cn: Nishimura, Ann
+displayName: Ann Nishimura
+employeeid: 339
+uid: 339
+mail: Ann.Nishimura@someu.edu
+userPassword: password
+samaccountname: ANishimura339
+
+dn: ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: Statistics
+description: This is the Statistics organizational unit
+
+dn: cn=O'Malley\, Jill,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Jill
+sn: O'Malley
+cn: O'Malley, Jill
+displayName: Jill O'Malley
+employeeid: 340
+uid: 340
+mail: Jill.O'Malley@someu.edu
+userPassword: password
+samaccountname: JO'Malley340
+
+dn: cn=O'Toole\, Roland,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Roland
+sn: O'Toole
+cn: O'Toole, Roland
+displayName: Roland O'Toole
+employeeid: 341
+uid: 341
+mail: Roland.O'Toole@someu.edu
+userPassword: password
+samaccountname: RO'Toole341
+
+dn: cn=Ong\, Philip,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Philip
+sn: Ong
+cn: Ong, Philip
+displayName: Philip Ong
+employeeid: 342
+uid: 342
+mail: Philip.Ong@someu.edu
+userPassword: password
+samaccountname: POng342
+
+dn: cn=Paluso\, Russ,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Russ
+sn: Paluso
+cn: Paluso, Russ
+displayName: Russ Paluso
+employeeid: 343
+uid: 343
+mail: Russ.Paluso@someu.edu
+userPassword: password
+samaccountname: RPaluso343
+
+dn: cn=Paris\, Debbie,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Debbie
+sn: Paris
+cn: Paris, Debbie
+displayName: Debbie Paris
+employeeid: 344
+uid: 344
+mail: Debbie.Paris@someu.edu
+userPassword: password
+samaccountname: DParis344
+
+dn: cn=Pritchett\, Rebecca,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Rebecca
+sn: Pritchett
+cn: Pritchett, Rebecca
+displayName: Rebecca Pritchett
+employeeid: 345
+uid: 345
+mail: Rebecca.Pritchett@someu.edu
+userPassword: password
+samaccountname: RPritchett345
+
+dn: cn=Quayle\, Wendy,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Wendy
+sn: Quayle
+cn: Quayle, Wendy
+displayName: Wendy Quayle
+employeeid: 346
+uid: 346
+mail: Wendy.Quayle@someu.edu
+userPassword: password
+samaccountname: WQuayle346
+
+dn: cn=Rafferty\, Kate,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Kate
+sn: Rafferty
+cn: Rafferty, Kate
+displayName: Kate Rafferty
+employeeid: 347
+uid: 347
+mail: Kate.Rafferty@someu.edu
+userPassword: password
+samaccountname: KRafferty347
+
+dn: cn=Randall\, Catherine,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Catherine
+sn: Randall
+cn: Randall, Catherine
+displayName: Catherine Randall
+employeeid: 348
+uid: 348
+mail: Catherine.Randall@someu.edu
+userPassword: password
+samaccountname: CRandall348
+
+dn: cn=Reidelberger\, Matthew,ou=Statistics,ou=accounts,dc=someu,dc=edu
+objectClass: top
+objectClass: person
+objectClass: organizationalperson
+objectClass: inetorgperson
+objectClass: user
+givenName: Matthew
+sn: Reidelberger
+cn: Reidelberger, Matthew
+displayName: Matthew Reidelberger
+employeeid: 349
+uid: 349
+mail: Matthew.Reidelberger@someu.edu
+userPassword: password
+samaccountname: MReidelberger349
+

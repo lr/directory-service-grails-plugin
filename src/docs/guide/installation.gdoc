@@ -1,0 +1,21 @@
+h1. Installation
+
+h2. Overview
+
+This section describes how to install the @LdapService@ plugin.
+
+h2. Install Plugin
+
+The @LdapService@ plugin is installed like any other plugin. It can be added to @BuildConfig.groovy@ like so:
+
+{code}
+plugins {
+    compile 'com.socialidm.ldap-service:0.1.0'
+}
+{code}
+
+Or you can install it from the command line from the root directory of your project:
+
+{code}
+grails install-plugin ldap-service
+{code}

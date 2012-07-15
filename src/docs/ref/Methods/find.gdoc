@@ -1,0 +1,80 @@
+h1. find
+
+h2. Purpose
+
+The @find@ method allows you to search for objects in the DIT as defined in @ldapService.dit@. See the [Configuration|guide:configuration] section on details of how @ldapService.dit@ is defined.
+
+Currently, @Where@ is implemented as a dynamic finder. I hope to be able to add the @By@ dynamic finder in a future release (e.g., @find\*BySnAndDepartmentNumber@).
+
+h2. Examples
+
+These examples assume the following was defined in @ldapService.dit@:
+
+{code}
+ldapService.dit = [
+    'ou=people,dc=socialidm,dc=com':[
+        'singular':'person',
+        'plural':'people',
+        'rdnAttribute':'uid'
+    ]
+]
+{code}
+
+In the above configuration, we defined that the 'singular' version of this branch as 'person', and the 'plural' version as 'people'.
+
+To understand how these work, see the examples, below:
+
+{code}
+// Find one 'person', i.e., person is 'singular'
+ldapService.findPersonWhere('uid':'12345')
+
+// Even if you use an attribute that would potentially return more than one,
+// you are only going to get one result with the 'singular' version!
+ldapService.findPersonWhere('sn':'rockwell')
+
+// Find 'people', i.e., people is the 'plural' version
+ldapService.findPeopleWhere('departmentNumber':'12345', 'manager':'0128653')
+
+// find also allows you to specify a simple string as a filter
+ldapService.findPeopleWhere('(|(sn=rockwell)(sn=smith))')
+
+// You can not use a wildcard * or ? in a simple string filter because it will
+// get escaped, so you have to use an UnboundID LDAP SDK Filter if you want
+// a more complicated filter
+def filter = <an UnboundID LDAP SDK Filter>
+ldapService.findPeopleWhere(filter)
+{code}
+
+LdapService @AND@s together the arguments to the @find@ method. If you want @OR@, or more complicated filters, like ones with wildcards, then you will have to construct an UnboundID LDAP SDK filter and supply that as the argument to @find@.
+
+h2. Description
+
+Unlike GORM, with LdapService you do not define concrete classes which are then used to find objects. For instance, with GORM, you might have a Person domain class, and then you would find people like this:
+
+{code}
+// Returns zero or at most one
+Person.findWhere('lastName':'rockwell')
+
+// Returns zero or more than one
+Person.findAllWhere('lastName':'rockwell')
+{code}
+
+With LdapService, you use the singular and plural versions of the LDAP branches (as defined in @ldapService.dit@) to determine if you want one or more results.
+
+{code}
+// Returns zero or at most one
+ldapService.findPersonWhere('lastName':'rockwell')
+
+// Returns zero or more than one
+ldapService.findPeopleWhere('lastName':'rockwell')
+{code}
+
+The table below compares the GORM and LdapService find differences.
+
+{table}
+*Number of Results* | *GORM* | *LdapService*
+0 or 1 | @findWhere@ | @findPersonWhere@
+0 or more | @findAllWhere@ | @findPeopleWhere@
+{table}
+
+In these examples, 'person' and 'people' are used only because they were defined in @ldapService.dit@. If you define other names in @ldapService.dit@, then you would have to use those names.

@@ -1,0 +1,16 @@
+dn: cn=schema
+attributeTypes: ( someuEduEmpExpDate-oid NAME 'someuEduEmpExpDate' 
+ EQUALITY generalizedTimeMatch ORDERING generalizedTimeOrderingMatch 
+ SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 SINGLE-VALUE 
+ X-ORIGIN 'SomeU Edu Defined' )
+attributeTypes: ( someuEduFacultyFlag-oid NAME 'someuEduFacultyFlag' 
+ EQUALITY booleanMatch 
+ SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE 
+ X-ORIGIN 'SomeU Edu Defined' )
+objectClasses: ( someuEduPerson-oid 
+ NAME 'someuEduPerson' 
+ DESC 'SomeU Edu Person ObjectClass' 
+ SUP inetorgPerson STRUCTURAL MUST uid MAY (
+ someuEduEmpExpDate $ 
+ someuEduFacultyFlag
+ ) X-ORIGIN 'SomeU Edu Defined' )

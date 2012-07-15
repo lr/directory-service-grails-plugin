@@ -1,0 +1,40 @@
+# http://opendj.forgerock.org/doc/admin-guide/index/make-ldif-template-5.html
+
+# This command should be run from the base of the project:
+# <path to>/make-ldif -t test/ldif/make-ldif/accounts-ldif.template -o test/ldif/accounts.ldif
+
+define suffix=dc=someu,dc=edu
+define maildomain=someu.edu
+define numusers=10
+define numorgs=35
+
+branch: [suffix]
+
+branch: ou=accounts,[suffix]
+subordinateTemplate: orgunit:[numorgs]
+description: This is the People container
+
+template: orgunit
+subordinateTemplate: person:[numusers]
+rdnAttr: ou
+ou: <file:test/ldif/make-ldif/organizations:sequential>
+objectClass: top
+objectClass: organizationalUnit
+description: This is the {ou} organizational unit
+
+template: person
+rdnAttr: cn
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: user
+givenName: <file:test/ldif/make-ldif/first-names:sequential>
+sn: <file:test/ldif/make-ldif/last-names:sequential>
+cn: {sn}, {givenName}
+displayName: {givenName} {sn}
+employeeID: <sequential:0>
+uid: {employeeID}
+mail: {givenName}.{sn}@[maildomain]
+userPassword: password
+sAMAccountName: {givenName:1}{sn}{employeeID}

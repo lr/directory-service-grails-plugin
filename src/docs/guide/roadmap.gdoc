@@ -1,0 +1,14 @@
+h1. Roadmap
+
+h2. Overview
+
+This page outlines what to expect in future releases of the @LdapService@ plugin.
+
+h2. Summer 2012
+
+This summer I hope that I can include the ability to @add@, @update@ (@modify@), and @delete@, along with JSON and XML output for the @LdapServiceEntry@ object.
+
+h2. Fall 2012
+
+By Fall I hope to implement @find\*By\*@ methods, for instance, @findPeopleBySnAndGivenName@, and @findPeopleBySnLike@, etc.
+

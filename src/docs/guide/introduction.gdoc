@@ -1,0 +1,70 @@
+h1. Introduction
+
+h2. Overview
+
+LdapService is a [Grails|http://grails.org/] [plugin|http://grails.org/plugins/] that allows you to interact with a v3-compliant LDAP server with minimal effort. It is built on top of the [UnboundID|http://www.unboundid.com/] [LDAP SDK|http://www.unboundid.com/products/ldap-sdk/].
+
+LdapService is inspired by [GORM|http://grails.org/doc/latest/guide/GORM.html], but since this is LDAP, we really can only go as far as inspired, because there is no "R" (relational) in LDAP. Unlike a database, LDAP does not really have a structure (well, there is the DIT, but that is about it), so it does not seem reasonable or necessary to make concrete classes to represent LDAP objects. As you read more about this plugin, and start to use it, you will realize why concrete classes are unnecessary.
+
+Furthermore, once @add@ and @update@ (@modify@) are added to this plugin, you can use [Command Objects|http://grails.org/doc/latest/guide/theWebLayer.html#commandObjects] for storing your logic for your LDAP objects, i.e., you don't need to put them into a class that is specific to a tree in LDAP. (At least that is how I feel about this now...)
+
+As mentioned above, LdapService is built on top of the UnboundID LDAP SDK, and therefore, that SDK is exposed through this plugin.
+
+{note}
+This plugin assumes you have working knowledge of LDAP. If you need to get familiar with LDAP, please see the [Resources|guide:resources] section.
+{note}
+
+h2. How it Works
+
+For more in-depth details of how @LdapService@ works, please see the other sections of this guide, including the [Reference|ref] pages.
+
+h3. Add LdapService to your class
+
+Once you have @LdapService@ [configured|guide:configuration], you can add it to a class the way you would any other service:
+
+{code}
+def ldapService
+{code}
+
+h3. Search for an object
+
+Now you can search for something in LDAP (again, see the [Configuration|guide:configuration] section) like this:
+
+{code}
+def people = ldapService.findPeopleWhere('departmentNumber':'12345', 'manager':'3786258')
+{code}
+
+The above will return a list of @LdapServiceEntry@ objects. An @LdapServiceEntry@ object is a wrapper around an UnboundID @SearchResultEntry@ object, so everything you can do with a @SearchResultEntry@ object is available to you, plus more! Like, why would we make this a Groovy/Grails plugin if we were just going to force you to do things the Java way?!
+
+h3. Use the results
+
+Once you perform a search, you can then use the object the way you would use a GORM object:
+
+{code}
+people.each { person ->
+    println "${person.displayName} - ${person.telephoneNumber}"
+}
+{code}
+
+Now you might say, but this is LDAP, so what happens if the person does not have a @telephoneNumber@ defined in their entry? Nothing! The the attribute doesn't exist, it doesn't print anything. No errors, just nothing. This is possible because @LdapService@ is based on the UnboundID LDAP SDK, and that SDK allows you to ask for attribute values on attribute that do not exist in the entry, with no ill effects, i.e., no exceptions are thrown.
+
+To see how the UnboundID LDAP SDK is being used here, the above @person.displayName@ could also be accomplished with the following:
+
+{code}
+person.getSearchResultEntry().getAttributeValue("displayName")
+{code}
+
+As you can see, we are calling @getAttributeValue@, so if you want the attribute value*s*, then you would have to use the SDK directly, like so:
+
+{code}
+person.getSearchResultEntry().getAttributeValues("displayName")
+{code}
+
+This, of course, would return a list of Strings.
+
+h2. Operations Implemented
+
+As of the current release, only @find@ (@search@) is implemented. @add@, @update@ (@modify@), and @delete@ will be added in upcoming releases. See the [roadmap|guide:roadmap] for details.
+
+
+

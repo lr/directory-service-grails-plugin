@@ -1,0 +1,43 @@
+# http://opendj.forgerock.org/doc/admin-guide/index/make-ldif-template-5.html
+
+# This command should be run from the base of the project:
+# <path to>/make-ldif -t test/ldif/make-ldif/directory-ldif.template -o test/ldif/directory.ldif
+
+define suffix=dc=someu,dc=edu
+define maildomain=someu.edu
+define numusers=385
+
+branch: [suffix]
+
+branch: ou=people,[suffix]
+subordinateTemplate: person:[numusers]
+description: This is the People container
+
+template: person
+rdnAttr: uid
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: someuEduPerson
+givenName: <file:test/ldif/make-ldif/first-names:sequential>
+sn: <file:test/ldif/make-ldif/last-names:sequential>
+cn: {sn}, {givenName}
+cn: {givenName} {sn}
+displayName: {givenName} {sn}
+initials: {givenName:1}<random:chars:ABCDEFGHIJKLMNOPQRSTUVWXYZ:1>{sn:1}
+employeeNumber: <sequential:0>
+uid: {employeeNumber}
+mail: {givenName}.{sn}@[maildomain]
+telephoneNumber: <random:telephone>
+homePhone: <random:telephone>
+pager: <random:telephone>
+mobile: <random:telephone>
+street: <random:numeric:5> <file:streets> Street
+l: <list:Alameda;1:Albany;3:Benicia;1:Berkeley;10:Concord;2:Lafayette;3:Livermore;2:Moraga;1:Oakland;8:San Francisco;9:San Leandro;2:Sausalito;2:Walnut Creek;3>
+st: CA
+postalCode: <random:numeric:5>
+postalAddress: {cn}${street}${l}, {st}  {postalCode}
+description: This is the description for {cn}.
+someuEduEmpExpDate: <list:20120701070000Z;3:99991231235959Z;10:20130701070000Z;4:20130101080000Z;2:20110101080000Z;1:20120721070000Z;2>
+someuEduFacultyFlag: <list:true;1:false;15>
