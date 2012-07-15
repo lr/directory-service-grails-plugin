@@ -33,7 +33,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()
         
-        def config = ConfigurationHolder.config.ldap.sources['directory']
+        def config = ConfigurationHolder.config.ds.sources['directory']
         
         inMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",

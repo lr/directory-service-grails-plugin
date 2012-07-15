@@ -21,7 +21,7 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
     }
     
     void testConfig() {
-        assertEquals ConfigurationHolder.config.ldap.sources['directory'].port,  '33389'
+        assertEquals ConfigurationHolder.config.ds.sources['directory'].port,  '33389'
     }
     
     void testSchemaEntryFromLDIF() {
@@ -37,7 +37,7 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
     }
     
     void testListenAndSearch() {
-        def config = ConfigurationHolder.config.ldap.sources['directory']
+        def config = ConfigurationHolder.config.ds.sources['directory']
         
         def server = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",

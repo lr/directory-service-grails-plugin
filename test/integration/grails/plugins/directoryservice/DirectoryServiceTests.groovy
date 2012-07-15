@@ -38,8 +38,8 @@ class DirectoryServiceTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()
         
-        def dirConfig = ConfigurationHolder.config.ldap.sources['directory']
-        def adConfig = ConfigurationHolder.config.ldap.sources['ad']
+        def dirConfig = ConfigurationHolder.config.ds.sources['directory']
+        def adConfig = ConfigurationHolder.config.ds.sources['ad']
 
         dirInMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",

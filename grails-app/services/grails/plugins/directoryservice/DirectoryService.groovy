@@ -82,7 +82,7 @@ class DirectoryService {
             // If it is a find*, we want to inspect it...
             if (name.matches(/^find(\w+)*$/)) {
                 // Check for find*Where (plural)
-                def method = grailsApplication.config.ldap.dit.find {
+                def method = grailsApplication.config.ds.dit.find {
                     name.matches(/^find${it.value.plural.capitalize()}Where*$/)
                 }
                 if (method) {
@@ -90,7 +90,7 @@ class DirectoryService {
                 }
                 else {
                     // Didn't find plural, so check for singular
-                    method = grailsApplication.config.ldap.dit.find {
+                    method = grailsApplication.config.ds.dit.find {
                         name.matches(/^find${it.value.singular.capitalize()}Where*$/)
                     }
                     if (method) {
@@ -103,7 +103,7 @@ class DirectoryService {
             }
         }
         else if (args && (args[0] instanceof LDAPFilter)) {
-            def method = grailsApplication.config.ldap.dit.find {
+            def method = grailsApplication.config.ds.dit.find {
                 name.matches(/^find${it.value.plural.capitalize()}Where*$/)
             }
             if (method) {
@@ -224,7 +224,7 @@ class DirectoryService {
             return serverSets[sourceName]
         }
         else {
-            def source = grailsApplication.config.ldap.sources[sourceName]
+            def source = grailsApplication.config.ds.sources[sourceName]
             def serverSet = serverSetForSource(
                 source.address,
                 source.port,
@@ -288,7 +288,7 @@ class DirectoryService {
         def sourceName = sourceNameFromBase(base)
         def serverSet = serverSetForSourceName(sourceName)
         LDAPConnection conn = serverSet?.getConnection()
-        def source = grailsApplication.config.ldap.sources[sourceName]
+        def source = grailsApplication.config.ds.sources[sourceName]
         conn?.bind(source.bindDN, source.bindPassword)
         return conn
     }
@@ -299,13 +299,13 @@ class DirectoryService {
      *
      */
     def sourceNameFromBase(String base) {
-        def dit = grailsApplication.config.ldap.dit[base]
+        def dit = grailsApplication.config.ds.dit[base]
         return dit.source
     }
     
     def sourceFromBase(String base) {
-        def dit = grailsApplication.config.ldap.dit[base]
-        return grailsApplication.config.ldap.sources[dit.source]
+        def dit = grailsApplication.config.ds.dit[base]
+        return grailsApplication.config.ds.sources[dit.source]
     }
 
     /**
