@@ -3,6 +3,8 @@ DirectoryService
 
 DirectoryService is a [Grails](http://grails.org/) [plugin](http://grails.org/plugins/) that allows you to interact with a v3-compliant LDAP server with minimal effort. It is built on top of the [UnboundID](http://www.unboundid.com/) [LDAP SDK](http://www.unboundid.com/products/ldap-sdk/).
 
+Official documentation will be posted as soon as I figure out GitHub Pages. Stay tuned.
+
 ## Install
 
 Since DirectoryService is not an official Grails plugin yet, you will have to compile it yourself and then load it into your project locally.
