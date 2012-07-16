@@ -3,7 +3,7 @@
 environments {
     test {
         
-        ldap.sources = [
+        ds.sources = [
             'directory':[
                 'address':'localhost',
                 'port':'33389',
@@ -22,7 +22,7 @@ environments {
             ]
         ]
         
-        ldap.dit = [
+        ds.dit = [
             'ou=people,dc=someu,dc=edu':[
                 'singular':'person',
                 'plural':'people',
