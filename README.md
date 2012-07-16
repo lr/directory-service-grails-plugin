@@ -5,15 +5,25 @@ DirectoryService is a [Grails](http://grails.org/) [plugin](http://grails.org/pl
 
 ## Install
 
-Since DirectoryService is not an official Grails plugin yet, you will have to compile it yourself and then load it into your project from a local source.
+Since DirectoryService is not an official Grails plugin yet, you will have to compile it yourself and then load it into your project locally.
 
 ### Compile Plugin
 
-...
+Download one of the tagged versions, and then from inside of the project, run the following command:
+
+<pre>
+grails package-plugin
+</pre>
+
+This will create a file called `grails-directory-service-<version>.zip`, where `<version>` is the version of the plugin.
 
 ### Add To Your Project
 
-...
+Once you have the `.zip` created, switch to your Grails project and run the following command from the base directory of your project:
+
+<pre>
+grails install-plugin <path to>/grails-directory-service-<version>.zip
+</pre>
 
 ## Configure
 
