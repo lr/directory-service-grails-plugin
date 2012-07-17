@@ -53,10 +53,6 @@ class DirectoryServiceTests extends GroovyTestCase {
             "test/ldif/schema/ad-schema.ldif",
             "test/ldif/accounts.ldif"
         )
-        
-        //def inMemServer = new InMemoryServer()
-        //def conn = inMemServer.connection()
-        //directoryService.setPorts("${inMemServer.listenPort()}")
     }
     
     protected void tearDown() {
