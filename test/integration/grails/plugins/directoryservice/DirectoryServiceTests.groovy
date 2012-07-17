@@ -1,7 +1,6 @@
 package grails.plugins.directoryservice
 
 import grails.test.mixin.*
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.junit.*
 
 import com.unboundid.ldap.sdk.LDAPConnection
@@ -24,7 +23,7 @@ class DirectoryServiceTests extends GroovyTestCase {
     /* Used for testing the fake AD server. */
     def accountsBaseDn = 'ou=accounts,dc=someu,dc=edu'
     
-    /* Used for testing the French person branch. */
+    /* Used for testing the Economics accounts branch. */
     def accountsEconomicsBaseDn = 'ou=Economics,ou=accounts,dc=someu,dc=edu'
     
     def dirInMemServer
@@ -38,8 +37,8 @@ class DirectoryServiceTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()
         
-        def dirConfig = ConfigurationHolder.config.ds.sources['directory']
-        def adConfig = ConfigurationHolder.config.ds.sources['ad']
+        def dirConfig = grails.util.GrailsConfig.ds.sources['directory']
+        def adConfig = grails.util.GrailsConfig.ds.sources['ad']
 
         dirInMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",

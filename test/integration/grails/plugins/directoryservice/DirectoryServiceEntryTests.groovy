@@ -1,7 +1,6 @@
 package grails.plugins.directoryservice
 
 import grails.test.mixin.*
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.junit.*
 
 import com.unboundid.ldap.sdk.LDAPConnection
@@ -33,7 +32,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()
         
-        def config = ConfigurationHolder.config.ds.sources['directory']
+        def config = grails.util.GrailsConfig.ds.sources['directory']
         
         inMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",

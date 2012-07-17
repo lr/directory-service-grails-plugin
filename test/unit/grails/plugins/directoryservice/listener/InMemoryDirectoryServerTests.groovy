@@ -1,7 +1,6 @@
 package grails.plugins.directoryservice.listener
 
 import grails.test.mixin.*
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.junit.*
 
 import com.unboundid.ldap.sdk.LDAPConnection
@@ -21,7 +20,7 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
     }
     
     void testConfig() {
-        assertEquals ConfigurationHolder.config.ds.sources['directory'].port,  '33389'
+        assertEquals grails.util.GrailsConfig.ds.sources['directory'].port,  '33389'
     }
     
     void testSchemaEntryFromLDIF() {
@@ -37,7 +36,7 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
     }
     
     void testListenAndSearch() {
-        def config = ConfigurationHolder.config.ds.sources['directory']
+        def config = grails.util.GrailsConfig.ds.sources['directory']
         
         def server = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",
