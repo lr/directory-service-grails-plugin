@@ -104,42 +104,7 @@ class InMemoryDirectoryServer {
     public void shutDown() {
         server?.shutDown(true)
     }
-    
-    /*
-    public LDAPConnection connection() {
-        
-        if (conn != null) {
-            return conn
-        }
-        
-        try {
-            InMemoryDirectoryServerConfig config =
-                new InMemoryDirectoryServerConfig("dc=socialidm,dc=com")
-                
-            config.addAdditionalBindCredentials(
-                "cn=Directory Manager",
-                "password")
-                 
-            config.setSchema(
-                Schema.mergeSchemas(schemaEntryFromLDIF("test/ldif/schema.ldif"),
-                    config.getSchema()))
-            
-            server = new InMemoryDirectoryServer(config)
-            
-            //String importLdif = System.getProperty("user.dir") + "/test/ldif/users.ldif"
-            String importLdif = "test/ldif/content.ldif"
-            server.importFromLDIF(true, importLdif)
-            server.startListening()
-            conn = server.getConnection()
-            return conn
-        }
-        catch (LDAPException e) {
-            log.error "Could not create InMemoryDirectoryServer: ${e.getMessage()}"
-        }
-        return null
-        
-    }
-    */
+
     public int listenPort() {
         return server.getListenPort()
     }
