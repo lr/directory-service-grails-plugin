@@ -32,7 +32,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()
         
-        def config = grails.util.GrailsConfig.ds.sources['directory']
+        def config = grails.util.GrailsConfig.ds.sourcesForInMemoryServer['directory']
         
         inMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",
