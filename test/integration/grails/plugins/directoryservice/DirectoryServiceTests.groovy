@@ -37,8 +37,8 @@ class DirectoryServiceTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()
         
-        def dirConfig = grails.util.GrailsConfig.ds.sources['directory']
-        def adConfig = grails.util.GrailsConfig.ds.sources['ad']
+        def dirConfig = grails.util.GrailsConfig.ds.sourcesForInMemoryServer['directory']
+        def adConfig = grails.util.GrailsConfig.ds.sourcesForInMemoryServer['ad']
 
         dirInMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",
@@ -66,8 +66,8 @@ class DirectoryServiceTests extends GroovyTestCase {
     void testSource() {
         def source = directoryService.sourceFromBase(peopleBaseDn)
         
-        assertEquals source.address, 'localhost'
-        assertEquals source.port, '33389'
+        assertEquals source.address, 'localhost , localhost'
+        assertEquals source.port, ' 11389 ,33389'
         assertFalse  source.useSSL
         assertTrue   source.trustSSLCert
         assertEquals source.bindDN, 'cn=Directory Manager'
@@ -252,5 +252,5 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertNotNull people
         assertEquals people.size(), 8
     }
-
+    
 }
