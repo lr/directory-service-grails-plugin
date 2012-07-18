@@ -3,7 +3,36 @@
 environments {
     test {
         
+        // There is nothing running on my dev machine on
+        // port 11389, so by doing this we are always testing
+        // failover! Other, over-the-wire servers have been tested
+        // as well.
         ds.sources = [
+            'directory':[
+                'address': 'localhost , localhost',
+                'port': ' 11389 ,33389',
+                'useSSL': false,
+                'trustSSLCert': true,
+                'followReferrals': true,
+                'bindDN': 'cn=Directory Manager',
+                'bindPassword': 'password'
+            ],
+            'ad':[
+                'address': 'localhost',
+                'port': '33268',
+                'useSSL': false,
+                'trustSSLCert': true,
+                'followReferrals': false,
+                'bindDN': 'cn=AD Manager',
+                'bindPassword': 'password'
+            ]
+        ]
+        
+        // Since we are testing failover above, we need another
+        // Map of source details for the InMemoryServer. This is
+        // just made up for our tests, and is not part of the API
+        // for this project.
+        ds.sourcesForInMemoryServer = [
             'directory':[
                 'address':'localhost',
                 'port':'33389',
