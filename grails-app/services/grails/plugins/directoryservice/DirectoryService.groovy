@@ -43,8 +43,83 @@ import com.unboundid.util.ssl.TrustAllTrustManager
 import org.apache.log4j.Logger
 
 /**
+ * DirectoryService is a Grails Service that makes interacting with an LDAP
+ * directory very easy. It is loosely based on GORM. However, because it is one
+ * service class (as opposed to numerous concrete domain classes which is the
+ * case with GORM) that interacts with a any part of a directory tree, and even
+ * many different directory servers at once, you invoke an operation by
+ * specifying the directory object to interact with as part of the method
+ * signature.
  *
+ * Given the following configuration:
+ * <pre>
+ *   ds.sources = [
+ *       'directory':[
+ *           'address': 'server1,server2',
+ *           'port': ' 636 ,636',
+ *           'useSSL': true,
+ *           'trustSSLCert': true,
+ *           'followReferrals': true,
+ *           'bindDN': 'cn=Some BindDN',
+ *           'bindPassword': 'password'
+ *       ],
+ *       'ad':[
+ *           'address': 'net1,net2',
+ *           'port': '3269,3269',
+ *           'useSSL': true,
+ *           'trustSSLCert': true,
+ *           'followReferrals': true,
+ *           'bindDN': 'cn=AD BindDN',
+ *           'bindPassword': 'password'
+ *       ]
+ *   ]
+ *   
+ *   ds.dit = [
+ *       'ou=people,dc=someu,dc=edu':[
+ *           'singular':'person',
+ *           'plural':'people',
+ *           'rdnAttribute':'uid',
+ *           'source':'directory'
+ *       ],
+ *       'ou=departments,dc=someu,dc=edu':[
+ *           'singular':'department',
+ *           'plural':'departments',
+ *           'rdnAttribute':'ou',
+ *           'source':'directory'
+ *       ],
+ *       'ou=accounts,dc=someu,dc=edu':[
+ *           'singular':'account',
+ *           'plural':'accounts',
+ *           'rdnAttribute':'cn',
+ *           'source':'ad'
+ *       ]
+ *  ]
+ * </pre>
  *
+ * You can search the branches of the directories as follows:
+ *
+ * <pre>
+ *   // People
+ *   // Find 1 person matching params
+ *   def person = directoryService.findPersonWhere('uid': '1234')
+ *   // Find all people matching params
+ *   def people = directoryService.findPeopleWhere('sn': 'nguyen')
+ *
+ *   // Departments
+ *   // Find 1 department matching params
+ *   def department = directoryService.findDepartmentWhere('departmentNumber': '54321')
+ *   // Find all departments matching params
+ *   def departments = directoryService.findDepartmentsWhere('someuEduDepartmentParent': '54321')
+ *
+ *   // AD Accounts (which are in a different directory server)
+ *   // Find 1 account matching params
+ *   def account = directoryService.findAccountWhere('sAMAccountName': 'lrockwell')
+ *   // Find all accounts matching the provided filter
+ *   def filter = directoryService.createFilter('(&(sAMAccountName=wa*))')
+ *   def accounts = directoryService.findAccountsWhere(filter)
+ * </pre>
+ *
+ * Find more examples in the official documentation.
  *
  * @author Lucas Rockwell
  */
@@ -61,6 +136,8 @@ class DirectoryService {
     /* Holds the current LDAPConnection. */
     LDAPConnection conn = null
     
+    /* Map that holds any ServerSet objects that are created during the duration
+       of this object's life. */
     def serverSets = [:]
     
     /**
@@ -120,13 +197,13 @@ class DirectoryService {
     }
     
     /**
-     * Performs a find based on the passed in {@code baseDn} and {@code args}
-     * and returns the first entry found. If no entry is found, it returns null.
+     * Performs a find based on the passed in baseDn and args and returns
+     * the first entry found. If no entry is found, it returns null.
      *
      * @param baseDN        The base DN to use in the search.
-     * @param args          The Map of key:value pairs which will be turned
+     * @param args          The map of key:value pairs which will be turned
       * into an AND filter.
-     * @return A LdapServiceEntry, which is the first result of the resulting
+     * @return A DirectoryServiceEntry, which is the first result of the resulting
      * search.
      */
     def find(String baseDn, Map args) {
@@ -144,7 +221,7 @@ class DirectoryService {
      * and returns a List of all of the results.
      *
      * @param baseDN        The base DN to use in the search.
-     * @param args          The Map of key:value pairs which will be turned
+     * @param args          The map of key:value pairs which will be turned
      * into an AND filter.
      * @return List of LdapServiceEntry objects.
      */
@@ -178,10 +255,13 @@ class DirectoryService {
     }
     
     /**
-     * Creates an AND filter from the passed in args.
+     * Creates an AND filter from the passed in map of args.
+     *
+     * @param args          The arguments to use for creating the
+     * filter.
+     * @return An AND LDAPFilter that was created from the passed in map of args.
      */
     def andFilterFromArgs(Map args) {
-        
         LDAPFilter filter
                 
         if (args.length == 1) {
@@ -203,10 +283,8 @@ class DirectoryService {
     /**
      * Tries to create an LDAPFilter from the passed in string.
      *
-     * @param filterString          String to be converted into an
-     * {@code LDAPFilter}.
-     *
-     * @return ldap filter.
+     * @param filterString   String to be converted into an LDAPFilter.
+     * @return An LDAPFilter that was created from the filterString.
      */
     def createFilter(String filterString) {
         try {
@@ -219,6 +297,22 @@ class DirectoryService {
         return filterString
     }
 
+    /**
+     * Returns the ServerSet associated with the provided sourceName.
+     * DirectoryService uses a FailoverServerSet.
+     *
+     * Since this there may be numerous directory servers specified as part
+     * of the configuration for the DirectoryService, the method stashes them
+     * away in an internal map that is consulted each time a request is made.
+     * If there is already a ServerSet associated with the provided source,
+     * it returns that. If not, it creates a new one, stores it for later,
+     * and then returns it.
+     *
+     * @param sourceName            The name of the source to use for creating
+     * the ServerSet.
+     * @return A ServerSet which can be used for getting a connection.
+     * @see #serverSetForSource(String addresses, String ports, boolean useSSL, boolean trustSSLCert, boolean followReferrals=true)
+     */
     def serverSetForSourceName(sourceName) {
         if (serverSets[sourceName]) {
             return serverSets[sourceName]
@@ -229,17 +323,37 @@ class DirectoryService {
                 source.address,
                 source.port,
                 source.useSSL,
-                source.trustSSLCert
+                source.trustSSLCert,
+                source.followReferrals
             )
             serverSets[sourceName] = serverSet
             return serverSet
         }
     }
     
-    def serverSetForSource(final String addresses, final String ports,
-        boolean useSSL, boolean trustSSLCert) {
-        final String[] addressesArray   = addresses.split(",")
-        final String[] portsStringArray = ports.split(",")
+    /**
+     * Creates a new FailoverServerSet from the passed in args.
+     *
+     * @param addresses         One or more addresses, separated by a "," if
+     * more than one.
+     * @param ports             One or more ports, separated by a "," if more
+     * than one. The number of ports and addresses must match.
+     * @param useSSL            Whether or not to use SSL for the connection.
+     * @param trustSSLCert      Whether or not to implicitly trust the SSL
+     * certificate. If this is {@code false}, then your JVM must trust the SSL
+     * certificate.
+     * @param followReferrals   Whether or not to follow referrals. This defaults
+     * to true.
+     * @return A FailoverServerSet which is created based on the passed in args.
+     */
+    def serverSetForSource(String addresses, String ports,
+        boolean useSSL, boolean trustSSLCert, boolean followReferrals=true) {
+        
+        final String[] addressesArray = 
+            addresses?.replaceAll(' ', '')?.split(',')
+            
+        final String[] portsStringArray = 
+            ports?.replaceAll(' ', '')?.split(',')
         
         int[] portsIntArray = new int[portsStringArray.length]
         
@@ -247,14 +361,14 @@ class DirectoryService {
             portsIntArray[0] = Integer.parseInt(portsStringArray[0])
         }
         else {
-            for (int i = 0; i < portsStringArray.length; i++) {
-                portsIntArray[i] = Integer.parseInt(portsStringArray[i])
+            portsStringArray.eachWithIndex() { obj, i ->
+                portsIntArray[i] = Integer.parseInt(obj)
             }
         }
         
         LDAPConnectionOptions options = new LDAPConnectionOptions()
-        //options.setAutoReconnect(autoReconnect)
-        //options.setFollowReferrals(followReferrals)
+        options.setFollowReferrals(followReferrals)
+        
         try {
             if (useSSL) {
                 SSLUtil sslUtil;
@@ -278,11 +392,12 @@ class DirectoryService {
     }
 
     /**
-     * Get a connection from the {@code serverSet} and then bind. Right now
-     * it assumes it is going to connect and then it just binds. This should
-     * really throw an exception...
+     * Get a connection from the {@code serverSet} that is associated with the
+     * passed in base.
      *
-     * @return LDAPConnection the authenticated LDAPConnection
+     * @param base          The search base that will be used to look
+      * up the source map, and then the corresponding serverSet for that source.
+     * @return The authenticated LDAPConnection.
      */
     def connection(String base) {
         def sourceName = sourceNameFromBase(base)
@@ -294,46 +409,72 @@ class DirectoryService {
     }
 
     /**
-     * Returns the {@code ldap.sources} source based on the passed in
-     * {@code base} which is a key in the {@code ldap.dit} Map.
+     * Returns the {@code ldap.sources} Map based on the passed in
+     * base, which should be a key in the {@code ldap.dit} Map.
      *
+     * @param base          The search base that will be used to look
+     * up the source map.
+     * @return The map which contains the source for this base.
      */
     def sourceNameFromBase(String base) {
         def dit = grailsApplication.config.ds.dit[base]
         return dit.source
     }
     
+    /**
+     * Takes in the passed base and returns the corresponding
+     * source from ds.source.
+     *
+     * @param base      The search base which will be used as the key
+     * for the lookup in the ds.source.
+     * @return The Map which corresponds to the source for the provided
+     * base.
+     */
     def sourceFromBase(String base) {
         def dit = grailsApplication.config.ds.dit[base]
         return grailsApplication.config.ds.sources[dit.source]
     }
 
     /**
-     * Returns a new List<SearchResultEntry> with the results of
-     * of the search. Returns an empty LinkedList<SearchResultEntry> if
-     * any exceptions are thrown.
+     * Returns a list of SearchResultEntry objects. Returns an empty 
+     * list if any exceptions are thrown. This method returns
+     * #searchUsingFilter(final String base, final String filter, String... attrs='*')
      *
-     * Note: The search scope is SearchScope.SUBORDINATE_SUBTREE.
-     *
-     * @param {@code attribute} - attribute to search for
-     * @param {@code value} - the value of {@code attribute}
-     * @param {@code base} - the search base
-     * @return List<SearchResultEntry> - a List of SearchResultEntry objects
+     * @param attribute     The attribute to search for.
+     * @param value         The value of attribute.
+     * @param base          The search base.
+     * @param attrs         The attributes to return. By default it will return
+     * everything the bind has access to.
+     * @return A List of SearchResultEntry objects.
+     * @see #searchUsingFilter(final String base, final String filter, String... attrs='*')
      */
-    private List<SearchResultEntry> search(final String base,
-        final String attribute, final String value) {
-        String filter = "(${attribute}=${cleanString(value)})"
-        return searchUsingFilter(base, filter)
+    def search(String base, String attribute, String value,
+        String... attrs='*') {
+        def filter = createFilter("(${attribute}=${value})")
+        return searchUsingFilter(base, filter.toString())
     }
-
-    private List<SearchResultEntry> searchUsingFilter(final String base,
-        final String filter) {
+    
+    /**
+     * Returns a list of SearchResultEntry objects. Returns an empty 
+     * list if any exceptions are thrown.
+     *
+     * It performs the search using a scope of SearchScope.SUB.
+     *
+     * @param attribute     The attribute to search for.
+     * @param value         The value of attribute.
+     * @param base          The search base.
+     * @param attrs         The attributes to return. By default it will return
+     * everything the bind has access to.
+     * @return A List of SearchResultEntry objects.
+     */
+    def searchUsingFilter(final String base, final String filter,
+        String... attrs='*') {
 
         SearchRequest searchRequest = new SearchRequest(
                 base, 
                 SearchScope.SUB, 
                 filter,
-                "*")
+                attrs)
         def conn = connection(base)
         try {
             SearchResult results = conn.search(searchRequest)
@@ -347,25 +488,6 @@ class DirectoryService {
         finally {
             conn?.close()
         }
-    }
-
-    /**
-     * Determines if today is between the {@code start} and {@code expires}.
-     * It first checks to make sure that {@code start} and {@code expires}
-     * are not null.
-     *
-     * @param {@code start} - the start date
-     * @param {@code expires} - the expires date
-     * @return boolean - true if start and expires are not null and today is
-     * between start and expires, and false otherwise.
-     */
-    private boolean withinDates(final Date start, final Date expires) {
-        Date now = new Date();
-        if (expires != null && start != null &&
-            start.before(now) && expires.after(now)) {
-            return true;
-        }
-        return false;
     }
 
 }
