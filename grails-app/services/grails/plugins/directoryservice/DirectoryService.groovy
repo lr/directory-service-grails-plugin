@@ -157,7 +157,7 @@ class DirectoryService {
             if (name.matches(/^find(\w+)*$/)) {
                 // Check for find*Where (plural)
                 def method = grailsApplication.config.ds.dit.find {
-                    name.matches(/^find${it.value.plural.capitalize()}Where*$/)
+                    name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
                 }
                 if (method) {
                     return findAll(method.key, args[0])
@@ -165,7 +165,7 @@ class DirectoryService {
                 else {
                     // Didn't find plural, so check for singular
                     method = grailsApplication.config.ds.dit.find {
-                        name.matches(/^find${it.value.singular.capitalize()}Where*$/)
+                        name.matches(/^find${it.value.singular?.capitalize()}Where*$/)
                     }
                     if (method) {
                         return find(method.key, args[0])
