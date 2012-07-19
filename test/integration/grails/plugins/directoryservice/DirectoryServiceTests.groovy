@@ -253,4 +253,14 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertEquals people.size(), 8
     }
     
+    /**
+     * Test search using an anonymous bind. The InMemoryDirectoryServer allows
+     * anonymous binds.
+     */
+     void testAnonymousBind() {
+        def people = directoryService.findPeepsWhere('sn':'nguyen')
+        assertNotNull people
+        assertEquals people.size(), 4
+     }
+    
 }

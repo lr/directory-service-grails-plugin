@@ -25,6 +25,13 @@ environments {
                 'followReferrals': false,
                 'bindDN': 'cn=AD Manager',
                 'bindPassword': 'password'
+            ],
+            'directoryAnonymous':[
+                'address': 'localhost',
+                'port': '33389',
+                'useSSL': false,
+                'trustSSLCert': true,
+                'followReferrals': true
             ]
         ]
         
@@ -87,6 +94,12 @@ environments {
                 'plural':'economists',
                 'rdnAttribute':'cn',
                 'source':'ad'
+            ],
+            'ou=People,dc=someu,dc=edu':[
+                'singular':'peep',
+                'plural':'peeps',
+                'rdnAttribute':'uid',
+                'source':'directoryAnonymous'
             ],
         ]
         

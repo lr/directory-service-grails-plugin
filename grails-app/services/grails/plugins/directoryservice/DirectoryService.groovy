@@ -24,19 +24,16 @@ import com.unboundid.ldap.sdk.FailoverServerSet
 import com.unboundid.ldap.sdk.Filter as LDAPFilter
 import com.unboundid.ldap.sdk.LDAPConnection
 import com.unboundid.ldap.sdk.LDAPConnectionOptions
-import com.unboundid.ldap.sdk.LDAPConnectionPool
 import com.unboundid.ldap.sdk.LDAPException
 import com.unboundid.ldap.sdk.LDAPResult
 import com.unboundid.ldap.sdk.LDAPSearchException
 import com.unboundid.ldap.sdk.Modification
 import com.unboundid.ldap.sdk.ModificationType
 import com.unboundid.ldap.sdk.ResultCode
-import com.unboundid.ldap.sdk.RoundRobinServerSet
 import com.unboundid.ldap.sdk.SearchResult
 import com.unboundid.ldap.sdk.SearchResultEntry
 import com.unboundid.ldap.sdk.SearchRequest
 import com.unboundid.ldap.sdk.SearchScope
-import com.unboundid.util.LDAPSDKUsageException
 import com.unboundid.util.ssl.SSLUtil
 import com.unboundid.util.ssl.TrustAllTrustManager
 
@@ -392,11 +389,16 @@ class DirectoryService {
     }
 
     /**
-     * Get a connection from the {@code serverSet} that is associated with the
-     * passed in base.
+     * Get a connection from the ServerSet that is associated with the passed
+     * in base.
+     * 
+     * This method also performs the bind to the server using the bindDN and
+     * bindPassword associated with the source for provided base. If there are
+     * is no bindDN in the source, then the connection is returned
+     * unauthenticated, i.e., it is an anonymous bind.
      *
      * @param base          The search base that will be used to look
-      * up the source map, and then the corresponding serverSet for that source.
+     * up the source map, and then the corresponding serverSet for that source.
      * @return The authenticated LDAPConnection.
      */
     def connection(String base) {
@@ -404,7 +406,11 @@ class DirectoryService {
         def serverSet = serverSetForSourceName(sourceName)
         LDAPConnection conn = serverSet?.getConnection()
         def source = grailsApplication.config.ds.sources[sourceName]
-        conn?.bind(source.bindDN, source.bindPassword)
+        // If there is a bindDN, then bind, otherwise, treat as 
+        // anonymous.
+        if (source.bindDN) {
+            conn?.bind(source.bindDN, source.bindPassword)
+        }
         return conn
     }
 
