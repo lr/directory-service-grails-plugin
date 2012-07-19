@@ -62,6 +62,8 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
         
         assertEquals entries.size(), 4
         
+        server.shutDown()
+        
     }
 
 
