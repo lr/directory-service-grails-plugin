@@ -141,56 +141,58 @@ class DirectoryService {
      * Catches the following methods:
      *
      * <ul>
-     *   <li>findAll*Where(Map of attribute/value pairs), where * is in the 
-     *     ldap.dit plural Map.</li>
-     *   <li>find*Where(Map of attribute/value pairs), where * is in the 
-     *     ldap.dit.schema singular Map.</li>
-     *   <li>findAll*UsingFilter(Filter), where * is in the ldap.dit 
-     *     plural Map.</li>
-     *   <li>find*UsingFilter(Filter), where * is in the ldap.dit singular 
-     *     Map.</li>
+     *   <li>find&lt;plural&gt;Where(Map of attribute/value pairs)</li>
+     *   <li>find&lt;singular&gt;Where(Map of attribute/value pairs)</li>
+     *   <li>find&lt;plural&gt;UsingFilter(Filter)</li>
+     *   <li>get&lt;singular&gt;(RDN attribute value)</li>
      * </ul>
      */
     def methodMissing(String name, args) {
-        if (args && (args[0] instanceof Map)) {
-            // If it is a find*, we want to inspect it...
-            if (name.matches(/^find(\w+)*$/)) {
-                // Check for find*Where (plural)
-                def method = grailsApplication.config.ds.dit.find {
+        if (args) {
+            def method
+            if (args[0] instanceof Map) {
+                // If it is a find*, we want to inspect it...
+                if (name.matches(/^find(\w+)*$/)) {
+                    // Check for find*Where (plural)
+                    method = grailsApplication.config.ds.dit.find {
+                        name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
+                    }
+                    if (method) {
+                        return findAll(method.key, args[0])
+                    }
+                    else {
+                        // Didn't find plural, so check for singular
+                        method = grailsApplication.config.ds.dit.find {
+                            name.matches(/^find${it.value.singular?.capitalize()}Where*$/)
+                        }
+                        if (method) {
+                            return find(method.key, args[0])
+                        }
+                    }
+                }
+            }
+            else if (args[0] instanceof LDAPFilter) {
+                method = grailsApplication.config.ds.dit.find {
                     name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
                 }
                 if (method) {
-                    return findAll(method.key, args[0])
+                    return findAllUsingFilter(method.key, args[0])
                 }
-                else {
-                    // Didn't find plural, so check for singular
+            }
+            else if (args[0] instanceof String) {
+                if (name.matches(/^get(\w+)$/)) {
                     method = grailsApplication.config.ds.dit.find {
-                        name.matches(/^find${it.value.singular?.capitalize()}Where*$/)
+                        name.matches(/^get${it.value.singular?.capitalize()}$/)
                     }
                     if (method) {
-                        return find(method.key, args[0])
-                    }
-                    else {
-                        throw new MissingMethodException(name, delegate, args)
+                        def dit = grailsApplication.config.ds.dit[method.key]
+                        return find(method.key, [(dit.rdnAttribute):args[0]])
                     }
                 }
             }
         }
-        else if (args && (args[0] instanceof LDAPFilter)) {
-            def method = grailsApplication.config.ds.dit.find {
-                name.matches(/^find${it.value.plural.capitalize()}Where*$/)
-            }
-            if (method) {
-                // Return the key of the "method", as it is the baseDN
-                return findAllUsingFilter(method.key, args[0])
-            }
-            else {
-                throw new MissingMethodException(name, delegate, args)
-            }
-        }
-        else {
-            throw new MissingMethodException(name, delegate, args)
-        }
+        
+        throw new MissingMethodException(name, delegate, args)
     }
     
     /**

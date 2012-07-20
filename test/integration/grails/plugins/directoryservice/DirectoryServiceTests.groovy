@@ -247,7 +247,6 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertEquals people.size(), 16
         
         filter = directoryService.createFilter('(|(sn=walters)(sn=williams))')
-        println "filter: ${filter.toString()}"
         people = directoryService.findPeopleWhere(filter)
         assertNotNull people
         assertEquals people.size(), 8
@@ -261,6 +260,21 @@ class DirectoryServiceTests extends GroovyTestCase {
         def people = directoryService.findPeepsWhere('sn':'nguyen')
         assertNotNull people
         assertEquals people.size(), 4
+     }
+     
+     /**
+      * Test get, which operates on the RDN attribute of the dit object
+      * specified.
+      */
+     void testGet() {
+        def person = directoryService.getPerson('1')
+        assertNotNull person
+        assertEquals person.uid, '1'
+        
+        def account = directoryService.getAccount('Lavers, Matthew')
+        assertNotNull account
+        assertEquals account.uid, '139'
+        
      }
     
 }
