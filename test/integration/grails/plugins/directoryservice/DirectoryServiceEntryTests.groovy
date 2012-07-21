@@ -3,8 +3,9 @@ package grails.plugins.directoryservice
 import grails.test.mixin.*
 import org.junit.*
 
-import com.unboundid.ldap.sdk.LDAPConnection
+import com.unboundid.ldap.sdk.Entry
 import com.unboundid.ldap.sdk.Filter as LDAPFilter
+import com.unboundid.ldap.sdk.LDAPConnection
 import com.unboundid.ldap.sdk.SearchResultEntry
 
 import grails.plugins.directoryservice.listener.InMemoryDirectoryServer
@@ -42,10 +43,10 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         )
         
         // Set up lse to be the person with uid=1
-        def person = directoryService.findPersonWhere('uid':'6')
+        dse = directoryService.findPersonWhere('uid':'6')
         // Since the search returns a LdapServiceEntry, we have to get the
         // SearchResultEntry if we want to create a new LdapServiceEntry.
-        dse = new DirectoryServiceEntry(person.getSearchResultEntry())
+        //dse = new DirectoryServiceEntry(person.getSearchResultEntry())
     }
 
     protected void tearDown() {
@@ -56,9 +57,8 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      * Test that the underlying Entry still works.
      */
     void testUnboundIDEntry() {
-        def entry = dse.getSearchResultEntry()
-        assertEquals entry.getDN(), 'uid=6,ou=people,dc=someu,dc=edu'
-        assertEquals entry.getAttributeValueAsDate('someuEduEmpExpDate').toString(), 
+        assertEquals dse.entry.getDN(), 'uid=6,ou=people,dc=someu,dc=edu'
+        assertEquals dse.entry.getAttributeValueAsDate('someuEduEmpExpDate').toString(), 
             'Fri Dec 31 15:59:59 PST 9999'
     }
 
@@ -108,6 +108,57 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     void testAttributeAsBoolean() {
         assertTrue dse.someuEduFacultyFlagAsBoolean()
         assertTrue Boolean.parseBoolean(dse.someuEduFacultyFlag)
+    }
+    
+    /**
+     * Test isDirty()
+     */
+    void testIsDirty() {
+        assertFalse dse.isDirty()
+        assertFalse dse.isDirty('mail')
+    }
+    
+    /**
+     * Simple test to make sure the Entry is really and entry, and not a
+     * SearchResultEntry, as SearchResultEntry objects do not allow mods.
+     */
+    void testSetOfEntry() {
+        assert dse.entry instanceof Entry
+        dse.entry.setAttribute('mail', 'new.name@someu.edu')
+    }
+    
+    void testUpdateModificationsOneAttribute() {
+        assertEquals dse.modifications.size(), 0
+        dse.updateModifications('mail', 'new.name@someu.edu')
+        assertEquals dse.modifications.size(), 1
+        assertEquals dse.modifications.get(0).getValues().length, 1
+        
+        // Update mail again, but it should replace it, and not add
+        dse.updateModifications('mail', 'newname2.name@someu.edu')
+        assertEquals dse.modifications.size(), 1
+        assertEquals dse.modifications.get(0).getValues().length, 1
+        
+        dse.updateModifications('mail', 'new.name@someu.edu', 'newname2.name@someu.edu')
+        assertEquals dse.modifications.size(), 1
+        assertEquals dse.modifications.get(0).getValues().length, 2
+    }
+    
+    void testPropertyMissingSingleVal() {
+        assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
+        dse.mail = 'new.name@someu.edu'
+        assertEquals dse.mail, 'new.name@someu.edu'
+        assertEquals dse.mods['mail'], 'new.name@someu.edu'
+        assertEquals dse.modifications.size(), 1
+        assertEquals dse.modifications.get(0).getValues().length, 1
+    }
+    
+    void testPropertyMissingMultipleVals() {
+        assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
+        dse.mail = ['new.name@someu.edu', 'another.email@someu.edu']
+        //assertEquals dse.mail, ['new.name@someu.edu', 'another.email@someu.edu']
+        assertEquals dse.mods['mail'], ['new.name@someu.edu', 'another.email@someu.edu']
+        assertEquals dse.modifications.size(), 1
+        assertEquals dse.modifications.get(0).getValues().length, 2
     }
 
 }

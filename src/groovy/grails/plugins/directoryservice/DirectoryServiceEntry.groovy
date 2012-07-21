@@ -34,12 +34,33 @@ import org.apache.log4j.Logger
  */
 class DirectoryServiceEntry {
     
+    /* The original searchResultEntry */
     def SearchResultEntry searchResultEntry
     
-    def mods = []
+    /* UnboundID Entry object */
+    def Entry entry
     
+    /* Keeps track of whether or not an attribute has changed. We keep this
+       up-to-date as well as modifications because it is a lot easier to
+       inspect this for changes when calling isDirty(attribute) than
+       looping through the modifications array. */
+    def mods = [:]
+    
+    /* Holds the actual directory modifications */
+    ArrayList<Modification> modifications = new ArrayList<Modification>()
+    
+    /**
+     * Constructs a new DirectoryServiceEntry object by passing in
+     * an UnboundID SearchResultEntry. It then takes the SearchResultEntry
+     * and calls {@code duplicate()} on it so that we end up with 
+     * an Entry object which and then be modified.
+     *
+     * @param searchResultEntry     The search result entry that will
+     * be used in this object.
+     */
     def DirectoryServiceEntry(SearchResultEntry searchResultEntry) {
         this.searchResultEntry = searchResultEntry
+        this.entry = searchResultEntry.duplicate()
     }
     
     /**
@@ -52,12 +73,12 @@ class DirectoryServiceEntry {
      * calls {@code entry.getDN()} instead of {@code entry.getAttributeValue()}.
      */
     def propertyMissing(String name) {
-        if (searchResultEntry) {
+        if (entry) {
             if (name == 'dn') {
-                return searchResultEntry.getDN()
+                return entry.getDN()
             }
             else {
-                return searchResultEntry.getAttributeValue(name)
+                return entry.getAttributeValue(name)
             }
         }
         else {
@@ -65,31 +86,115 @@ class DirectoryServiceEntry {
         }
     }
     
+    /**
+     * For modifying the object.
+     */
+    def propertyMissing(String name, value) {
+        println "value in propertyMissing: ${value}"
+        mods[name] = value
+        
+        if (value) {
+            if (value instanceof String || value instanceof String[]) {
+                entry.setAttribute(name, value)
+            }
+            else {
+                entry.setAttribute(name, value.toArray(new String[value.size()]))
+            }
+        }
+        else {
+            if (entry.getAttributeValue(name)) {
+                entry.remoteAttribute(name)
+            }
+        }
+        // Now update the modifications list
+        if (value instanceof String || value instanceof String[]) {
+            updateModifications(name, value)
+        }
+        else {
+            updateModifications(name, value.toArray(new String[value.size()]))
+        }
+    }
+    
     def methodMissing(String name, args) {
-        if (searchResultEntry) {
+        if (entry) {
             if (name.matches(/^getAttributeValues?$/)) {
-                return searchResultEntry.invokeMethod(name, args)
+                return entry.invokeMethod(name, args)
             }
             else if (name.matches(/^(\w+)?AsDate$/)) {
-                return searchResultEntry.getAttributeValueAsDate(name - 'AsDate')
+                return entry.getAttributeValueAsDate(name - 'AsDate')
             }
             else if (name.matches(/^(\w+)?AsBoolean$/)) {
-                return searchResultEntry.getAttributeValueAsBoolean(name - 'AsBoolean')
+                return entry.getAttributeValueAsBoolean(name - 'AsBoolean')
             }
             else if (name.matches(/^(\w+)?AsLong$/)) {
-                return searchResultEntry.getAttributeValueAsLong(name - 'AsLong')
+                return entry.getAttributeValueAsLong(name - 'AsLong')
             }
             else {
                 if (name == 'dn') {
-                    return searchResultEntry.getDN()
+                    return entry.getDN()
                 }
                 else {
-                    return searchResultEntry.getAttributeValue(name)
+                    return entry.getAttributeValue(name)
                 }
             }
         }
         else {
             throw new MissingMethodException(name, delegate, args)
+        }
+    }
+    
+    /**
+     * Discards any changes made to the object. Reinitializes both the
+     * {@code mods} map and the {@code modifications} array.
+     */
+    def discard() {
+        mods = [:]
+        modifications = new ArrayList<Modification>()
+    }
+    
+    /**
+     *
+     */
+    def isDirty(attribute=null) {
+        if (mods) {
+            if (attribute) {
+                return mods[attribute] ? true : false
+            }
+            return true
+        }
+        return false
+    }
+    
+    def updateModifications(String name, String... values) {
+        if (searchResultEntry) {
+            def exists = false
+            modifications.eachWithIndex() {obj, i ->
+                if (obj.getAttributeName()?.equalsIgnoreCase(name)) {
+                    exists = true
+                    if (values) {
+                        println "we have values..."
+                        modifications.set(i, new Modification(
+                                ModificationType.REPLACE, name, values))
+                    }
+                    else {
+                        println "nope..."
+                        modifications.set(i, new Modification(
+                            ModificationType.DELETE, name))
+                    }
+                }
+            }
+            if (!exists) {
+                if (values) {
+                    println "values..."
+                    modifications.add(new Modification(
+                        ModificationType.REPLACE, name, values))
+                }
+                else {
+                    println "no values..."
+                    modifications.add(new Modification(
+                        ModificationType.DELETE, name))
+                }
+            }
         }
     }
 
