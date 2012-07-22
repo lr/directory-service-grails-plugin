@@ -276,5 +276,23 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertEquals account.uid, '139'
         
      }
+     
+     /**
+      * Test save().
+      */
+     void testSave() {
+        def person = directoryService.getPerson('2')
+        assertEquals person.sn, 'Evans'
+        person.sn = 'Evans-Peters'
+        person.cn = ['Evans-Peters, Sally', 'Sally Evans-Peters']
+        person.displayName = 'Sally Evans-Peters'
+        directoryService.save(person)
+        def person2 = directoryService.getPerson('2')
+        assertEquals person2.sn, 'Evans-Peters'
+        assertEquals person2.displayName, 'Sally Evans-Peters'
+        // Now let's really make sure this is the same person
+        assertEquals person2.initials, 'SDE'
+        assertEquals person2.telephoneNumber, '+1 022 028 9350'
+     }
     
 }

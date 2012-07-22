@@ -297,6 +297,28 @@ class DirectoryService {
     }
 
     /**
+     * Saves the passed in DirectoryServiceEntry to the directory that
+     * is associated with the given DN. This could get tricky if you have
+     * objects from competing directories that might have the same parent DN
+     * of the passed in object. But for now, this is the only way I know how to
+     * do this.
+     *
+     * @param entry         The DirectoryServiceEntry to save.
+     * @throws 
+     */
+    def save(DirectoryServiceEntry entry) {
+        def conn = connection(entry?.entry?.getParentDNString())
+        if (conn) {
+            try {
+                conn.modify(entry?.entry?.getDN(), entry.modifications)
+            }
+            catch (LDAPException e) {
+                log.error("Could not modify ${entry?.entry?.getDN()}: ${e.getMessage()}")
+            }
+        }
+    }
+
+    /**
      * Returns the ServerSet associated with the provided sourceName.
      * DirectoryService uses a FailoverServerSet.
      *
