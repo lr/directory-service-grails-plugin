@@ -127,6 +127,10 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         dse.entry.setAttribute('mail', 'new.name@someu.edu')
     }
     
+    /**
+     * Test modification of one attribute using the updateModifications()
+     * method directly.
+     */
     void testUpdateModificationsOneAttribute() {
         assertEquals dse.modifications.size(), 0
         dse.updateModifications('mail', 'new.name@someu.edu')
@@ -143,18 +147,47 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.modifications.get(0).getValues().length, 2
     }
     
+    /**
+     * Test modifications with more than one attribute using the
+     * updateModifications() method directly.
+     */
+    void testUpdateModificationsMultipleAttributes() {
+        assertEquals dse.modifications.size(), 0
+        dse.updateModifications('mail', 'new.name@someu.edu')
+        assertEquals dse.modifications.size(), 1
+        
+        dse.updateModifications('cn', 'Julie Nguyen', 'Nguyen, Julia')
+        assertEquals dse.modifications.size(), 2
+        assertEquals dse.modifications.get(0).getValues().length, 1
+        assertEquals dse.modifications.get(1).getValues().length, 2
+        
+        dse.updateModifications('mail', 'new.name@someu.edu', 'Julia.Nguyen@someu.edu')
+        assertEquals dse.modifications.size(), 2
+        assertEquals dse.modifications.get(0).getValues().length, 2
+    }
+    
+    /**
+     * Test propertyMissing() with a single value.
+     */
     void testPropertyMissingSingleVal() {
         assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
         dse.mail = 'new.name@someu.edu'
+        assertTrue dse.isDirty()
+        assertTrue dse.isDirty('mail')
         assertEquals dse.mail, 'new.name@someu.edu'
         assertEquals dse.mods['mail'], 'new.name@someu.edu'
         assertEquals dse.modifications.size(), 1
         assertEquals dse.modifications.get(0).getValues().length, 1
     }
     
+    /**
+     * Test propertyMissing with multiple values.
+     */
     void testPropertyMissingMultipleVals() {
         assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
         dse.mail = ['new.name@someu.edu', 'another.email@someu.edu']
+        assertTrue dse.isDirty()
+        assertTrue dse.isDirty('mail')
         //assertEquals dse.mail, ['new.name@someu.edu', 'another.email@someu.edu']
         assertEquals dse.mods['mail'], ['new.name@someu.edu', 'another.email@someu.edu']
         assertEquals dse.modifications.size(), 1
