@@ -2,4 +2,4 @@ h1. Usage
 
 h2. Overview
 
-As noted in the [Introduction|guide:introduction], @LdapService@ is inspired by GORM. Therefore, the methods should be intuitive. This section gives you a brief overview, but please see the Reference Guide for details of each method.
+As noted in the [Introduction|guide:introduction], @DirectoryService@ is inspired by GORM. Therefore, the methods should be intuitive. This section gives you a brief overview, but please see the Reference Guide for details of each method.

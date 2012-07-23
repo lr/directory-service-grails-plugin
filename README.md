@@ -3,6 +3,8 @@ DirectoryService
 
 DirectoryService is a [Grails](http://grails.org/) [plugin](http://grails.org/plugins/) that allows you to interact with a v3-compliant LDAP server with minimal effort. It is built on top of the [UnboundID](http://www.unboundid.com/) [LDAP SDK](http://www.unboundid.com/products/ldap-sdk/).
 
+DirectoryService is made up of two key classes, the DirectoryService Grails Service class, and the DirectoryServiceEntry class, the class to which results are mapped. See the official documentation for more information about each of these classes.
+
 Official documentation will be posted as soon as I figure out GitHub Pages. Stay tuned.
 
 ## Install
@@ -31,16 +33,16 @@ grails install-plugin <path to>/grails-directory-service-<version>.zip
 
 DirectoryService requires two Maps to be configured:
 
-* `ds.sources`
-* `ds.dit`
+* `grails.plugins.directoryservice.sources`
+* `grails.plugins.directoryservice.dit`
 
 Since both of these are Groovy Map objects, they must be put in a `.groovy` file (like `grails-app/conf/Config.groovy`), and can not go in a `.properties` file.
 
 ### Directory Sources Map
 
-The `ds.sources` Map is called sources for a reason: You can have more than one directory source. Where I work we have a main directory service, 5 AD domains, and an AD Global Catalog; that's 7 sources! So, this plugin is designed to work with all of your directory sources at once. This is very much modeled after that multiple `dataSource` feature of GORM.
+The `grails.plugins.directoryservice.sources` Map is called sources for a reason: You can have more than one directory source. Where I work we have a main directory service, 5 AD domains, and an AD Global Catalog; that's 7 sources! So, this plugin is designed to work with all of your directory sources at once. This is very much modeled after that multiple `dataSource` feature of GORM.
 
-The `ds.sources` uses the following syntax:
+The `grails.plugins.directoryservice.sources` uses the following syntax:
 
 <pre>
 ds.sources = [
@@ -55,10 +57,10 @@ ds.sources = [
 ]
 </pre>
 
-So, if you have two sources, like an "enterprise directory", and "AD Global Catalog", your `ds.sources` might look like this:
+So, if you have two sources, like an "enterprise directory", and "AD Global Catalog", your `grails.plugins.directoryservice.sources` might look like this:
 
 <pre>
-ds.sources = [
+grails.plugins.directoryservice.sources = [
     'directory':[
         'address': 'ldap.someu.edu',
         'port': '636',
@@ -82,12 +84,12 @@ You will see how these sources are referenced in the DIT Map, below.
 
 ### Directory DIT Map
 
-The `ds.dit` is another Map that is literally a map of your directory. Of course, you only need to map out the areas of your directory that you want to use. For instance, for the above two sources, we might have a few sections that we want to define: `people`, `departments`, `accounts`, and `groups` (at least one type of group).
+The `grails.plugins.directoryservice.dit` is another Map that is literally a map of your directory. Of course, you only need to map out the areas of your directory that you want to use. For instance, for the above two sources, we might have a few sections that we want to define: `people`, `departments`, `accounts`, and `groups` (at least one type of group).
 
 The `ds.dit` uses the following syntax:
 
 <pre>
-ds.dit = [
+grails.plugins.directoryservice.dit = [
     'base DN of the branch':[
         'singular': String,
         'plural': String,
@@ -97,10 +99,10 @@ ds.dit = [
 ]
 </pre>
 
-So, let's define our four branches and relate them to the two sources we defined in `ds.sources`:
+So, let's define our four branches and relate them to the two sources we defined in `grails.plugins.directoryservice.sources`:
 
 <pre>
-ds.dit = [
+grails.plugins.directoryservice.dit = [
     'ou=people,dc=someu,dc=edu':[
         'singular': 'person',
         'plural': 'people',
@@ -158,13 +160,13 @@ DirectoryService directoryService
 
 As of this version, DirectoryService only supports searching LDAP. Add, update, and delete will be added in forthcoming releases.
 
-Also, unlike GORM, DirectoryService currently only supports `find*Where` methods, not the more sophisticated `find*BySomeattributeAndAnotherattribute`.
+Also, unlike GORM, DirectoryService currently only supports `find<singular|plural>Where` methods, not the more sophisticated `<Object>.findBySomeattributeAndAnotherattribute` methods.
 
 At this point you will see why we use a singular and plural name for each branch defined in `directoryService.dit`.
 
 #### Find a Person
 
-Using the example `directoryService.dit` above, to find a person, you would do the following:
+Using the example `dit` above, to find a person, you would do the following:
 
 <pre>
 def person = directoryService.findPersonWhere('uid':'12345')
@@ -175,19 +177,29 @@ Since `uid` is the RDN attribute for the `ou=people` branch, the first search ab
 
 This is similar to the GORM `get()` method.
 
-To find more than one person, you would use the plural form that you defined in `ds.dit`. For instance, for your people branch, you would use `findPeopleWhere`:
+To find more than one person, you would use the plural form that you defined in `dit`. For instance, for your people branch, you would use `findPeopleWhere`:
 
 <pre>
 def people = directoryService.findPeopleWhere('sn':'rockwell')
 def people = directoryService.findPeopleWhere('departmentNumber':'12345')
 </pre>
 
+### Update (Save)
+
+To be GORM-like, update is implemented as `save`, but unlike GORM, it is implemented on the DirectoryService object, and not the entry object itself. Below is an example of finding, updating, and then saving an entry:
+
+<pre>
+def person = directoryService.findPersonWhere('employeeNumber':'23576')
+person.sn = 'Franklin-Jackson'
+person.cn = ['Sally Franklin-Jackson', 'Franklin-Jackson, Sally']
+person.displayName = 'Sally Franklin-Jackson'
+person.mail = 'sally.franklin-jackson@somu.edu'
+directoryService.save(person)
+</pre>
+
+See the official docs and reference guide for more details about saving objects back to the directory.
 
 ### Add (Create)
-
-Not implemented yet.
-
-### Update (Save)
 
 Not implemented yet.
 

@@ -13,9 +13,9 @@ Since the DIT definition is a Map, you must put it in a @.groovy@ file. The easi
 For this example, we are going to assume that our LDAP tree has three branches that we are interested in mapping:
 
 {code}
-ou=people,dc=socialidm,dc=com
-ou=departments,dc=socialidm,dc=com
-ou=groups,dc=socialidm,dc=com
+ou=people,dc=someu,dc=edu
+ou=departments,dc=someu,dc=edu
+ou=groups,dc=someu,dc=edu
 {code}
 
 So, we need to tell @LdapService@ about these branches, including the singular and plural names of the objects in those branches, and the RDN attribute for those objects.
@@ -23,18 +23,18 @@ So, we need to tell @LdapService@ about these branches, including the singular a
 The above branches would be defined in the @ldapService.dit@ as follows:
 
 {code}
-ldapService.dit = [
-    'ou=people,dc=socialidm,dc=com':[
+grails.plugins.directoryservice.dit = [
+    'ou=people,dc=someu,dc=edu':[
         'singular':'person',
         'plural':'people',
         'rdnAttribute':'uid'
     ],
-    'ou=departments,dc=socialidm,dc=com':[
+    'ou=departments,dc=someu,dc=edu':[
         'singular':'department',
         'plural':'departments',
         'rdnAttribute':'ou'
     ],
-    'ou=groups,dc=socialidm,dc=com':[
+    'ou=groups,dc=someu,dc=edu':[
         'singluar':'group',
         'plural':'groups',
         'rdnAttribute':'uid'
@@ -45,16 +45,3 @@ ldapService.dit = [
 See the examples in the [Usage|guide:usage] section and the [reference|reference] for details on how these various elements are utilized.
 
 h2. Define LDAP Connection Info
-
-The next configuration items are pretty standard looking, and can go in either a @.groovy@ (like @Config.groovy@) or @.properties@ file.
-
-{table}
-*Name* | *Example* | *Required?* | *Default* | *Additional Info*
-@ldapService.addresses@ | @'somehost1,somehost2'@ | Yes | None, you must supply this value. | This can be one or more hostnames. If more than one, separate the hosts by a comma (as shown). Just put the hostnames, *do not* put the protocol, like @ldap://@ or @ldaps://@.
-@ldapService.ports@ | @'636,636'@ | Yes | None, you must supply this value. | The number of ports *must* match the number of @ldapService.addresses@ supplied.
-@ldapService.bindDn@ | @'cn=some bind DN'@ | Yes | None, you must supply this value. | This is not multi-value, so if you have two @ldapService.addresses@, then both of them will use this bind DN.
-@ldapService.bindPassword@ | @'some password'@ | Yes | None, you must supply this value. | This is not multi-value, so if you have two @ldapService.addresses@, then both of them will use this bind password.
-@ldapService.useSsl@ | @true@ | No | @true@ | This is not multi-value, so if you have two @ldapService.addresses@, then both of them will either be SSL or not, depending on what you choose here.
-@ldapService.alwaysTrustSslCert@ | @true@ | No | @true@ | Whether or not @LdapService@ should trust the SSL cert. If your JVM does not trust the SSL cert, then you will have to set this to @false@.
-@ldapService.autoReconnect@ | @true@ | No | @true@ | @LdapService@ by default tries to keep a connection to the LDAP server open, i.e., it does not disconnect after each operation. If you want the connection to drop when the LDAP server times out the connection, then set this to @false@.
-{table}
