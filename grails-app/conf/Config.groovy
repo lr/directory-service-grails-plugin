@@ -7,7 +7,7 @@ environments {
         // port 11389, so by doing this we are always testing
         // failover! Other, over-the-wire servers have been tested
         // as well.
-        ds.sources = [
+        grails.plugins.directoryservice.sources = [
             'directory':[
                 'address': 'localhost , localhost',
                 'port': ' 11389 ,33389',
@@ -39,7 +39,7 @@ environments {
         // Map of source details for the InMemoryServer. This is
         // just made up for our tests, and is not part of the API
         // for this project.
-        ds.sourcesForInMemoryServer = [
+        grails.plugins.directoryservice.sourcesForInMemoryServer = [
             'directory':[
                 'address':'localhost',
                 'port':'33389',
@@ -58,7 +58,7 @@ environments {
             ]
         ]
         
-        ds.dit = [
+        grails.plugins.directoryservice.dit = [
             'ou=people,dc=someu,dc=edu':[
                 'singular':'person',
                 'plural':'people',

@@ -20,7 +20,7 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
     }
     
     void testConfig() {
-        assertEquals grails.util.GrailsConfig.ds.sourcesForInMemoryServer['directory'].port,  '33389'
+        assertEquals grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory'].port,  '33389'
     }
     
     void testSchemaEntryFromLDIF() {
@@ -36,7 +36,7 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
     }
     
     void testListenAndSearch() {
-        def config = grails.util.GrailsConfig.ds.sourcesForInMemoryServer['directory']
+        def config = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory']
         
         def server = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",

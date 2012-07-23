@@ -37,8 +37,8 @@ class DirectoryServiceTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()
         
-        def dirConfig = grails.util.GrailsConfig.ds.sourcesForInMemoryServer['directory']
-        def adConfig = grails.util.GrailsConfig.ds.sourcesForInMemoryServer['ad']
+        def dirConfig = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory']
+        def adConfig = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['ad']
 
         dirInMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",

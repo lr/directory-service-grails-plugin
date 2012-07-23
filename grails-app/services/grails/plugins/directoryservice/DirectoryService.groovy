@@ -50,7 +50,7 @@ import org.apache.log4j.Logger
  *
  * Given the following configuration:
  * <pre>
- *   ds.sources = [
+ *   grails.plugins.directoryservice.sources = [
  *       'directory':[
  *           'address': 'server1,server2',
  *           'port': ' 636 ,636',
@@ -71,7 +71,7 @@ import org.apache.log4j.Logger
  *       ]
  *   ]
  *   
- *   ds.dit = [
+ *   grails.plugins.directoryservice.dit = [
  *       'ou=people,dc=someu,dc=edu':[
  *           'singular':'person',
  *           'plural':'people',
@@ -154,7 +154,7 @@ class DirectoryService {
                 // If it is a find*, we want to inspect it...
                 if (name.matches(/^find(\w+)*$/)) {
                     // Check for find*Where (plural)
-                    method = grailsApplication.config.ds.dit.find {
+                    method = grailsApplication.config.grails.plugins.directoryservice.dit.find {
                         name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
                     }
                     if (method) {
@@ -162,7 +162,7 @@ class DirectoryService {
                     }
                     else {
                         // Didn't find plural, so check for singular
-                        method = grailsApplication.config.ds.dit.find {
+                        method = grailsApplication.config.grails.plugins.directoryservice.dit.find {
                             name.matches(/^find${it.value.singular?.capitalize()}Where*$/)
                         }
                         if (method) {
@@ -172,7 +172,7 @@ class DirectoryService {
                 }
             }
             else if (args[0] instanceof LDAPFilter) {
-                method = grailsApplication.config.ds.dit.find {
+                method = grailsApplication.config.grails.plugins.directoryservice.dit.find {
                     name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
                 }
                 if (method) {
@@ -181,11 +181,11 @@ class DirectoryService {
             }
             else if (args[0] instanceof String) {
                 if (name.matches(/^get(\w+)$/)) {
-                    method = grailsApplication.config.ds.dit.find {
+                    method = grailsApplication.config.grails.plugins.directoryservice.dit.find {
                         name.matches(/^get${it.value.singular?.capitalize()}$/)
                     }
                     if (method) {
-                        def dit = grailsApplication.config.ds.dit[method.key]
+                        def dit = grailsApplication.config.grails.plugins.directoryservice.dit[method.key]
                         return find(method.key, [(dit.rdnAttribute):args[0]])
                     }
                 }
@@ -354,7 +354,7 @@ class DirectoryService {
             return serverSets[sourceName]
         }
         else {
-            def source = grailsApplication.config.ds.sources[sourceName]
+            def source = grailsApplication.config.grails.plugins.directoryservice.sources[sourceName]
             def serverSet = serverSetForSource(
                 source.address,
                 source.port,
@@ -444,7 +444,7 @@ class DirectoryService {
         def sourceName = sourceNameFromBase(base)
         def serverSet = serverSetForSourceName(sourceName)
         LDAPConnection conn = serverSet?.getConnection()
-        def source = grailsApplication.config.ds.sources[sourceName]
+        def source = grailsApplication.config.grails.plugins.directoryservice.sources[sourceName]
         // If there is a bindDN, then bind, otherwise, treat as 
         // anonymous.
         if (source.bindDN) {
@@ -462,22 +462,22 @@ class DirectoryService {
      * @return The map which contains the source for this base.
      */
     def sourceNameFromBase(String base) {
-        def dit = grailsApplication.config.ds.dit[base]
+        def dit = grailsApplication.config.grails.plugins.directoryservice.dit[base]
         return dit.source
     }
     
     /**
      * Takes in the passed base and returns the corresponding
-     * source from ds.source.
+     * source from grails.plugins.directoryservice.source.
      *
      * @param base      The search base which will be used as the key
-     * for the lookup in the ds.source.
+     * for the lookup in the grails.plugins.directoryservice.source.
      * @return The Map which corresponds to the source for the provided
      * base.
      */
     def sourceFromBase(String base) {
-        def dit = grailsApplication.config.ds.dit[base]
-        return grailsApplication.config.ds.sources[dit.source]
+        def dit = grailsApplication.config.grails.plugins.directoryservice.dit[base]
+        return grailsApplication.config.grails.plugins.directoryservice.sources[dit.source]
     }
 
     /**
