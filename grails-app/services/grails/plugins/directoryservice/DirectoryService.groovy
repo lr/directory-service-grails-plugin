@@ -196,7 +196,7 @@ class DirectoryService {
     }
     
     /**
-     * Performs a find based on the passed in baseDn and args and returns
+     * Performs a find based on the passed in baseDN and args and returns
      * the first entry found. If no entry is found, it returns null.
      *
      * @param baseDN        The base DN to use in the search.
@@ -205,18 +205,18 @@ class DirectoryService {
      * @return A DirectoryServiceEntry, which is the first result of the resulting
      * search.
      */
-    def find(String baseDn, Map args) {
-        List<SearchResultEntry> entries = searchUsingFilter(baseDn, 
+    def find(String baseDN, Map args) {
+        List<SearchResultEntry> entries = searchUsingFilter(baseDN, 
             andFilterFromArgs(args).toString())
         if (entries.size() > 0) {
-            return new DirectoryServiceEntry(entries.get(0))
+            return new DirectoryServiceEntry(entries.get(0), baseDN)
         }
         return null;
         
     }
     
     /**
-     * Performs a find based on the passed in {@code baseDn} and {@code args}
+     * Performs a find based on the passed in {@code baseDN} and {@code args}
      * and returns a List of all of the results.
      *
      * @param baseDN        The base DN to use in the search.
@@ -224,18 +224,18 @@ class DirectoryService {
      * into an AND filter.
      * @return List of LdapServiceEntry objects.
      */
-    def findAll(String baseDn, Map args) {
-        List<SearchResultEntry> entries = searchUsingFilter(baseDn, 
+    def findAll(String baseDN, Map args) {
+        List<SearchResultEntry> entries = searchUsingFilter(baseDN, 
             andFilterFromArgs(args).toString())
         def list = []
         entries.each {
-            list.add(new DirectoryServiceEntry(it))
+            list.add(new DirectoryServiceEntry(it, baseDN))
         }
         return list
     }
     
     /**
-     * Performs a find based on the passed in {@code baseDn} and {@code filter}
+     * Performs a find based on the passed in {@code baseDN} and {@code filter}
      * and returns a List of all of the results.
      *
      * @param baseDN        The base DN to use in the search.
@@ -243,12 +243,12 @@ class DirectoryService {
      * search request
      * @return List of LdapServiceEntry objects.
      */
-    def findAllUsingFilter(String baseDn, LDAPFilter filter) {
-        List<SearchResultEntry> entries = searchUsingFilter(baseDn,
+    def findAllUsingFilter(String baseDN, LDAPFilter filter) {
+        List<SearchResultEntry> entries = searchUsingFilter(baseDN,
             filter.toString())
         def list = []
         entries.each {
-            list.add(new DirectoryServiceEntry(it))
+            list.add(new DirectoryServiceEntry(it, baseDN))
         }
         return list
     }
@@ -291,7 +291,7 @@ class DirectoryService {
             return filter
         }
         catch (LDAPException e) {
-            log.error("Error creating filter from string: ${e.getMessage()}")
+            log.error "Error creating filter from string: ${e.getMessage()}"
         }
         return filterString
     }
@@ -303,19 +303,34 @@ class DirectoryService {
      * of the passed in object. But for now, this is the only way I know how to
      * do this.
      *
+     * Note: A future version of DirectoryServiceEntry will have an errors
+     * object that implements the Spring Errors interface, so the error handling
+     * will change.
+     *
      * @param entry         The DirectoryServiceEntry to save.
+     * @return {@code true} on success, {@code false} otherwise.
      * @throws 
      */
     def save(DirectoryServiceEntry entry) {
-        def conn = connection(entry?.entry?.getParentDNString())
+        def conn = connection(entry?.baseDN)
         if (conn) {
             try {
                 conn.modify(entry?.entry?.getDN(), entry.modifications)
+                entry.cleanupAfterSave()
+                return true
             }
             catch (LDAPException e) {
-                log.error("Could not modify ${entry?.entry?.getDN()}: ${e.getMessage()}")
+                log.error "Could not save/modify ${entry?.entry?.getDN()}: ${e.getMessage()}"
+                entry.errors['save'] = e.getMessage()
             }
         }
+        else {
+            def reason = 
+                "Could not save/modify because a connection to the directory server could not be established. "
+            entry.errors['save'] = reason
+            log.error reason
+        }
+        return false
     }
 
     /**

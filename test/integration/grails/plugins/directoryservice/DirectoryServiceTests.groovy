@@ -286,11 +286,21 @@ class DirectoryServiceTests extends GroovyTestCase {
         person.sn = 'Evans-Peters'
         person.cn = ['Evans-Peters, Sally', 'Sally Evans-Peters']
         person.displayName = 'Sally Evans-Peters'
+        assertTrue person.isDirty()
         directoryService.save(person)
+        
+        // Now test that the original object got cleaned up.
+        assertFalse person.isDirty()
+        person.mail = 'testing@someu.edu'
+        person.discard() // This will test that searchResultEntry got updated
+        assertEquals person.sn, 'Evans-Peters'
+        
+        // Now fetch the person from the directory again to check that the
+        // change was actually saved.
         def person2 = directoryService.getPerson('2')
         assertEquals person2.sn, 'Evans-Peters'
         assertEquals person2.displayName, 'Sally Evans-Peters'
-        // Now let's really make sure this is the same person
+        // Now let's really make sure this is the same person.
         assertEquals person2.initials, 'SDE'
         assertEquals person2.telephoneNumber, '+1 022 028 9350'
      }

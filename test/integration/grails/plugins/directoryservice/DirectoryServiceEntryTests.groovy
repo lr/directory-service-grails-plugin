@@ -44,9 +44,6 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         
         // Set up lse to be the person with uid=1
         dse = directoryService.findPersonWhere('uid':'6')
-        // Since the search returns a LdapServiceEntry, we have to get the
-        // SearchResultEntry if we want to create a new LdapServiceEntry.
-        //dse = new DirectoryServiceEntry(person.getSearchResultEntry())
     }
 
     protected void tearDown() {
@@ -156,14 +153,20 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         dse.updateModifications('mail', 'new.name@someu.edu')
         assertEquals dse.modifications.size(), 1
         
-        dse.updateModifications('cn', 'Julie Nguyen', 'Nguyen, Julia')
+        assertEquals dse.getAttributeValues('cn').size(), 2
+        dse.updateModifications('cn', 'Julie Nguyen', 'Nguyen, Julie', 'Julie A Nguyen', 'Nguyen, Julie A')
         assertEquals dse.modifications.size(), 2
-        assertEquals dse.modifications.get(0).getValues().length, 1
-        assertEquals dse.modifications.get(1).getValues().length, 2
+        assertEquals dse.modifications.get(1).getValues().length, 4
         
-        dse.updateModifications('mail', 'new.name@someu.edu', 'Julia.Nguyen@someu.edu')
+        // Double check that mail is still 1
+        assertEquals dse.modifications.get(0).getValues().length, 1
+        
+        dse.updateModifications('mail', 'new.name@someu.edu', 'Julie.Nguyen@someu.edu')
         assertEquals dse.modifications.size(), 2
         assertEquals dse.modifications.get(0).getValues().length, 2
+        
+        // Double check that cn is still 4
+        assertEquals dse.modifications.get(1).getValues().length, 4
     }
     
     /**
@@ -192,6 +195,52 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.mods['mail'], ['new.name@someu.edu', 'another.email@someu.edu']
         assertEquals dse.modifications.size(), 1
         assertEquals dse.modifications.get(0).getValues().length, 2
+        
+        dse.cn = ['Julie Nguyen', 'Nguyen, Julie', 'Julie A Nguyen', 'Nguyen, Julie A']
+        assertEquals dse.modifications.size(), 2
+        assertEquals dse.modifications.get(1).getValues().length, 4
+        assertEquals dse.getAttributeValues('cn').length, 4
+    }
+    
+    /**
+     * Test adding attribute that does not exist in the entry.
+     */
+    void testPropertyMissingAddAttribute() {
+        assertEquals dse.entry.getAttributes().size(), 21
+        dse.carLicense = 'B12345C'
+        assertEquals dse.modifications.size(), 1
+        assertEquals dse.entry.getAttributes().size(), 22
+        assertEquals dse.carLicense, 'B12345C'
+        dse.carLicense = null
+        assertEquals dse.modifications.size(), 1
+        assertEquals dse.entry.getAttributes().size(), 21
+    }
+    
+    /**
+     * Test propertyMissing with deleting values.
+     */
+    void testPropertyMissingRemoveValue() {
+        assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
+        dse.mail = ''
+        assertNull dse.mail
+        assertEquals dse.modifications.size(), 1
+        
+        dse.mail = 'some.mail@someu.edu'
+        assertEquals dse.modifications.size(), 1
+        assertEquals dse.mail, 'some.mail@someu.edu'
+    }
+    
+    /**
+     * Test discard.
+     */
+    void testDiscard() {
+        dse.mail = null
+        dse.carLicense = 'B12345C'
+        assertNull dse.mail
+        assertEquals dse.carLicense, 'B12345C'
+        dse.discard()
+        assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
+        assertNull dse.carLicense
     }
 
 }

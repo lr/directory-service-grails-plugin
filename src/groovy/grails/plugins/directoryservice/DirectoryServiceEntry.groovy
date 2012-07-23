@@ -24,8 +24,6 @@ import com.unboundid.ldap.sdk.Modification
 import com.unboundid.ldap.sdk.ModificationType
 import com.unboundid.ldap.sdk.SearchResultEntry
 
-import org.apache.log4j.Logger
-
 /**
  * When DirectoryService returns a result set, it wraps each result object in
  * a DirectoryServiceEntry object. This class allows you to interact with an
@@ -38,19 +36,56 @@ import org.apache.log4j.Logger
  */
 class DirectoryServiceEntry {
     
-    /* The original searchResultEntry */
+    /**
+     * The original searchResultEntry.
+     *
+     * Gets reset to a copy of entry on cleanupAfterSave()
+     */
     def SearchResultEntry searchResultEntry
     
-    /* UnboundID Entry object */
+    /**
+     * UnboundID Entry object.
+     *
+     * Gets reset to searchResultEntry.duplicate() by discard().
+     */
     def Entry entry
     
-    /* Keeps track of whether or not an attribute has changed. We keep this
-       up-to-date as well as modifications because it is a lot easier to
-       inspect this for changes when calling isDirty(attribute) than
-       looping through the modifications array. */
+    /**
+     * The base DN which was used for searching for this entry. It is
+     * important that we have this because we need it when we save or
+     * delete the entry, i.e., it is critical that we map this entry to its
+     * source.
+     */
+    def String baseDN
+    
+    /**
+     * Simple map for keeping track of whether or not an attribute has changed.
+     * We keep this up-to-date as well as modifications because it is a lot
+     * easier to inspect this for changes when calling isDirty(attribute) than
+     * looping through the modifications array.
+     *
+     * Gets reset by discard() and cleanupAfterSave().
+     */
     def mods = [:]
     
-    /* Holds the actual directory modifications */
+    /**
+     * Simple map for keeping track of any errors which might occur when using
+     * the object. For now, if directoryService.save(this) throws an error, it
+     * will populate errors['save'] with the reason.
+     *
+     * Gets reset by discard() and cleanupAfterSave().
+     *
+     * Note: A future version of this class will have an errors object that
+     * implements the Spring Errors interface, so the error handling will
+     * change.
+     */
+    def errors = [:]
+    
+    /**
+     * Holds the actual directory modifications.
+     *
+     * Gets reset by discard() and cleanupAfterSave().
+     */
     ArrayList<Modification> modifications = new ArrayList<Modification>()
     
     /**
@@ -61,10 +96,14 @@ class DirectoryServiceEntry {
      *
      * @param searchResultEntry     The search result entry that will
      * be used in this object.
+     * @param baseDN                The baseDN which was used to get the
+     * connection to the appropriate directory.
      */
-    def DirectoryServiceEntry(SearchResultEntry searchResultEntry) {
+    def DirectoryServiceEntry(SearchResultEntry searchResultEntry,
+        String baseDN) {
         this.searchResultEntry = searchResultEntry
         this.entry = searchResultEntry.duplicate()
+        this.baseDN = baseDN
     }
     
     /**
@@ -110,7 +149,7 @@ class DirectoryServiceEntry {
             }
             else {
                 if (entry.getAttributeValue(name)) {
-                    entry.remoteAttribute(name)
+                    entry.removeAttribute(name)
                 }
             }
             // Now update the modifications list
@@ -119,7 +158,7 @@ class DirectoryServiceEntry {
             }
             else {
                 updateModifications(name, 
-                    value.toArray(new String[value.size()]))
+                    value?.toArray(new String[value ? value.size(): 1]))
             }
         }
     }
@@ -174,8 +213,22 @@ class DirectoryServiceEntry {
      */
     def discard() {
         mods = [:]
+        errors = [:]
         modifications = new ArrayList<Modification>()
         entry = searchResultEntry.duplicate()
+    }
+    
+    /**
+     * Similar to discard(), but instead of resetting the entry, it recreates
+     * the searchResultEntry from the entry object, as we want the state of
+     * this object to be what was just saved to the directory.
+     */
+    def cleanupAfterSave() {
+        mods = [:]
+        errors = [:]
+        modifications = new ArrayList<Modification>()
+        searchResultEntry = 
+            new SearchResultEntry(entry, searchResultEntry.getControls())
     }
     
     /**
