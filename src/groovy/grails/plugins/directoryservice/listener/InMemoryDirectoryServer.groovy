@@ -58,7 +58,7 @@ class InMemoryDirectoryServer {
             startListening()
         }
         catch(LDAPException e) {
-            log.error("Could not start InMemoryServer listener: ${e.getMessage()}")
+            log.error "Could not start InMemoryServer listener: ${e.getMessage()}"
         }
         
     }
