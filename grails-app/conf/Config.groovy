@@ -9,29 +9,29 @@ environments {
         // as well.
         grails.plugins.directoryservice.sources = [
             'directory':[
-                'address': 'localhost , localhost',
-                'port': ' 11389 ,33389',
-                'useSSL': false,
-                'trustSSLCert': true,
-                'followReferrals': true,
-                'bindDN': 'cn=Directory Manager',
-                'bindPassword': 'password'
+                address: 'localhost , localhost',
+                port: ' 11389 ,33389',
+                useSSL: false,
+                trustSSLCert: true,
+                followReferrals: true,
+                bindDN: 'cn=Directory Manager',
+                bindPassword: 'password'
             ],
             'ad':[
-                'address': 'localhost',
-                'port': '33268',
-                'useSSL': false,
-                'trustSSLCert': true,
-                'followReferrals': false,
-                'bindDN': 'cn=AD Manager',
-                'bindPassword': 'password'
+                address: 'localhost',
+                port: '33268',
+                useSSL: false,
+                trustSSLCert: true,
+                followReferrals: false,
+                bindDN: 'cn=AD Manager',
+                bindPassword: 'password'
             ],
             'directoryAnonymous':[
-                'address': 'localhost',
-                'port': '33389',
-                'useSSL': false,
-                'trustSSLCert': true,
-                'followReferrals': true
+                address: 'localhost',
+                port: '33389',
+                useSSL: false,
+                trustSSLCert: true,
+                followReferrals: true
             ]
         ]
         
@@ -41,65 +41,65 @@ environments {
         // for this project.
         grails.plugins.directoryservice.sourcesForInMemoryServer = [
             'directory':[
-                'address':'localhost',
-                'port':'33389',
-                'useSSL':false,
-                'trustSSLCert':true,
-                'bindDN':'cn=Directory Manager',
-                'bindPassword':'password'
+                address: 'localhost',
+                port: '33389',
+                useSSL: false,
+                trustSSLCert: true,
+                bindDN: 'cn=Directory Manager',
+                bindPassword: 'password'
             ],
             'ad':[
-                'address':'localhost',
-                'port':'33268',
-                'useSSL':false,
-                'trustSSLCert':true,
-                'bindDN':'cn=AD Manager',
-                'bindPassword':'password'
+                address: 'localhost',
+                port: '33268',
+                useSSL: false,
+                trustSSLCert: true,
+                bindDN: 'cn=AD Manager',
+                bindPassword: 'password'
             ]
         ]
         
         grails.plugins.directoryservice.dit = [
             'ou=people,dc=someu,dc=edu':[
-                'singular':'person',
-                'plural':'people',
-                'rdnAttribute':'uid',
-                'source':'directory'
+                singular: 'person',
+                plural: 'people',
+                rdnAttribute: 'uid',
+                source: 'directory'
             ],
             'ou=departments,dc=someu,dc=edu':[
-                'singular':'department',
-                'plural':'departments',
-                'rdnAttribute':'ou',
-                'source':'directory'
+                singular: 'department',
+                plural: 'departments',
+                rdnAttribute: 'ou',
+                source: 'directory'
             ],
             'ou=groups,dc=someu,dc=edu':[
-                'singluar':'group',
-                'plural':'groups',
-                'rdnAttribute':'cn',
-                'source':'directory'
+                singular: 'group',
+                plural: 'groups',
+                rdnAttribute: 'cn',
+                source: 'directory'
             ],
             'ou=personnes,dc=someu,dc=edu':[
-                'singluar':'personne',
-                'plural':'personnes',
-                'rdnAttribute':'uid',
-                'source':'directory'
+                singular: 'personne',
+                plural: 'personnes',
+                rdnAttribute: 'uid',
+                source: 'directory'
             ],
             'ou=accounts,dc=someu,dc=edu':[
-                'singular':'account',
-                'plural':'accounts',
-                'rdnAttribute':'cn',
-                'source':'ad'
+                singular: 'account',
+                plural: 'accounts',
+                rdnAttribute: 'cn',
+                source: 'ad'
             ],
             'ou=Economics,ou=accounts,dc=someu,dc=edu':[
-                'singular':'economist',
-                'plural':'economists',
-                'rdnAttribute':'cn',
-                'source':'ad'
+                singular: 'economist',
+                plural: 'economists',
+                rdnAttribute: 'cn',
+                source: 'ad'
             ],
             'ou=People,dc=someu,dc=edu':[
-                'singular':'peep',
-                'plural':'peeps',
-                'rdnAttribute':'uid',
-                'source':'directoryAnonymous'
+                singular: 'peep',
+                plural: 'peeps',
+                rdnAttribute: 'uid',
+                source: 'directoryAnonymous'
             ],
         ]
         
