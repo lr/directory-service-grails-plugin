@@ -283,8 +283,9 @@ class DirectoryServiceTests extends GroovyTestCase {
      void testSave() {
         def person = directoryService.getPerson('2')
         assertEquals person.sn, 'Evans'
+        assertEquals person.cnValues().size(), 2
         person.sn = 'Evans-Peters'
-        person.cn = ['Evans-Peters, Sally', 'Sally Evans-Peters']
+        person.cn = ['Evans-Peters, Sally', 'Sally Evans-Peters', 'Sally Evans', 'Sally Peters']
         person.displayName = 'Sally Evans-Peters'
         assertTrue person.isDirty()
         directoryService.save(person)
@@ -299,6 +300,7 @@ class DirectoryServiceTests extends GroovyTestCase {
         // change was actually saved.
         def person2 = directoryService.getPerson('2')
         assertEquals person2.sn, 'Evans-Peters'
+        assertEquals person2.cnValues().size(), 4
         assertEquals person2.displayName, 'Sally Evans-Peters'
         // Now let's really make sure this is the same person.
         assertEquals person2.initials, 'SDE'
