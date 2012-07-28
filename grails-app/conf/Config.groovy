@@ -100,7 +100,7 @@ environments {
                 plural: 'peeps',
                 rdnAttribute: 'uid',
                 source: 'directoryAnonymous'
-            ],
+            ]
         ]
         
     }
