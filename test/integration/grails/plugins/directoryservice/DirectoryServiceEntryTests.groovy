@@ -74,6 +74,13 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     }
     
     /**
+     * Test values from the set entry object.
+     */
+     void testValues() {
+         assertEquals dse.cnValues().size(), 2
+     }
+    
+    /**
      * Test invoke getValue using attribute name as method.
      */
     void testAttributeNameAsMethod() {

@@ -183,6 +183,9 @@ class DirectoryServiceEntry {
             if (name.matches(/^getAttributeValues?$/)) {
                 return entry.invokeMethod(name, args)
             }
+            else if (name.matches(/^(\w+)Values?$/)) {
+                return entry.getAttributeValues(name - 'Values')
+            }
             else if (name.matches(/^(\w+)?AsDate$/)) {
                 return entry.getAttributeValueAsDate(name - 'AsDate')
             }
