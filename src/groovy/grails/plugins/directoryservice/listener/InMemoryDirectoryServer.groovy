@@ -28,8 +28,43 @@ import com.unboundid.ldif.LDIFReader
 import org.apache.log4j.Logger
 
 /**
+ * This class is a wrapper around the UnboundID InMemoryDirectoryServer.
+ * The purpose of this class is to make it easy to develop and test your
+ * application, as you do not have to have a fully functional directory
+ * server at your disposal at all times.
  *
+ * For years I have developed applications against directory servers and I
+ * have usually had to connect to a real server running on our network, or go
+ * through the effort of running one on my laptop. With the
+ * InMemoryDirectoryServer, you can, with little effort, have your own 
+ * directory server for development and testing, <strong>especially for
+ * testing</strong>! Creating test data in a live directory server is very
+ * problematic, and this class makes it really easy to use a directory
+ * server the same way you would a test database. See the test cases for this
+ * project to see how useful it can be.
  *
+ * If you want to use the InMemoryDirectoryServer for development mode, you can
+ * start it up in <code>conf/BootStrap.groovy</code>:
+ *
+ * <pre>
+ * import grails.plugins.directoryservice.listener.InMemoryDirectoryServer
+ * ...
+ * def inMemServer
+ * ...
+ * def init = { servletContext ->
+ *    def config = grails.util.GrailsConfig.grails.plugins.directoryservice.sources['some source']
+ *    inMemServer = new InMemoryDirectoryServer(
+ *      "dc=someu,dc=edu",
+ *       config,
+ *      "path/to/some/schema.ldif",
+ *      "path/to/some/data.ldif"
+ *    )
+ * }
+ *
+ * def destroy = {
+ *    inMemServer.shutDown()
+ * }
+ * </pre>
  *
  * @author Lucas Rockwell
  */
@@ -41,8 +76,44 @@ class InMemoryDirectoryServer {
     
     private InMemServer server
     
+    /**
+     * Creates an InMemoryDirectoryServer object. If you use this, it is up to
+     * you to call the setup(), and startListening() methods.
+     */
     public InMemoryDirectoryServer() {}
     
+    /**
+     * Creates an InMemoryDirectoryServer object using the passed in baseDN,
+     * and props, and schema from schemaPath, and then loads the server with
+     * the contents of contentsPath.
+     *
+     * The map argument should contain the following:
+     *
+     * <ul>
+     *  <li>bindDN</li>
+     *  <li>bindPassword</li>
+     *  <li>port</li>
+     * </ul>
+     *
+     * The reason it is a map is so you can just pass in one of your
+     * <code>grails.plugins.directoryservice.sources</code> map objects.
+     *
+     * For details on schema and example data, see
+     * <a href="https://github.com/lr/directory-service/tree/master/test/ldif">
+     * DirectoryService test LDIF data</a>.
+     *
+     * @param baseDN        The baseDN of the directory server.
+     * @param props         A map of properties.
+     * @param schemaPath    The path to the schema that should be used in
+     * the directory. This schema is merged with the standard schema which is
+     * part of the UnboundID InMemoryDirectoryServer. If you do not want to
+     * add any additional schema, just leave this as an empty string, or
+     * {@code null}.
+     * @param contentsPath  The path to the LDIF that contains the contents
+     * of the directory. If you do want to import any data, you can leave this
+     * as an empty string, or {@code null}. If you do not add at least the
+     * domain object and one OU, you will have to add programatically.
+     */
     public InMemoryDirectoryServer(String baseDN, Map props, String schemaPath,
         String contentsPath) {
 
@@ -51,20 +122,20 @@ class InMemoryDirectoryServer {
             props.bindDN,
             props.bindPassword,
             Integer.parseInt(props.port),
-            schemaPath,
-            contentsPath
+            contentsPath,
+            schemaPath
         )
         try {
             startListening()
         }
         catch(LDAPException e) {
-            log.error "Could not start InMemoryServer listener: ${e.getMessage()}"
+            log.error "Could not start InMemoryDirectoryServer listener: ${e.getMessage()}"
         }
         
     }
     
     public void setup(String baseDN, String bindDN, String bindPassword,
-        int port, String schemaPath, String contentsPath) {
+        int port, String contentsPath, String schemaPath) {
 
         try {
             InMemoryDirectoryServerConfig dirConfig =
@@ -106,7 +177,7 @@ class InMemoryDirectoryServer {
     }
 
     public int listenPort() {
-        return server.getListenPort()
+        return server?.getListenPort()
     }
     
     /**
