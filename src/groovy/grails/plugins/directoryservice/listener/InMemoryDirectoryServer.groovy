@@ -62,11 +62,27 @@ import org.apache.log4j.Logger
  * }
  *
  * def destroy = {
- *    inMemServer.shutDown()
+ *    inMemServer?.shutDown()
  * }
  * </pre>
  *
+ * Since the server runs in memory, all data in it will be lost when it is shut
+ * down, so if you may want to save the contents, you can call
+ * export(exportPath) before you shut down:
+ *
+ * <pre>
+ * def destroy = {
+ *    inMemServer?.export("path/to/export.ldif")
+ *    inMemServer?.shutDown()
+ * }
+ * </pre>
+ *
+ * This only supports non-SSL connections, and does not support ACIs, so
+ * obviously it is not to be used as a real directory server, unless you
+ * protect it from the outside world.
+ *
  * @author Lucas Rockwell
+ * @see <a href="https://www.unboundid.com/products/ldap-sdk/docs/javadoc/com/unboundid/ldap/listener/InMemoryDirectoryServer.html">UnboundID InMemoryDirectoryServer</a>
  */
 class InMemoryDirectoryServer {
     
@@ -84,8 +100,8 @@ class InMemoryDirectoryServer {
     
     /**
      * Creates an InMemoryDirectoryServer object using the passed in baseDN,
-     * and props, and schema from schemaPath, and then loads the server with
-     * the contents of contentsPath.
+     * props, schema from schemaPath, and then loads the server with contents
+     * of contentsPath. If everything loads properly, it calls startListening().
      *
      * The map argument should contain the following:
      *
@@ -113,6 +129,9 @@ class InMemoryDirectoryServer {
      * of the directory. If you do want to import any data, you can leave this
      * as an empty string, or {@code null}. If you do not add at least the
      * domain object and one OU, you will have to add programatically.
+     * @see #setup(String baseDN, String bindDN, String bindPassword,
+     *     int port, String schemaPath, String contentsPath)
+     * @see #startListening()
      */
     public InMemoryDirectoryServer(String baseDN, Map props, String schemaPath,
         String contentsPath) {
@@ -122,8 +141,8 @@ class InMemoryDirectoryServer {
             props.bindDN,
             props.bindPassword,
             Integer.parseInt(props.port),
-            contentsPath,
-            schemaPath
+            schemaPath,
+            contentsPath
         )
         try {
             startListening()
@@ -134,8 +153,30 @@ class InMemoryDirectoryServer {
         
     }
     
+    /**
+     * Sets up the InMemoryDirectoryServer using the passed in baseDN,
+     * bindDN, bindDN, loads the schema from the passed in schemaPath, and
+     * then loads the content from the passed in contentsPath.
+     *
+     * For details on schema and example data, see
+     * <a href="https://github.com/lr/directory-service/tree/master/test/ldif">
+     * DirectoryService test LDIF data</a>.
+     *
+     * @param baseDN        The baseDN of the directory server.
+     * @param bindDN        The DN to use for authenticated binds.
+     * @param bindPassword  The password that goes with the bindDN.
+     * @param schemaPath    The path to the schema that should be used in
+     * the directory. This schema is merged with the standard schema which is
+     * part of the UnboundID InMemoryDirectoryServer. If you do not want to
+     * add any additional schema, just leave this as an empty string, or
+     * {@code null}.
+     * @param contentsPath  The path to the LDIF that contains the contents
+     * of the directory. If you do want to import any data, you can leave this
+     * as an empty string, or {@code null}. If you do not add at least the
+     * domain object and one OU, you will have to add programatically.
+     */ 
     public void setup(String baseDN, String bindDN, String bindPassword,
-        int port, String contentsPath, String schemaPath) {
+        int port, String schemaPath, String contentsPath) {
 
         try {
             InMemoryDirectoryServerConfig dirConfig =
@@ -168,16 +209,44 @@ class InMemoryDirectoryServer {
         }
     }
     
+    /**
+     * If the UnboundID InMemoryDirectoryServer has been set up, it calls
+     * startListening() on that object.
+     */
     public void startListening() {
         server?.startListening()
     }
     
+    /**
+     * If the UnboundID InMemoryDirectoryServer has been set up, it calls
+     * shutDown(true) on that object.
+     */
     public void shutDown() {
         server?.shutDown(true)
     }
 
+    /**
+     * If the UnboundID InMemoryDirectoryServer has been set up, it calls
+     * getListenPort() on that object.
+     *
+     * @return The port on which the InMemoryDirectoryServer is listening.
+     */
     public int listenPort() {
         return server?.getListenPort()
+    }
+    
+    /**
+     * If the UnboundID InMemoryDirectoryServer has been set up, it calls
+     * exportToLDIF(exportPath, exportGeneratedAttrs, false).
+     *
+     * @param exportPath            The file path to which you should export
+     * the data.
+     * @param excludeGeneratedAttrs  Whether or not to export any attributes
+     * which have been generated by the server, like creatorsName, entryUUID,
+     * etc. The default is {@code true}.
+     */
+    public void export(String exportPath, Boolean excludeGeneratedAttrs=true) {
+        server?.exportToLDIF(exportPath, excludeGeneratedAttrs, false)
     }
     
     /**
