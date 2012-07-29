@@ -1,5 +1,58 @@
-h1. Usage
-
 h2. Overview
 
 As noted in the [Introduction|guide:introduction], @DirectoryService@ is inspired by GORM. Therefore, the methods should be intuitive. This section gives you a brief overview, but please see the Reference Guide for details of each method.
+
+h2. How it Works
+
+For more in-depth details of how @DirectoryService@ works, please see the other sections of this guide, including the [Reference|ref:DirectoryService] pages.
+
+h3. Add DirectoryService to your class
+
+Once you have @DirectoryService@ [configured|guide:configuration], you can add it to a class the way you would any other service:
+
+{code}
+def directoryService
+{code}
+
+h3. Search for an object
+
+Now you can search for something in your directory (again, see the [Configuration|guide:configuration] section) like this:
+
+{code}
+def people = directoryService.findPeopleWhere('departmentNumber':'12345', 'manager':'3786258')
+{code}
+
+The above will return a list of @DirectoryServiceEntry@ objects. A @DirectoryServiceEntry@ object is a wrapper around an UnboundID @Entry@ object, so everything you can do with an @Entry@ object is available to you.
+
+h3. Use the results
+
+Once you perform a search, you can then use the object the way you would use a GORM object:
+
+{code}
+people.each { person ->
+    println "${person.displayName}, ${person.telephoneNumber}"
+}
+{code}
+
+Now you might say, but this is LDAP, so what happens if the person does not have a @telephoneNumber@ defined in their entry? Nothing! The attribute doesn't exist, it doesn't print anything. This is possible because @DirectoryService@ is based on the UnboundID LDAP SDK, and that SDK allows you to ask for attribute values on attribute that do not exist in the entry, with no ill effects, i.e., no exceptions are thrown. However, the call does return @null@ if there is no attribute with the provided name, so it is best to use the "?" operator if you plan to do something with the value, if that something you plan to do does not like @null@ objects.
+
+To see how the UnboundID LDAP SDK is being used here, the above @person.displayName@ could also be accomplished with the following:
+
+{code}
+person.getEntry().getAttributeValue("displayName")
+{code}
+
+As you can see, we are calling @getAttributeValue@, so if you want the attribute value*s*, then you would have to use the special @Values()@ method:
+
+{code}
+person.cnValues()
+{code}
+
+This returns a String array.
+
+h2. Operations Implemented
+
+As of the current release, @find@ (@search@), and @save@ (@modify@) are implemented. @add@ and @delete@ will be added in upcoming releases. See the [roadmap|guide:roadmap] for details.
+
+
+

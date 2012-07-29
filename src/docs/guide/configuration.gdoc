@@ -1,12 +1,10 @@
-h1. Configuration
-
 h2. Overview
 
-This section describes how to configure the @LdapService@ plugin.
+This section describes how to configure the @DirectoryService@ plugin.
 
 h2. Define The DIT
 
-Instead of crawling your LDAP directory, @LdapService@ expects you to give it some hints about how your server is set up. Once you configure the plugin, it will become obvious to you how it works.
+Instead of crawling your LDAP directory, @DirectoryService@ expects you to give it some hints about how your server is set up. Once you configure the plugin, it will become obvious to you how it works.
 
 Since the DIT definition is a Map, you must put it in a @.groovy@ file. The easiest place to put it is in @Config.groovy@, but you can put it into any config file you have defined.
 
@@ -18,30 +16,87 @@ ou=departments,dc=someu,dc=edu
 ou=groups,dc=someu,dc=edu
 {code}
 
-So, we need to tell @LdapService@ about these branches, including the singular and plural names of the objects in those branches, and the RDN attribute for those objects.
+So, we need to tell @DirectoryService@ about these branches, including the singular and plural names of the objects in those branches, the RDN attribute for the objects in those branches, and the source, i.e., what server contains this information.
 
-The above branches would be defined in the @ldapService.dit@ as follows:
+The above branches would be defined in the @directoryService.dit@ as follows:
 
 {code}
 grails.plugins.directoryservice.dit = [
     'ou=people,dc=someu,dc=edu':[
         'singular':'person',
         'plural':'people',
-        'rdnAttribute':'uid'
+        'rdnAttribute':'uid',
+        'source':'directory'
     ],
     'ou=departments,dc=someu,dc=edu':[
         'singular':'department',
         'plural':'departments',
-        'rdnAttribute':'ou'
+        'rdnAttribute':'ou',
+        'source':'directory'
     ],
     'ou=groups,dc=someu,dc=edu':[
         'singluar':'group',
         'plural':'groups',
-        'rdnAttribute':'uid'
+        'rdnAttribute':'uid',
+        'source':'directory'
     ]
 ]
 {code}
 
-See the examples in the [Usage|guide:usage] section and the [reference|reference] for details on how these various elements are utilized.
+See the table below for definitions of the various elements of the map:
 
-h2. Define LDAP Connection Info
+{table}
+*Attribute* | *Meaning* | *Notes/Example*
+singular | The singular spelling for the name of the tree. | This does *not* have to match the name in the DN.
+plural | The plural spelling for the name of the tree. | This does *not* have to even be the plural version of singular, but you probably what to keep these things consistent for your own sanity.
+rdnAttribute | This is the attribute which makes up the RDN of the entry. | If the DN of a person is @uid=125236,ou=people,dc=someu,dc=edu@, then the rdnAttribute would be "uid". If the DN of a person is @cn=Rockwell\, Lucas,ou=people,dc=someu,dc=edu@, then the rdnAttribute would be "cn". This *must* be the real RDN attribute, i.e., you can't make this up.
+source | This is the source 
+{table}
+
+h3. One Branch, Multiple Objects
+
+Store more than one object type in the same branch? No problem! Map keys are case sensitive, so you can define multiple objects in the same branch by changing the case of at least one character in the dn. For example, let's say you have both people and accounts in the "people" branch (don't know why you would, but let's just say you do), and the rdnAttribute of people is "uid", and the rdnAttribute of accounts is "cn":
+
+{code}
+grails.plugins.directoryservice.dit = [
+    'ou=people,dc=someu,dc=edu':[
+        singular: 'person',
+        plural: 'people',
+        rdnAttribute: 'uid',
+        source: 'directory'
+    ],
+    'ou=People,dc=someu,dc=edu':[
+        singular: 'account',
+        plural: 'accounts',
+        rdnAttribute: 'cn',
+        source: 'directory'
+    ]
+]
+{code}
+
+See the examples in the [Usage|guide:usage] section for details on how these various elements are utilized.
+
+h2. Define Sources
+
+In the @dit@ definition above, there is an attribute named "source". This points to a directory server configured in @grails.plugins.directoryservice.sources@. For instance:
+
+{code}
+grails.plugins.directoryservice.sources = [
+    'directory':[
+        address: 'server1,server2',
+        port: '636,636',
+        useSSL: true,
+        trustSSLCert: true,
+        followReferrals: true,
+        bindDN: 'cn=Directory Manager',
+        bindPassword: 'password'
+    ]
+]
+{code}
+
+See the table below for information on what each attribute means:
+
+
+h2. More Examples
+
+For more examples of how to configure the dit and sources, see the @Config.groovy@ file in the main project: [https://github.com/lr/directory-service/blob/master/grails-app/conf/Config.groovy].

@@ -1,8 +1,6 @@
-h1. Roadmap
-
 h2. Overview
 
-This page outlines what to expect in future releases of the @DirectoryService@ plugin.
+This page outlines what to expect in future releases of the @DirectoryService@ plugin. If you have a feature request/enhancement, please create an "Issue" on GitHub and label it an enhancement: [https://github.com/lr/directory-service/issues].
 
 h2. Summer 2012
 

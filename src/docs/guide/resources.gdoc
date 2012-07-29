@@ -1,1 +1,17 @@
-h1. Resources
+h2. Overview
+
+The DirectoryService Plugin is for interacting with an LDAP directory. If you are not familiar with LDAP, please read the [Wikipedia LDAP page|http://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol] for starters.
+
+h3. UnboundID LDAP SDK Docs
+
+The DirectoryService plugin is based on the UnboundID LDAP SDK.
+
+* [Overview|https://www.unboundid.com/products/ldap-sdk/]
+* [API Java Docs|https://www.unboundid.com/products/ldap-sdk/docs/javadoc/index.html]
+
+{note}
+The UnboundID LDAP SDK is very powerful, and of course DirectoryService only uses a fraction of what it has to offer. However, we have tried to encapsulate in DirectoryService what the kinds of activities you would do with a directory most of the time, so if at all possible, try to avoid using the underlying UnboundID API because if it changes, then you will have to change your code, as well, and it will be up to you to keep up with any changes.
+{note}
+
+h3. DirectoryService API Docs
+
