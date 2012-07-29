@@ -15,7 +15,7 @@ class DirectoryServiceGrailsPlugin {
     def author = "Lucas Rockwell"
     def authorEmail = "lr@lucasrockwell.com"
     def description = '''\
-This is a directory (LDAP) plugin which is based on the UnboundID LDAP SDK. It has support for...
+Grails Plugin which makes interacting with directory (LDAP) servers a breeze.
 '''
 
     // URL to the plugin's documentation
@@ -26,17 +26,14 @@ This is a directory (LDAP) plugin which is based on the UnboundID LDAP SDK. It h
     // License: one of 'APACHE', 'GPL2', 'GPL3'
     def license = "Apache2"
 
-    // Details of company behind the plugin (if there is one)
-//    def organization = [ name: "Social IdM", url: "http://socialidm.com/" ]
-
     // Any additional developers beyond the author specified above.
     def developers = [ [ name: "Lucas Rockwell", email: "lr@lucasrockwell.com" ]]
 
     // Location of the plugin's issue tracker.
-//    def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPMYPLUGIN" ]
+    def issueManagement = [ system: "GitHub", url: "https://github.com/lr/directory-service/issues" ]
 
     // Online location of the plugin's browseable source code.
-//    def scm = [ url: "http://svn.grails-plugins.codehaus.org/browse/grails-plugins/" ]
+    def scm = [ url: "https://github.com/lr/directory-service/" ]
 
     def doWithWebDescriptor = { xml ->
         // TODO Implement additions to web.xml (optional), this event occurs before
