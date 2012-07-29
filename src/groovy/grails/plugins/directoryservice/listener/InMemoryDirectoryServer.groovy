@@ -35,7 +35,7 @@ import org.apache.log4j.Logger
  */
 class InMemoryDirectoryServer {
     
-    Logger log = Logger.getLogger(InMemoryDirectoryServer.class)
+    private Logger log = Logger.getLogger(InMemoryDirectoryServer.class)
     
     private LDAPConnection conn
     

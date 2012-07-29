@@ -125,17 +125,17 @@ class DirectoryService {
     static transactional = false
 
     /* Logger for this class. */
-    Logger log = Logger.getLogger(DirectoryService.class);
+    private Logger log = Logger.getLogger(DirectoryService.class);
 
     /* grailsApplication, which is necessary for configuration info. */
     def grailsApplication
 
     /* Holds the current LDAPConnection. */
-    LDAPConnection conn = null
+    private LDAPConnection conn = null
     
     /* Map that holds any ServerSet objects that are created during the duration
        of this object's life. */
-    def serverSets = [:]
+    private Map serverSets = [:]
     
     /**
      * Catches the following methods:

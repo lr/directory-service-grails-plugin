@@ -66,7 +66,7 @@ class DirectoryServiceEntry {
      *
      * Gets reset by discard() and cleanupAfterSave().
      */
-    def mods = [:]
+    private Map mods = [:]
     
     /**
      * Simple map for keeping track of any errors which might occur when using
@@ -86,7 +86,7 @@ class DirectoryServiceEntry {
      *
      * Gets reset by discard() and cleanupAfterSave().
      */
-    ArrayList<Modification> modifications = new ArrayList<Modification>()
+    private ArrayList<Modification> modifications = new ArrayList<Modification>()
     
     /**
      * Constructs a new DirectoryServiceEntry object by passing in
