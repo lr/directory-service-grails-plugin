@@ -2,7 +2,7 @@ h1. find
 
 h2. Purpose
 
-The @find@ method allows you to search for objects in the DIT as defined in @directoryService.dit@. See the [Configuration|guide:configuration] section on details of how @directoryService.dit@ is defined.
+The @find@ method allows you to search for objects in the DIT as defined in @grails.plugins.directoryService.dit@. See the [Configuration|guide:configuration] section on details of how @grails.plugins.directoryService.dit@ is defined.
 
 Currently, @Where@ is implemented as a dynamic finder. I hope to be able to add the @By@ dynamic finder in a future release (e.g., @find\*BySnAndDepartmentNumber@).
 
@@ -11,11 +11,12 @@ h2. Examples
 These examples assume the following was defined in @directoryService.dit@:
 
 {code}
-directoryService.dit = [
+grails.plugins.directoryService.dit = [
     'ou=people,dc=socialidm,dc=com':[
-        'singular':'person',
-        'plural':'people',
-        'rdnAttribute':'uid'
+        singular: 'person',
+        plural: 'people',
+        rdnAttribute: 'uid',
+        source: 'directory'
     ]
 ]
 {code}
@@ -45,7 +46,7 @@ def filter = <an UnboundID LDAP SDK Filter>
 directoryService.findPeopleWhere(filter)
 {code}
 
-DirectoryService @AND@s together the arguments to the @find@ method. If you want @OR@, or more complicated filters, like ones with wildcards, then you will have to construct an UnboundID LDAP SDK filter and supply that as the argument to @find@.
+DirectoryService @AND@s together the arguments to the @find@ method. If you want @OR@, or more complicated filters, like ones with wildcards, then you will have to construct an [UnboundID LDAP SDK Filter|https://www.unboundid.com/products/ldap-sdk/docs/javadoc/com/unboundid/ldap/sdk/Filter.html] and supply that as the argument to @find@.
 
 h2. Description
 
@@ -77,4 +78,4 @@ The table below compares the GORM and DirectoryService find differences.
 0 or more | @findAllWhere@ | @findPeopleWhere@
 {table}
 
-In these examples, 'person' and 'people' are used only because they were defined in @directoryService.dit@. If you define other names in @directoryService.dit@, then you would have to use those names.
+In these examples, 'person' and 'people' are used only because they were defined in @grails.plugins.directoryService.dit@. If you define other names in @grails.plugins.directoryService.dit@, then you would have to use those names.
