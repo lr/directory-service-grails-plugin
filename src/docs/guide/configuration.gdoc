@@ -50,7 +50,7 @@ See the table below for definitions of the various elements of the map:
 singular | The singular spelling for the name of the tree. | This does *not* have to match the name in the DN.
 plural | The plural spelling for the name of the tree. | This does *not* have to even be the plural version of singular, but you probably what to keep these things consistent for your own sanity.
 rdnAttribute | This is the attribute which makes up the RDN of the entry. | If the DN of a person is @uid=125236,ou=people,dc=someu,dc=edu@, then the rdnAttribute would be "uid". If the DN of a person is @cn=Rockwell\, Lucas,ou=people,dc=someu,dc=edu@, then the rdnAttribute would be "cn". This *must* be the real RDN attribute, i.e., you can't make this up.
-source | This is the source 
+source | This is the source | This points to an entry in @grails.plugins.directoryservice.sources@.
 {table}
 
 h3. One Branch, Multiple Objects

@@ -34,7 +34,7 @@ people.each { person ->
 }
 {code}
 
-Now you might say, but this is LDAP, so what happens if the person does not have a @telephoneNumber@ defined in their entry? Nothing! The attribute doesn't exist, it doesn't print anything. This is possible because @DirectoryService@ is based on the UnboundID LDAP SDK, and that SDK allows you to ask for attribute values on attribute that do not exist in the entry, with no ill effects, i.e., no exceptions are thrown. However, the call does return @null@ if there is no attribute with the provided name, so it is best to use the "?" operator if you plan to do something with the value, if that something you plan to do does not like @null@ objects.
+Now you might say, but this is LDAP, so what happens if the person does not have a @telephoneNumber@ defined in their entry? Nothing! The attribute doesn't exist, it doesn't print anything. This is possible because @DirectoryService@ is based on the UnboundID LDAP SDK, and that SDK allows you to ask for attribute values on attributes that do not exist in the entry, with no ill effects, i.e., no exceptions are thrown. However, the call does return @null@ if there is no attribute with the provided name, so it is best to use the "?" operator if you plan to do something with the value, if that something you plan to do does not like @null@ objects.
 
 To see how the UnboundID LDAP SDK is being used here, the above @person.displayName@ could also be accomplished with the following:
 

@@ -2,6 +2,10 @@ h2. Overview
 
 The DirectoryService Plugin is for interacting with an LDAP directory. If you are not familiar with LDAP, please read the [Wikipedia LDAP page|http://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol] for starters.
 
+h3. API Docs
+
+* [Groovy API|https://lr.github.com/directory-service/gapi/]
+
 h3. UnboundID LDAP SDK Docs
 
 The DirectoryService plugin is based on the UnboundID LDAP SDK.
