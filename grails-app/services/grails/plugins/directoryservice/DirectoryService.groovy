@@ -323,6 +323,9 @@ class DirectoryService {
                 log.error "Could not save/modify ${entry?.entry?.getDN()}: ${e.getMessage()}"
                 entry.errors['save'] = e.getMessage()
             }
+            finally {
+                conn?.close()
+            }
         }
         else {
             def reason = 
