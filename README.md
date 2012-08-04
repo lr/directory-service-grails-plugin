@@ -5,7 +5,7 @@ DirectoryService is a [Grails](http://grails.org/) [plugin](http://grails.org/pl
 
 DirectoryService is made up of two key classes, the DirectoryService Grails Service class, and the DirectoryServiceEntry class, the class to which results are mapped. See the official documentation for more information about each of these classes.
 
-Official documentation will be posted as soon as I figure out GitHub Pages. Stay tuned.
+Official can be found at [http://lr.github.com/directory-service/].
 
 ## Install
 
