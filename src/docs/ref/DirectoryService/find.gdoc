@@ -60,7 +60,7 @@ Person.findWhere('lastName':'rockwell')
 Person.findAllWhere('lastName':'rockwell')
 {code}
 
-With DirectoryService, you use the singular and plural versions of the LDAP branches (as defined in @directoryService.dit@) to determine if you want one or more results.
+With DirectoryService, you use the singular and plural versions of the DIT branches (as defined in @directoryService.dit@) to determine if you want one or more results.
 
 {code}
 // Returns zero or at most one
