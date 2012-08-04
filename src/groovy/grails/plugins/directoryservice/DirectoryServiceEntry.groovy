@@ -168,9 +168,10 @@ class DirectoryServiceEntry {
      *
      * <ul>
      *   <li>getAttributeValues()</li>
-     *   <li>*AsDate()</li>
-     *   <li>*AsBoolean()</li>
-     *   <li>*AsLong()</li>
+     *   <li>&lt;attribute name&gt;Values()</li>
+     *   <li>&lt;attribute name&gt;AsDate()</li>
+     *   <li>&lt;attribute name&gt;AsBoolean()</li>
+     *   <li>&lt;attribute name&gt;AsLong()</li>
      *   <li>dn()</li>
      * </ul>
      *
