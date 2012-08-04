@@ -1,0 +1,3 @@
+DefaultPackage
+grails.plugins.directoryservice
+grails.plugins.directoryservice.listener

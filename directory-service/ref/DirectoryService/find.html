@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Directory Service Plugin 0.5.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass(el) {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/history.html"><strong>2</strong><span>History</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/installation.html"><strong>3</strong><span>Installation</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/configuration.html"><strong>4</strong><span>Configuration</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/usage.html"><strong>5</strong><span>Usage</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/roadmap.html"><strong>6</strong><span>Roadmap</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/resources.html"><strong>7</strong><span>Resources</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>Grails Plugin which makes interacting with directory (LDAP) servers a breeze.
+</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="reference corner-all">
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                <h1>find</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>The <code>find</code> method allows you to search for objects in the DIT as defined in <code>grails.plugins.directoryService.dit</code>. See the <a href="../../guide/single.html#configuration" class="guide">Configuration</a> section on details of how <code>grails.plugins.directoryService.dit</code> is defined.<p class="paragraph"/>Currently, <code>Where</code> is implemented as a dynamic finder. I hope to be able to add the <code>By</code> dynamic finder in a future release (e.g., <code>find&#42;BySnAndDepartmentNumber</code>).<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/>These examples assume the following was defined in <code>directoryService.dit</code>:<p class="paragraph"/><div class="code"><pre>grails.plugins.directoryService.dit = &#91;
+    'ou=people,dc=socialidm,dc=com':&#91;
+        singular: 'person',
+        plural: 'people',
+        rdnAttribute: 'uid',
+        source: 'directory'
+    &#93;
+&#93;</pre></div><p class="paragraph"/>In the above configuration, we defined that the 'singular' version of this branch as 'person', and the 'plural' version as 'people'.<p class="paragraph"/>To understand how these work, see the examples, below:<p class="paragraph"/><div class="code"><pre>// Find one 'person', i.e., person is 'singular'
+directoryService.findPersonWhere('uid':'12345')<p class="paragraph"/>// Even <span class="java&#45;keyword">if</span> you use an attribute that would potentially <span class="java&#45;keyword">return</span> more than one,
+// you are only going to get one result with the 'singular' version!
+directoryService.findPersonWhere('sn':'rockwell')<p class="paragraph"/>// Find 'people', i.e., people is the 'plural' version
+directoryService.findPeopleWhere('departmentNumber':'12345', 'manager':'0128653')<p class="paragraph"/>// find also allows you to specify a simple string as a filter
+directoryService.findPeopleWhere('(|(sn=rockwell)(sn=smith))')<p class="paragraph"/>// You can not use a wildcard &#42; or ? in a simple string filter because it will
+// get escaped, so you have to use an UnboundID LDAP SDK Filter <span class="java&#45;keyword">if</span> you want
+// a more complicated filter
+def filter = &#60;an UnboundID LDAP SDK Filter&#62;
+directoryService.findPeopleWhere(filter)</pre></div><p class="paragraph"/>DirectoryService <code>AND</code>s together the arguments to the <code>find</code> method. If you want <code>OR</code>, or more complicated filters, like ones with wildcards, then you will have to construct an <a href="https://www.unboundid.com/products/ldap-sdk/docs/javadoc/com/unboundid/ldap/sdk/Filter.html" target="blank">UnboundID LDAP SDK Filter</a> and supply that as the argument to <code>find</code>.<p class="paragraph"/><h2>Description</h2><p class="paragraph"/>Unlike GORM, with DirectoryService you do not define concrete classes which are then used to find objects. For instance, with GORM, you might have a Person domain class, and then you would find people like this:<p class="paragraph"/><div class="code"><pre>// Returns zero or at most one
+Person.findWhere('lastName':'rockwell')<p class="paragraph"/>// Returns zero or more than one
+Person.findAllWhere('lastName':'rockwell')</pre></div><p class="paragraph"/>With DirectoryService, you use the singular and plural versions of the DIT branches (as defined in <code>directoryService.dit</code>) to determine if you want one or more results.<p class="paragraph"/><div class="code"><pre>// Returns zero or at most one
+directoryService.findPersonWhere('lastName':'rockwell')<p class="paragraph"/>// Returns zero or more than one
+directoryService.findPeopleWhere('lastName':'rockwell')</pre></div><p class="paragraph"/>The table below compares the GORM and DirectoryService find differences.<p class="paragraph"/><table class="wiki-table" cellpadding="0" cellspacing="0" border="0"><tr><th><strong class="bold">Number of Results</strong></th><th><strong class="bold">GORM</strong></th><th><strong class="bold">DirectoryService</strong></th></tr><tr class="table-odd"><td>0 or 1</td><td><code>findWhere</code></td><td><code>findPersonWhere</code></td></tr><tr class="table-even"><td>0 or more</td><td><code>findAllWhere</code></td><td><code>findPeopleWhere</code></td></tr></table><p class="paragraph"/>In these examples, 'person' and 'people' are used only because they were defined in <code>grails.plugins.directoryService.dit</code>. If you define other names in <code>grails.plugins.directoryService.dit</code>, then you would have to use those names.
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block">
+                        <h1 class="menu-title" onclick="toggleRef(nextElement(this))">DirectoryService</h1>
+                        <div class="menu-sub selected">
+                            
+                            
+                            <div class="menu-item"><a href="../../ref/DirectoryService/find.html">find</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="menu-block">
+                        <h1 class="menu-title" onclick="toggleRef(nextElement(this))">DirectoryServiceEntry</h1>
+                        <div class="menu-sub">
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="menu-block">
+                        <h1 class="menu-title" onclick="toggleRef(nextElement(this))">InMemoryDirectoryServer</h1>
+                        <div class="menu-sub">
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+
+<script type="text/javascript" src="../../js/docs.js"></script>
+
+</body>
+</html>
