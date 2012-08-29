@@ -206,10 +206,9 @@ class DirectoryService {
      * search.
      */
     def find(String baseDN, Map args) {
-        List<SearchResultEntry> entries = searchUsingFilter(baseDN, 
-            andFilterFromArgs(args).toString())
-        if (entries.size() > 0) {
-            return new DirectoryServiceEntry(entries.get(0), baseDN)
+        def entries = findAll(baseDN, args)
+        if (entries) {
+            return entries[0]
         }
         return null;
         
