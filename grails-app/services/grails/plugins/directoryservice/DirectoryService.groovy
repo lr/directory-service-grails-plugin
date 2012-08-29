@@ -125,7 +125,7 @@ class DirectoryService {
     static transactional = false
 
     /* Logger for this class. */
-    private Logger log = Logger.getLogger(DirectoryService.class);
+    private Logger log = Logger.getLogger(DirectoryService.class)
 
     /* grailsApplication, which is necessary for configuration info. */
     def grailsApplication
@@ -210,7 +210,7 @@ class DirectoryService {
         if (entries) {
             return entries[0]
         }
-        return null;
+        return null
         
     }
     
@@ -409,12 +409,12 @@ class DirectoryService {
         
         try {
             if (useSSL) {
-                SSLUtil sslUtil;
+                SSLUtil sslUtil
                 if (trustSSLCert) {
                     sslUtil = new SSLUtil(new TrustAllTrustManager())
                 }
                 else {
-                    sslUtil = new SSLUtil();
+                    sslUtil = new SSLUtil()
                 }
                 return new FailoverServerSet(
                     addressesArray, portsIntArray, sslUtil.createSSLSocketFactory(), options)
