@@ -224,13 +224,7 @@ class DirectoryService {
      * @return List of LdapServiceEntry objects.
      */
     def findAll(String baseDN, Map args) {
-        List<SearchResultEntry> entries = searchUsingFilter(baseDN, 
-            andFilterFromArgs(args).toString())
-        def list = []
-        entries.each {
-            list.add(new DirectoryServiceEntry(it, baseDN))
-        }
-        return list
+        return findAllUsingFilter(baseDN, andFilterFromArgs(args))
     }
     
     /**
