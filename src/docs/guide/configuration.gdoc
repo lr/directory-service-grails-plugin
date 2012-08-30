@@ -18,27 +18,31 @@ ou=groups,dc=someu,dc=edu
 
 So, we need to tell @DirectoryService@ about these branches, including the singular and plural names of the objects in those branches, the RDN attribute for the objects in those branches, and the source, i.e., what server contains this information.
 
+As of version 0.6.0, you can now specify which attributes to return by including a map of attributes. By default, all attributes which the bind can read are returned. If you want all attributes plus some operational attributes, like createTimestamp and modifyTimestamp, you would specify @['*', 'createTimestamp', 'modifyTimestamp']@. If you want all attributes plus operational attributes, use the @+@ character: @['*', '+']@. You can also limit the attributes returned: @['displayName', 'departmentNumber']@. The example below has some parts of the dit returning specific attributes, and some using the default of all attributes which the bind can read.
+
 The above branches would be defined in the @directoryService.dit@ as follows:
 
 {code}
 grails.plugins.directoryservice.dit = [
     'ou=people,dc=someu,dc=edu':[
-        'singular':'person',
-        'plural':'people',
-        'rdnAttribute':'uid',
-        'source':'directory'
+        singular: 'person',
+        plural: 'people',
+        rdnAttribute: 'uid',
+        source: 'directory',
+        attributes: ['*', 'createTimestamp', 'modifyTimestamp']
     ],
     'ou=departments,dc=someu,dc=edu':[
-        'singular':'department',
-        'plural':'departments',
-        'rdnAttribute':'ou',
-        'source':'directory'
+        singular: 'department',
+        plural: 'departments',
+        rdnAttribute: 'ou',
+        source: 'directory',
+        attributes: ['description', 'departmentNumber']
     ],
     'ou=groups,dc=someu,dc=edu':[
-        'singluar':'group',
-        'plural':'groups',
-        'rdnAttribute':'uid',
-        'source':'directory'
+        singluar: 'group',
+        plural: 'groups',
+        rdnAttribute: 'uid',
+        source: 'directory'
     ]
 ]
 {code}
@@ -63,7 +67,8 @@ grails.plugins.directoryservice.dit = [
         singular: 'person',
         plural: 'people',
         rdnAttribute: 'uid',
-        source: 'directory'
+        source: 'directory',
+        attributes ['*', '+']
     ],
     'ou=People,dc=someu,dc=edu':[
         singular: 'account',
