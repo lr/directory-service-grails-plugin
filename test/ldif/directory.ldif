@@ -10789,3 +10789,15 @@ description: This is the description for Smith, William.
 someueduempexpdate: 99991231235959Z
 someuedufacultyflag: false
 
+dn: ou=groups,dc=someu,dc=edu
+objectClass: top
+objectClass: organizationalunit
+ou: groups
+description: This is the Group container
+
+dn: cn=service desk,ou=groups,dc=someu,dc=edu
+objectClass: top
+objectClass: groupOfNames
+cn: service desk
+description: This is the Service Desk group
+member: uid=3,ou=people,dc=someu,dc=edu
