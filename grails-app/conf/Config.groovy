@@ -63,7 +63,8 @@ environments {
                 singular: 'person',
                 plural: 'people',
                 rdnAttribute: 'uid',
-                source: 'directory'
+                source: 'directory',
+                attributes: ['*', '+']
             ],
             'ou=departments,dc=someu,dc=edu':[
                 singular: 'department',
@@ -99,7 +100,8 @@ environments {
                 singular: 'peep',
                 plural: 'peeps',
                 rdnAttribute: 'uid',
-                source: 'directoryAnonymous'
+                source: 'directoryAnonymous',
+                attributes: ['cn', 'sn', 'creatorsName']
             ]
         ]
         

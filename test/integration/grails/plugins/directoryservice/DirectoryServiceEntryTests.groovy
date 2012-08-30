@@ -210,17 +210,18 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     }
     
     /**
-     * Test adding attribute that does not exist in the entry.
+     * Test adding attribute that does not exist in the entry. The number of
+     * attributes is 28 because we are getting operational attributes.
      */
     void testPropertyMissingAddAttribute() {
-        assertEquals dse.entry.getAttributes().size(), 21
+        assertEquals dse.entry.getAttributes().size(), 28
         dse.carLicense = 'B12345C'
         assertEquals dse.modifications.size(), 1
-        assertEquals dse.entry.getAttributes().size(), 22
+        assertEquals dse.entry.getAttributes().size(), 29
         assertEquals dse.carLicense, 'B12345C'
         dse.carLicense = null
         assertEquals dse.modifications.size(), 1
-        assertEquals dse.entry.getAttributes().size(), 21
+        assertEquals dse.entry.getAttributes().size(), 28
     }
     
     /**

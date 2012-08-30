@@ -237,8 +237,15 @@ class DirectoryService {
      * @return List of LdapServiceEntry objects.
      */
     def findAllUsingFilter(String baseDN, LDAPFilter filter) {
-        List<SearchResultEntry> entries = searchUsingFilter(baseDN,
-            filter.toString())
+        def dit = grailsApplication.config.grails.plugins.directoryservice.dit[baseDN]
+        List<SearchResultEntry> entries
+        if (dit?.attributes) {
+            entries = searchUsingFilter(baseDN, filter.toString(),
+                (String[])dit.attributes)
+        }
+        else {
+            entries = searchUsingFilter(baseDN, filter.toString())
+        }
         def list = []
         entries.each {
             list.add(new DirectoryServiceEntry(it, baseDN))

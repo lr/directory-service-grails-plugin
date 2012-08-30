@@ -253,6 +253,15 @@ class DirectoryServiceTests extends GroovyTestCase {
     }
     
     /**
+     * Test of specified attributes, which are "*" and "createTimestamp".
+     */
+    void testFindWithReturnAttributes() {
+        def person = directoryService.findPersonWhere(uid:'3')
+        assertEquals person.displayName, 'Mabel Rockland'
+        assertNotNull person.createTimestamp
+    }
+    
+    /**
      * Test search using an anonymous bind. The InMemoryDirectoryServer allows
      * anonymous binds.
      */
@@ -260,6 +269,20 @@ class DirectoryServiceTests extends GroovyTestCase {
         def people = directoryService.findPeepsWhere('sn':'nguyen')
         assertNotNull people
         assertEquals people.size(), 4
+     }
+     
+     /**
+      * Test that we are only returning the cn, sn, and creatorsName.
+      */
+     void testOnlySnAndCnReturned() {
+        def person = directoryService.findPeepWhere(uid:'3')
+        assertNotNull person
+        assertEquals person.sn, 'Rockland'
+        assertEquals person.cn, 'Rockland, Mabel'
+        assertEquals person.creatorsName, 'cn=Internal Root User'
+        assertNull person.givenName
+        assertNull person.employeeNumber
+        assertNull person.mail
      }
      
      /**
