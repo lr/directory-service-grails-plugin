@@ -153,6 +153,7 @@ class DirectoryServiceEntry {
                 }
             }
             // Now update the modifications list
+            /*
             if (value instanceof String || value instanceof String[]) {
                 updateModifications(name, value)
             }
@@ -160,6 +161,8 @@ class DirectoryServiceEntry {
                 updateModifications(name, 
                     value?.toArray(new String[value ? value.size(): 1]))
             }
+            */
+            updateModifications()
         }
     }
     
@@ -258,6 +261,10 @@ class DirectoryServiceEntry {
     }
     
     /**
+     * Note for 0.6.1: There is no reason to maintain this since the UnboundID SDK has
+     * a Entry.diff() method that does this for us! Plus, this was not a
+     * documented API, so I feel OK removing it.
+     *
      * Updates the modifications ArrayList with the UnboundID Modification
      * that will be used when the entry is updated in the directory.
      *
@@ -273,6 +280,7 @@ class DirectoryServiceEntry {
      * supplied attribute name.
      * @see #propertyMissing(String name, value)
      */
+    /*
     def updateModifications(String name, String... values) {
         if (searchResultEntry) {
             def exists = false
@@ -290,7 +298,7 @@ class DirectoryServiceEntry {
                 }
             }
             if (!exists) {
-                if (values) {
+                if (values?.size() > 0) {
                     modifications.add(new Modification(
                         ModificationType.REPLACE, name, values))
                 }
@@ -300,6 +308,17 @@ class DirectoryServiceEntry {
                 }
             }
         }
+    }
+    */
+    
+    /**
+     * Updates the {@code modifications} list by calling the UnboundID
+     * Entry.diff() method against the {@code searchResultEntry} and the
+     * modified {@code entry} objects. It uses the "REPLACE" method for
+     * doing modifications instead of the "DELETE"/"ADD" method.
+     */
+    def updateModifications() {
+        modifications = Entry.diff(searchResultEntry, entry, true, false)
     }
 
 }
