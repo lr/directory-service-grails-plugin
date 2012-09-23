@@ -310,6 +310,7 @@ class DirectoryServiceTests extends GroovyTestCase {
         person.sn = 'Evans-Peters'
         person.cn = ['Evans-Peters, Sally', 'Sally Evans-Peters', 'Sally Evans', 'Sally Peters']
         person.displayName = 'Sally Evans-Peters'
+        person.mail = ''
         assertTrue person.isDirty()
         directoryService.save(person)
         

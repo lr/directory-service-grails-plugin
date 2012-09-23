@@ -134,7 +134,9 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     /**
      * Test modification of one attribute using the updateModifications()
      * method directly.
+     * As of 0.6.1, You can not pass mods directly to updateModifications().
      */
+    /*
     void testUpdateModificationsOneAttribute() {
         assertEquals dse.modifications.size(), 0
         dse.updateModifications('mail', 'new.name@someu.edu')
@@ -150,11 +152,14 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.modifications.size(), 1
         assertEquals dse.modifications.get(0).getValues().length, 2
     }
+    */
     
     /**
      * Test modifications with more than one attribute using the
      * updateModifications() method directly.
+     * As of 0.6.1, You can not pass mods directly to updateModifications().
      */
+    /*
     void testUpdateModificationsMultipleAttributes() {
         assertEquals dse.modifications.size(), 0
         dse.updateModifications('mail', 'new.name@someu.edu')
@@ -175,6 +180,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         // Double check that cn is still 4
         assertEquals dse.modifications.get(1).getValues().length, 4
     }
+    */
     
     /**
      * Test propertyMissing() with a single value.
@@ -199,13 +205,12 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertTrue dse.isDirty()
         assertTrue dse.isDirty('mail')
         //assertEquals dse.mail, ['new.name@someu.edu', 'another.email@someu.edu']
-        assertEquals dse.mods['mail'], ['new.name@someu.edu', 'another.email@someu.edu']
         assertEquals dse.modifications.size(), 1
         assertEquals dse.modifications.get(0).getValues().length, 2
         
         dse.cn = ['Julie Nguyen', 'Nguyen, Julie', 'Julie A Nguyen', 'Nguyen, Julie A']
         assertEquals dse.modifications.size(), 2
-        assertEquals dse.modifications.get(1).getValues().length, 4
+        assertEquals dse.modifications.get(0).getValues().length, 4
         assertEquals dse.getAttributeValues('cn').length, 4
     }
     
@@ -220,7 +225,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.entry.getAttributes().size(), 29
         assertEquals dse.carLicense, 'B12345C'
         dse.carLicense = null
-        assertEquals dse.modifications.size(), 1
+        assertEquals dse.modifications.size(), 0
         assertEquals dse.entry.getAttributes().size(), 28
     }
     
@@ -232,7 +237,8 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         dse.mail = ''
         assertNull dse.mail
         assertEquals dse.modifications.size(), 1
-        
+        assertEquals dse.modifications[0].getModificationType().getName(), 'REPLACE'
+
         dse.mail = 'some.mail@someu.edu'
         assertEquals dse.modifications.size(), 1
         assertEquals dse.mail, 'some.mail@someu.edu'
