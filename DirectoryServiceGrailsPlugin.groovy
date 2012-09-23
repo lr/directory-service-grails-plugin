@@ -1,6 +1,6 @@
 class DirectoryServiceGrailsPlugin {
     // the plugin version
-    def version = "0.6.0"
+    def version = "0.6.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.0 > *"
     // the other plugins this plugin depends on
@@ -19,7 +19,7 @@ Grails Plugin which makes interacting with directory (LDAP) servers a breeze.
 '''
 
     // URL to the plugin's documentation
-    def documentation = "https://github.com/lr/directory-service/wiki"
+    def documentation = "http://lr.github.com/directory-service/"
 
     // Extra (optional) plugin metadata
 
