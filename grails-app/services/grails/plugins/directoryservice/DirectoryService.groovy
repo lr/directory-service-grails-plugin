@@ -314,17 +314,22 @@ class DirectoryService {
     def save(DirectoryServiceEntry entry) {
         def conn = connection(entry?.baseDN)
         if (conn) {
-            try {
-                conn.modify(entry?.entry?.getDN(), entry.modifications)
-                entry.cleanupAfterSave()
-                return true
+            if (entry.modifications) {
+                try {
+                    conn.modify(entry?.entry?.getDN(), entry.modifications)
+                    entry.cleanupAfterSave()
+                    return true
+                }
+                catch (LDAPException e) {
+                    log.error "Could not save/modify ${entry?.entry?.getDN()}: ${e.getMessage()}"
+                    entry.errors['save'] = e.getMessage()
+                }
+                finally {
+                    conn?.close()
+                }
             }
-            catch (LDAPException e) {
-                log.error "Could not save/modify ${entry?.entry?.getDN()}: ${e.getMessage()}"
-                entry.errors['save'] = e.getMessage()
-            }
-            finally {
-                conn?.close()
+            else {
+                log.info "There were not modifications in ${entry.dn}, so no reason to save."
             }
         }
         else {
@@ -499,7 +504,7 @@ class DirectoryService {
     def search(String base, String attribute, String value,
         String... attrs='*') {
         def filter = createFilter("(${attribute}=${value})")
-        return searchUsingFilter(base, filter.toString())
+        return searchUsingFilter(base, filter.toString(), attrs)
     }
     
     /**

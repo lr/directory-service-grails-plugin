@@ -330,5 +330,13 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertEquals person2.initials, 'SDE'
         assertEquals person2.telephoneNumber, '+1 022 028 9350'
      }
+     
+     /**
+      * Test save() with no mods. Should not throw an exception.
+      */
+     void testSaveWithNoMods() {
+        def person = directoryService.getPerson('2')
+        directoryService.save(person)
+     }
     
 }
