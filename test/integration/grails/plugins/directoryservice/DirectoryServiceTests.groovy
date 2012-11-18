@@ -337,6 +337,13 @@ class DirectoryServiceTests extends GroovyTestCase {
      void testSaveWithNoMods() {
         def person = directoryService.getPerson('2')
         directoryService.save(person)
+        
+        person.sn = 'Something New'
+        assertTrue person.isDirty()
+        person.sn = 'Evans'
+        assertTrue person.isDirty()
+        directoryService.save(person)
+        assertFalse person.isDirty()
      }
     
 }

@@ -329,6 +329,7 @@ class DirectoryService {
                 }
             }
             else {
+                entry.cleanupAfterSave()
                 log.info "There were not modifications in ${entry.dn}, so no reason to save."
             }
         }
