@@ -26,7 +26,7 @@ This will create a file called `grails-directory-service-<version>.zip`, where `
 Once you have the `.zip` created, switch to your Grails project and run the following command from the base directory of your project:
 
 ```groovy
-grails install-plugin <path to>/grails-directory-service-&lt;version&gt;.zip
+grails install-plugin <path to>/grails-directory-service-<version>.zip
 ```
 
 ## Configure
