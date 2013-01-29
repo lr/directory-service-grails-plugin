@@ -218,7 +218,7 @@ class DirectoryServiceTests extends GroovyTestCase {
      * Test findAllPeopleWhere with multiple arguments, and sort
      */
     void testFindPeopleWhereMultipleArgsWithSort() {
-        def people = directoryService.findPeopleWhere('sn':'williams', 'st':'ca', [sort:'cn'])
+        def people = directoryService.findPeopleWhere(sn:'williams', st:'ca', [sort:'cn'])
         assertNotNull people
         assertEquals people.size(), 4
         assertEquals people[0].cn, 'Williams, Jim'
