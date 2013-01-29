@@ -15,9 +15,9 @@ Since DirectoryService is not an official Grails plugin yet, you will have to co
 
 Download one of the tagged versions, and then from inside of the project, run the following command:
 
-<pre>
+```groovy
 grails package-plugin
-</pre>
+```
 
 This will create a file called `grails-directory-service-<version>.zip`, where `<version>` is the version of the plugin.
 
@@ -25,9 +25,9 @@ This will create a file called `grails-directory-service-<version>.zip`, where `
 
 Once you have the `.zip` created, switch to your Grails project and run the following command from the base directory of your project:
 
-<pre>
+```groovy
 grails install-plugin <path to>/grails-directory-service-&lt;version&gt;.zip
-</pre>
+```
 
 ## Configure
 
@@ -44,7 +44,7 @@ The `grails.plugins.directoryservice.sources` Map is called sources for a reason
 
 The `grails.plugins.directoryservice.sources` uses the following syntax:
 
-<pre>
+```groovy
 ds.sources = [
     'source name':[
         'address': String // Single address, multiple separated by a ",".
@@ -55,11 +55,11 @@ ds.sources = [
         'bindPassword': String
     ],
 ]
-</pre>
+```
 
 So, if you have two sources, like an "enterprise directory", and "AD Global Catalog", your `grails.plugins.directoryservice.sources` might look like this:
 
-<pre>
+```groovy
 grails.plugins.directoryservice.sources = [
     'directory':[
         'address': 'ldap.someu.edu',
@@ -78,7 +78,7 @@ grails.plugins.directoryservice.sources = [
         'bindPassword': 'An0therPassw0rd!'
     ],
 ]
-</pre>
+```
 
 You will see how these sources are referenced in the DIT Map, below.
 
@@ -88,7 +88,7 @@ The `grails.plugins.directoryservice.dit` is another Map that is literally a map
 
 The `ds.dit` uses the following syntax:
 
-<pre>
+```groovy
 grails.plugins.directoryservice.dit = [
     'base DN of the branch':[
         'singular': String,
@@ -97,11 +97,11 @@ grails.plugins.directoryservice.dit = [
         'source': String
     ]
 ]
-</pre>
+```
 
 So, let's define our four branches and relate them to the two sources we defined in `grails.plugins.directoryservice.sources`:
 
-<pre>
+```groovy
 grails.plugins.directoryservice.dit = [
     'ou=people,dc=someu,dc=edu':[
         'singular': 'person',
@@ -134,7 +134,7 @@ grails.plugins.directoryservice.dit = [
         'source': 'adGC'
     ]
 ]
-</pre>
+```
 
 As you can see above, we have two `ou=groups,dc=someu,dc=edu` branches, one in our enterprise directory, and one in AD. So, we get around this by making one of them -- in this case the AD groups OU -- have an uppercase "G". This works because Map keys are case-sensitive, but thankfully, directories usually do not care about case when specifying a base!
 
@@ -146,15 +146,15 @@ See the Usage section for details on how to perform searches using the informati
 
 DirectoryService is just like any other [Grails Service](http://grails.org/doc/latest/guide/single.html#services), and can be added to your Controller and Service classes the way any other service is added.
 
-<pre>
+```groovy
 def directoryService
-</pre>
+```
 
 or
 
-<pre>
+```groovy
 DirectoryService directoryService
-</pre>
+```
 
 ### Search (Find)
 
@@ -168,10 +168,10 @@ At this point you will see why we use a singular and plural name for each branch
 
 Using the example `dit` above, to find a person, you would do the following:
 
-<pre>
+```groovy
 def person = directoryService.findPersonWhere(uid:'12345')
 def person = directoryService.findPersonWhere(sn:'rockwell', givenName:'lucas')
-</pre>
+```
 
 Since `uid` is the RDN attribute for the `ou=people` branch, the first search above is pretty much guaranteed to find just one person. Whereas the second could potentially fine more then one person. However, in both cases, DirectoryService will only return at most <strong>one</strong> record (which will be a DirectoryServiceEntry object). It only returns one because you are using the singular `findPersonWhere`, and semantically that means you only want one person.
 
@@ -181,22 +181,22 @@ This is similar to the GORM `get()` method.
 
 To find more than one person, you would use the plural form that you defined in `dit`. For instance, for your people branch, you would use `findPeopleWhere`:
 
-<pre>
+```groovy
 def people = directoryService.findPeopleWhere(sn:'rockwell')
 def people = directoryService.findPeopleWhere(departmentNumber:'12345')
-</pre>
+```
 
 Or multiple key/value pairs:
 
-<pre>
+```groovy
 def people = directoryService.findPeopleWhere(sn:'rockwell', st:'ca')
-</pre>
+```
 
 If you are searching for more than one of something, you can sort the result by providing an optional Map with a single key `sort` and the attribute by which you wish to sort:
 
-<pre>
+```groovy
 def people = directoryService.findPeopleWhere('sn':'rockwell', [sort:'cn'])
-</pre>
+```
 
 Or:
 
