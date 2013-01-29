@@ -200,9 +200,11 @@ def people = directoryService.findPeopleWhere('sn':'rockwell', [sort:'cn'])
 
 Or:
 
-<pre>
+```groovy
 def people = directoryService.findPeopleWhere(sn:'rockwell', st:'ca', [sort:'cn'])
-</pre>
+```
+
+Of course, the attribute you specify in the sort must be included in the return params in the dit entry (and the bind you are using must also have access to the attribute). Also, at this time, you can only specify one attribute on which to sort. If you want to be able to sort on more than one attribute, please let me know.
 
 ### Update (Save)
 
