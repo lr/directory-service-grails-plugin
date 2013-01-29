@@ -5,7 +5,7 @@ DirectoryService is a [Grails](http://grails.org/) [plugin](http://grails.org/pl
 
 DirectoryService is made up of two key classes, the DirectoryService Grails Service class, and the DirectoryServiceEntry class, the class to which results are mapped. See the official documentation for more information about each of these classes.
 
-Official can be found at [http://lr.github.com/directory-service/].
+Official documentation can be found at [http://lr.github.com/directory-service/].
 
 ## Install
 
@@ -26,7 +26,7 @@ This will create a file called `grails-directory-service-<version>.zip`, where `
 Once you have the `.zip` created, switch to your Grails project and run the following command from the base directory of your project:
 
 <pre>
-grails install-plugin <path to>/grails-directory-service-<version>.zip
+grails install-plugin <path to>/grails-directory-service-&lt;version&gt;.zip
 </pre>
 
 ## Configure
@@ -169,19 +169,39 @@ At this point you will see why we use a singular and plural name for each branch
 Using the example `dit` above, to find a person, you would do the following:
 
 <pre>
-def person = directoryService.findPersonWhere('uid':'12345')
-def person = directoryService.findPersonWhere('sn':'rockwell', 'givenName':'lucas')
+def person = directoryService.findPersonWhere(uid:'12345')
+def person = directoryService.findPersonWhere(sn:'rockwell', givenName:'lucas')
 </pre>
 
 Since `uid` is the RDN attribute for the `ou=people` branch, the first search above is pretty much guaranteed to find just one person. Whereas the second could potentially fine more then one person. However, in both cases, DirectoryService will only return at most <strong>one</strong> record (which will be a DirectoryServiceEntry object). It only returns one because you are using the singular `findPersonWhere`, and semantically that means you only want one person.
 
 This is similar to the GORM `get()` method.
 
+#### Find People
+
 To find more than one person, you would use the plural form that you defined in `dit`. For instance, for your people branch, you would use `findPeopleWhere`:
 
 <pre>
-def people = directoryService.findPeopleWhere('sn':'rockwell')
-def people = directoryService.findPeopleWhere('departmentNumber':'12345')
+def people = directoryService.findPeopleWhere(sn:'rockwell')
+def people = directoryService.findPeopleWhere(departmentNumber:'12345')
+</pre>
+
+Or multiple key/value pairs:
+
+<pre>
+def people = directoryService.findPeopleWhere(sn:'rockwell', st:'ca')
+</pre>
+
+If you are searching for more than one of something, you can sort the result by providing an optional Map with a single key `sort` and the attribute by which you wish to sort:
+
+<pre>
+def people = directoryService.findPeopleWhere('sn':'rockwell', [sort:'cn'])
+</pre>
+
+Or:
+
+<pre>
+def people = directoryService.findPeopleWhere(sn:'rockwell', st:'ca', [sort:'cn'])
 </pre>
 
 ### Update (Save)
