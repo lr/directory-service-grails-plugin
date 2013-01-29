@@ -34,6 +34,8 @@ import com.unboundid.ldap.sdk.SearchResult
 import com.unboundid.ldap.sdk.SearchResultEntry
 import com.unboundid.ldap.sdk.SearchRequest
 import com.unboundid.ldap.sdk.SearchScope
+import com.unboundid.ldap.sdk.controls.ServerSideSortRequestControl
+import com.unboundid.ldap.sdk.controls.SortKey
 import com.unboundid.util.ssl.SSLUtil
 import com.unboundid.util.ssl.TrustAllTrustManager
 
@@ -158,7 +160,8 @@ class DirectoryService {
                         name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
                     }
                     if (method) {
-                        return findAll(method.key, args[0])
+                        return args.size() > 1 ?
+                            findAll(method.key, args[0], args[1]) : findAll(method.key, args[0])
                     }
                     else {
                         // Didn't find plural, so check for singular
@@ -166,6 +169,8 @@ class DirectoryService {
                             name.matches(/^find${it.value.singular?.capitalize()}Where*$/)
                         }
                         if (method) {
+                            // No need to worry about sort because we are
+                            // only return one max, anyway.
                             return find(method.key, args[0])
                         }
                     }
@@ -176,7 +181,10 @@ class DirectoryService {
                     name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
                 }
                 if (method) {
-                    return findAllUsingFilter(method.key, args[0])
+                    //return findAllUsingFilter(method.key, args[0])
+                    return args.size() > 1 ?
+                        findAllUsingFilter(method.key, args[0], args[1]) : 
+                            findAllUsingFilter(method.key, args[0])
                 }
             }
             else if (args[0] instanceof String) {
@@ -223,8 +231,8 @@ class DirectoryService {
      * into an AND filter.
      * @return List of LdapServiceEntry objects.
      */
-    def findAll(String baseDN, Map args) {
-        return findAllUsingFilter(baseDN, andFilterFromArgs(args))
+    def findAll(String baseDN, Map args, sortParams=null) {
+        return findAllUsingFilter(baseDN, andFilterFromArgs(args), sortParams)
     }
     
     /**
@@ -236,15 +244,15 @@ class DirectoryService {
      * search request
      * @return List of LdapServiceEntry objects.
      */
-    def findAllUsingFilter(String baseDN, LDAPFilter filter) {
+    def findAllUsingFilter(String baseDN, LDAPFilter filter, sortParams=null) {
         def dit = grailsApplication.config.grails.plugins.directoryservice.dit[baseDN]
         List<SearchResultEntry> entries
         if (dit?.attributes) {
-            entries = searchUsingFilter(baseDN, filter.toString(),
+            entries = searchUsingFilter(baseDN, filter.toString(), sortParams,
                 (String[])dit.attributes)
         }
         else {
-            entries = searchUsingFilter(baseDN, filter.toString())
+            entries = searchUsingFilter(baseDN, filter.toString(), sortParams)
         }
         def list = []
         entries.each {
@@ -502,10 +510,10 @@ class DirectoryService {
      * @return A List of SearchResultEntry objects.
      * @see #searchUsingFilter(final String base, final String filter, String... attrs='*')
      */
-    def search(String base, String attribute, String value,
+    def search(String base, String attribute, String value, sortParams,
         String... attrs='*') {
         def filter = createFilter("(${attribute}=${value})")
-        return searchUsingFilter(base, filter.toString(), attrs)
+        return searchUsingFilter(base, filter.toString(), sortParams, attrs)
     }
     
     /**
@@ -522,13 +530,17 @@ class DirectoryService {
      * @return A List of SearchResultEntry objects.
      */
     def searchUsingFilter(final String base, final String filter,
-        String... attrs='*') {
+        sortParams=null, String... attrs='*') {
 
         SearchRequest searchRequest = new SearchRequest(
                 base, 
                 SearchScope.SUB, 
                 filter,
                 attrs)
+        if (sortParams && sortParams instanceof Map && sortParams.sort) {
+            searchRequest.addControl(new ServerSideSortRequestControl(
+                    new SortKey(sortParams.sort)))
+        }
         def conn = connection(base)
         try {
             SearchResult results = conn.search(searchRequest)

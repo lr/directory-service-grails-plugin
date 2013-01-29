@@ -215,6 +215,19 @@ class DirectoryServiceTests extends GroovyTestCase {
     }
     
     /**
+     * Test findAllPeopleWhere with multiple arguments, and sort
+     */
+    void testFindPeopleWhereMultipleArgsWithSort() {
+        def people = directoryService.findPeopleWhere('sn':'williams', 'st':'ca', [sort:'cn'])
+        assertNotNull people
+        assertEquals people.size(), 4
+        assertEquals people[0].cn, 'Williams, Jim'
+        assertEquals people[1].cn, 'Williams, Matthew'
+        assertEquals people[2].cn, 'Williams, Russ'
+        assertEquals people[3].cn, 'Williams, Sandy'
+    }
+    
+    /**
      * Test the createFilter method.
      */
     void testCreateFilter() {
@@ -250,6 +263,19 @@ class DirectoryServiceTests extends GroovyTestCase {
         people = directoryService.findPeopleWhere(filter)
         assertNotNull people
         assertEquals people.size(), 8
+    }
+    
+    /**
+     * Test the findAllPeopleWhere method when supplying a filter and a sort
+     * attribute.
+     */
+    void testFindAllPeopleWhereUsingFilterWithSort() {
+        def filter = directoryService.createFilter('(&(sn=smith))')
+        def people = directoryService.findPeopleWhere(filter, [sort:'cn'])
+        assertNotNull people
+        assertEquals people.size(), 5
+        assertEquals people[0].cn, 'Smith, Catherine'
+        assertEquals people[4].cn, 'Smith, William'
     }
     
     /**
