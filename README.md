@@ -36,7 +36,7 @@ DirectoryService requires two Maps to be configured:
 * `grails.plugins.directoryservice.sources`
 * `grails.plugins.directoryservice.dit`
 
-Since both of these are Groovy Map objects, they must be put in a `.groovy` file (like `grails-app/conf/Config.groovy`), and can not go in a `.properties` file.
+Since both of these are Groovy Map objects, they must be put in a `.groovy` file (like `grails-app/conf/Config.groovy` or some other ConfigSlurper file), and can not go in a `.properties` file.
 
 ### Directory Sources Map
 
@@ -47,12 +47,12 @@ The `grails.plugins.directoryservice.sources` uses the following syntax:
 ```groovy
 ds.sources = [
     'source name':[
-        'address': String // Single address, multiple separated by a ",".
-        'port': String, // Single port, or multiple separated by a ",". Must match 'address' number.
-        'useSSL': boolean,
-        'trustSSLCert': boolean,
-        'bindDN': String,
-        'bindPassword': String
+        address: String // Single address, multiple separated by a ",".
+        port: String, // Single port, or multiple separated by a ",". Must match 'address' number.
+        useSSL: boolean,
+        trustSSLCert: boolean,
+        bindDN: String,
+        bindPassword: String
     ],
 ]
 ```
@@ -62,20 +62,20 @@ So, if you have two sources, like an "enterprise directory", and "AD Global Cata
 ```groovy
 grails.plugins.directoryservice.sources = [
     'directory':[
-        'address': 'ldap.someu.edu',
-        'port': '636',
-        'useSSL': true,
-        'trustSSLCert': true
-        'bindDN': 'cn=some bind DN',
-        'bindPassword': 'MyPassw0rd!'
+        address: 'ldap.someu.edu',
+        port: '636',
+        useSSL: true,
+        trustSSLCert: true
+        bindDN: 'cn=some bind DN',
+        bindPassword: 'MyPassw0rd!'
     ],
     'adGC':[
-        'address': 'adgc.someu.edu',
-        'port': '3269',
-        'useSSL': true,
-        'trustSSLCert': true
-        'bindDN': 'cn=another bind DN',
-        'bindPassword': 'An0therPassw0rd!'
+        address: 'adgc.someu.edu',
+        port: '3269',
+        useSSL: true,
+        trustSSLCert: true
+        bindDN: 'cn=another bind DN',
+        bindPassword: 'An0therPassw0rd!'
     ],
 ]
 ```
@@ -91,10 +91,11 @@ The `ds.dit` uses the following syntax:
 ```groovy
 grails.plugins.directoryservice.dit = [
     'base DN of the branch':[
-        'singular': String,
-        'plural': String,
-        'rdnAttribute': String,
-        'source': String
+        singular: String,
+        plural: String,
+        rdnAttribute: String,
+        source: String,
+        attributes: ['*'] // Optional, and default is *. See examples below.
     ]
 ]
 ```
@@ -104,34 +105,37 @@ So, let's define our four branches and relate them to the two sources we defined
 ```groovy
 grails.plugins.directoryservice.dit = [
     'ou=people,dc=someu,dc=edu':[
-        'singular': 'person',
-        'plural': 'people',
-        'rdnAttribute': 'uid',
-        'source':'directory'
+        singular: 'person',
+        plural: 'people',
+        rdnAttribute: 'uid',
+        source:'directory',
+        attributes: ['*', 'isMemberOf']
     ],
     'ou=departments,dc=someu,dc=edu':[
-        'singular': 'department',
-        'plural': 'departments',
-        'rdnAttribute': 'ou',
-        'source': 'directory'
+        singular: 'department',
+        plural: 'departments',
+        rdnAttribute: 'ou',
+        source: 'directory',
+        attributes: ['*', '+']
     ],
     'ou=groups,dc=someu,dc=edu':[
-        'singular': 'directoryGroup',
-        'plural': 'directoryGroups',
-        'rdnAttribute': 'cn',
-        'source': 'directory'
+        singular: 'directoryGroup',
+        plural: 'directoryGroups',
+        rdnAttribute: 'cn',
+        source: 'directory'
     ],
     'ou=accounts,dc=someu,dc=edu':[
-        'singular': 'account',
-        'plural': 'accounts',
-        'rdnAttribute': 'cn',
-        'source': 'adGC'
+        singular: 'account',
+        plural: 'accounts',
+        rdnAttribute: 'cn',
+        source': 'adGC',
+        attributes: ['sAMAccountName', 'employeeID', 'givenName', 'sn', 'memberOf']
     ],
     'ou=Groups,dc=someu,dc=edu':[
-        'singular': 'adGroup',
-        'plural': 'adGroups',
-        'rdnAttribute': 'cn',
-        'source': 'adGC'
+        singular: 'adGroup',
+        plural: 'adGroups',
+        rdnAttribute: 'cn',
+        source: 'adGC'
     ]
 ]
 ```
