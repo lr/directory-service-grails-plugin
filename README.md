@@ -214,14 +214,14 @@ Of course, the attribute you specify in the sort must be included in the return 
 
 To be GORM-like, update is implemented as `save`, but unlike GORM, it is implemented on the DirectoryService object, and not the entry object itself. Below is an example of finding, updating, and then saving an entry:
 
-<pre>
+```groovy
 def person = directoryService.findPersonWhere('employeeNumber':'23576')
 person.sn = 'Franklin-Jackson'
 person.cn = ['Sally Franklin-Jackson', 'Franklin-Jackson, Sally']
 person.displayName = 'Sally Franklin-Jackson'
 person.mail = 'sally.franklin-jackson@somu.edu'
 directoryService.save(person)
-</pre>
+```
 
 See the official docs and reference guide for more details about saving objects back to the directory.
 
