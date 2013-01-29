@@ -128,7 +128,7 @@ grails.plugins.directoryservice.dit = [
         singular: 'account',
         plural: 'accounts',
         rdnAttribute: 'cn',
-        source': 'adGC',
+        source: 'adGC',
         attributes: ['sAMAccountName', 'employeeID', 'givenName', 'sn', 'memberOf']
     ],
     'ou=Groups,dc=someu,dc=edu':[
