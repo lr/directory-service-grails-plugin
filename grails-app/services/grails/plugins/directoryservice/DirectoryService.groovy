@@ -19,6 +19,7 @@ import java.security.GeneralSecurityException
 import java.util.LinkedList
 import java.util.ArrayList
 
+import com.unboundid.ldap.sdk.DN
 import com.unboundid.ldap.sdk.Entry
 import com.unboundid.ldap.sdk.FailoverServerSet
 import com.unboundid.ldap.sdk.Filter as LDAPFilter
@@ -169,7 +170,7 @@ class DirectoryService {
                             name.matches(/^find${it.value.singular?.capitalize()}Where*$/)
                         }
                         if (method) {
-                            // No need to worry about sort because we are
+                            // No need to worry about sort because we
                             // only return one max, anyway.
                             return find(method.key, args[0])
                         }
@@ -195,6 +196,21 @@ class DirectoryService {
                     if (method) {
                         def dit = grailsApplication.config.grails.plugins.directoryservice.dit[method.key]
                         return find(method.key, [(dit.rdnAttribute):args[0]])
+                    }
+                }
+                else if (name == 'findSubentriesWhere' && args.size() > 1 ) {
+                    println "dn in findSubentriesWhere is: ${args[0]}"
+                    // args[0] must have the DN, args[1] is the map, and
+                    // args[2] would be the sortParams.
+                    if (args[1] instanceof LDAPFilter) {
+                        return args.size() > 2 ?
+                            findAllUsingFilter(args[0], args[1], args[2]) :
+                                findAllUsingFilter(args[0], args[1])
+                    }
+                    else {
+                        return args.size() > 2 ?
+                            findAll(args[0], args[1], args[2]) :
+                                findAll(args[0], args[1])
                     }
                 }
             }
@@ -480,6 +496,11 @@ class DirectoryService {
      */
     def sourceNameFromBase(String base) {
         def dit = grailsApplication.config.grails.plugins.directoryservice.dit[base]
+        // Might be looking for subentries, so we need to get the parent
+        // and try again
+        if (!dit) {
+            return sourceNameFromBase(new DN(base)?.getParent().toString())
+        }
         return dit.source
     }
     
