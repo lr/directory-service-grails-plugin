@@ -37,6 +37,38 @@ description: This is the description for Smith, John.
 someueduempexpdate: 20120701070000Z
 someuedufacultyflag: false
 
+dn: cn=Starlight Room,uid=0,ou=people,dc=someu,dc=edu
+objectClass: top
+objectClass: room
+cn: Starlight Room
+description: My Starlight Room.
+roomNumber: 2001
+telephoneNumber: +1 415 222 4322
+
+dn: cn=Main Office,uid=0,ou=people,dc=someu,dc=edu
+objectClass: top
+objectClass: room
+cn: Main Office
+description: My main office. See Lab for my Lab info.
+roomNumber: 1234
+telephoneNumber: +1 415 222 4321
+
+dn: cn=Lab,uid=0,ou=people,dc=someu,dc=edu
+objectClass: top
+objectClass: room
+cn: Lab
+description: My lab.
+roomNumber: 9823
+telephoneNumber: +1 415 222 4322
+
+dn: cn=Cafe,uid=0,ou=people,dc=someu,dc=edu
+objectClass: top
+objectClass: room
+cn: Cafe
+description: My cafe
+roomNumber: 1
+telephoneNumber: +1 415 222 4323
+
 dn: uid=1,ou=people,dc=someu,dc=edu
 objectClass: top
 objectClass: person
