@@ -225,6 +225,12 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertEquals people[1].cn, 'Williams, Matthew'
         assertEquals people[2].cn, 'Williams, Russ'
         assertEquals people[3].cn, 'Williams, Sandy'
+        
+        people = directoryService.findPeopleWhere(sn:'williams', l:'berkeley', [sort:'cn'])
+        assertNotNull people
+        assertEquals people.size(), 2
+        assertEquals people[0].cn, 'Williams, Jim'
+        assertEquals people[1].cn, 'Williams, Matthew'
     }
     
     /**
@@ -285,6 +291,29 @@ class DirectoryServiceTests extends GroovyTestCase {
         def person = directoryService.findPersonWhere(uid:'3')
         assertEquals person.displayName, 'Mabel Rockland'
         assertNotNull person.createTimestamp
+    }
+    
+    /**
+     * Test of sub entries.
+     */
+    void testFindSubentries() {
+        def entries = directoryService.findSubentriesWhere(
+            'uid=0,ou=people,dc=someu,dc=edu',
+            [objectClass:'room'])
+        assertNotNull entries
+        assertEquals entries.size(), 4
+
+        entries = directoryService.findSubentriesWhere(
+            'uid=0,ou=people,dc=someu,dc=edu',
+            [objectClass:'room'],
+            [sort:'cn'])
+        assertNotNull entries
+        assertEquals entries.size(), 4
+        assertEquals entries[0].cn, 'Cafe'
+        assertEquals entries[1].cn, 'Lab'
+        assertEquals entries[2].cn, 'Main Office'
+        assertEquals entries[3].cn, 'Starlight Room'
+        
     }
     
     /**
