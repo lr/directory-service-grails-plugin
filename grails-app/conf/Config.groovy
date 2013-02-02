@@ -8,7 +8,7 @@ environments {
         // failover! Other, over-the-wire servers have been tested
         // as well.
         grails.plugins.directoryservice.sources = [
-            'directory':[
+            directory:[
                 address: 'localhost , localhost',
                 port: ' 11389 ,33389',
                 useSSL: false,
@@ -17,7 +17,7 @@ environments {
                 bindDN: 'cn=Directory Manager',
                 bindPassword: 'password'
             ],
-            'ad':[
+            ad:[
                 address: 'localhost',
                 port: '33268',
                 useSSL: false,
@@ -26,7 +26,7 @@ environments {
                 bindDN: 'cn=AD Manager',
                 bindPassword: 'password'
             ],
-            'directoryAnonymous':[
+            directoryAnonymous:[
                 address: 'localhost',
                 port: '33389',
                 useSSL: false,
@@ -40,7 +40,7 @@ environments {
         // just made up for our tests, and is not part of the API
         // for this project.
         grails.plugins.directoryservice.sourcesForInMemoryServer = [
-            'directory':[
+            directory:[
                 address: 'localhost',
                 port: '33389',
                 useSSL: false,
@@ -48,7 +48,7 @@ environments {
                 bindDN: 'cn=Directory Manager',
                 bindPassword: 'password'
             ],
-            'ad':[
+            ad:[
                 address: 'localhost',
                 port: '33268',
                 useSSL: false,
