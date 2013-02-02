@@ -315,6 +315,23 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertEquals entries[3].cn, 'Starlight Room'
         
     }
+
+    /**
+     * Test of sub entries using a filter instead of a Map.
+     */
+    void testFindSubentriesUsingFilter() { 
+        def filter = directoryService.createFilter('(&(objectClass=room))')
+        def entries = directoryService.findSubentriesWhere(
+            'uid=0,ou=people,dc=someu,dc=edu',
+            filter,
+            [sort:'cn'])
+        assertNotNull entries
+        assertEquals entries.size(), 4
+        assertEquals entries[0].cn, 'Cafe'
+        assertEquals entries[1].cn, 'Lab'
+        assertEquals entries[2].cn, 'Main Office'
+        assertEquals entries[3].cn, 'Starlight Room'
+    }
     
     /**
      * Test search using an anonymous bind. The InMemoryDirectoryServer allows
