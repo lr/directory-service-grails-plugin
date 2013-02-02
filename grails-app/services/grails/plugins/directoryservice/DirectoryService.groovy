@@ -199,7 +199,6 @@ class DirectoryService {
                     }
                 }
                 else if (name == 'findSubentriesWhere' && args.size() > 1 ) {
-                    println "dn in findSubentriesWhere is: ${args[0]}"
                     // args[0] must have the DN, args[1] is the map, and
                     // args[2] would be the sortParams.
                     if (args[1] instanceof LDAPFilter) {
