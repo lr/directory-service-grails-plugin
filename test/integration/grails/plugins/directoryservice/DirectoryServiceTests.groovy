@@ -106,7 +106,7 @@ class DirectoryServiceTests extends GroovyTestCase {
      */
     void testFind() {
         def args = ['sn':'evans']
-        def result = directoryService.find(peopleBaseDn, args)
+        def result = directoryService.findEntry(peopleBaseDn, args)
         
         assertNotNull result
         assert result instanceof grails.plugins.directoryservice.DirectoryServiceEntry
@@ -125,7 +125,7 @@ class DirectoryServiceTests extends GroovyTestCase {
      */
     void testFindADOU() {
         def args = ['givenName':'jill']
-        def result = directoryService.find(accountsEconomicsBaseDn, args)
+        def result = directoryService.findEntry(accountsEconomicsBaseDn, args)
         
         assertNotNull result
         assert result instanceof grails.plugins.directoryservice.DirectoryServiceEntry
@@ -143,7 +143,7 @@ class DirectoryServiceTests extends GroovyTestCase {
      */
     void testFindAll() {
         def args = ['sn':'James']
-        def results = directoryService.findAll(peopleBaseDn, args)
+        def results = directoryService.findEntries(peopleBaseDn, args)
         
         assertNotNull results
         assert results[0] instanceof grails.plugins.directoryservice.DirectoryServiceEntry
@@ -158,7 +158,7 @@ class DirectoryServiceTests extends GroovyTestCase {
      */
     void testFindAllADOU() {
         def args = ['givenName':'jill']
-        def results = directoryService.findAll(accountsEconomicsBaseDn, args)
+        def results = directoryService.findEntries(accountsEconomicsBaseDn, args)
         
         assertNotNull results
         assert results[0] instanceof grails.plugins.directoryservice.DirectoryServiceEntry
@@ -251,7 +251,7 @@ class DirectoryServiceTests extends GroovyTestCase {
         def filter = directoryService.createFilter('(&(sn=wa*))')
         assert filter instanceof LDAPFilter
         
-        def people = directoryService.findAllUsingFilter(peopleBaseDn, filter)
+        def people = directoryService.findEntriesUsingFilter(peopleBaseDn, filter)
         assertNotNull people
         assertEquals people.size(), 16
     }

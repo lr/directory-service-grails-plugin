@@ -162,7 +162,8 @@ class DirectoryService {
                     }
                     if (method) {
                         return args.size() > 1 ?
-                            findAll(method.key, args[0], args[1]) : findAll(method.key, args[0])
+                            findEntries(method.key, args[0], args[1]) : 
+                                findEntries(method.key, args[0])
                     }
                     else {
                         // Didn't find plural, so check for singular
@@ -172,7 +173,7 @@ class DirectoryService {
                         if (method) {
                             // No need to worry about sort because we
                             // only return one max, anyway.
-                            return find(method.key, args[0])
+                            return findEntry(method.key, args[0])
                         }
                     }
                 }
@@ -184,8 +185,8 @@ class DirectoryService {
                 if (method) {
                     //return findAllUsingFilter(method.key, args[0])
                     return args.size() > 1 ?
-                        findAllUsingFilter(method.key, args[0], args[1]) : 
-                            findAllUsingFilter(method.key, args[0])
+                        findEntriesUsingFilter(method.key, args[0], args[1]) : 
+                            findEntriesUsingFilter(method.key, args[0])
                 }
             }
             else if (args[0] instanceof String) {
@@ -195,7 +196,7 @@ class DirectoryService {
                     }
                     if (method) {
                         def dit = grailsApplication.config.grails.plugins.directoryservice.dit[method.key]
-                        return find(method.key, [(dit.rdnAttribute):args[0]])
+                        return findEntry(method.key, [(dit.rdnAttribute):args[0]])
                     }
                 }
                 else if (name == 'findSubentriesWhere' && args.size() > 1 ) {
@@ -203,13 +204,13 @@ class DirectoryService {
                     // args[2] would be the sortParams.
                     if (args[1] instanceof LDAPFilter) {
                         return args.size() > 2 ?
-                            findAllUsingFilter(args[0], args[1], args[2]) :
-                                findAllUsingFilter(args[0], args[1])
+                            findEntriesUsingFilter(args[0], args[1], args[2]) :
+                                findEntriesUsingFilter(args[0], args[1])
                     }
                     else {
                         return args.size() > 2 ?
-                            findAll(args[0], args[1], args[2]) :
-                                findAll(args[0], args[1])
+                            findEntries(args[0], args[1], args[2]) :
+                                findEntries(args[0], args[1])
                     }
                 }
             }
@@ -224,12 +225,12 @@ class DirectoryService {
      *
      * @param baseDN        The base DN to use in the search.
      * @param args          The map of key:value pairs which will be turned
-      * into an AND filter.
+     * into an AND filter.
      * @return A DirectoryServiceEntry, which is the first result of the resulting
      * search.
      */
-    def find(String baseDN, Map args) {
-        def entries = findAll(baseDN, args)
+    def findEntry(String baseDN, Map args) {
+        def entries = findEntries(baseDN, args)
         if (entries) {
             return entries[0]
         }
@@ -246,8 +247,8 @@ class DirectoryService {
      * into an AND filter.
      * @return List of LdapServiceEntry objects.
      */
-    def findAll(String baseDN, Map args, sortParams=null) {
-        return findAllUsingFilter(baseDN, andFilterFromArgs(args), sortParams)
+    def findEntries(String baseDN, Map args, sortParams=null) {
+        return findEntriesUsingFilter(baseDN, andFilterFromArgs(args), sortParams)
     }
     
     /**
@@ -259,7 +260,7 @@ class DirectoryService {
      * search request
      * @return List of LdapServiceEntry objects.
      */
-    def findAllUsingFilter(String baseDN, LDAPFilter filter, sortParams=null) {
+    def findEntriesUsingFilter(String baseDN, LDAPFilter filter, sortParams=null) {
         def dit = grailsApplication.config.grails.plugins.directoryservice.dit[baseDN]
         List<SearchResultEntry> entries
         if (dit?.attributes) {
