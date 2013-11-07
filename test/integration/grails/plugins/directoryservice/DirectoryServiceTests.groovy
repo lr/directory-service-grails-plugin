@@ -33,6 +33,8 @@ class DirectoryServiceTests extends GroovyTestCase {
      * Set up by creating an DirectoryService and setting grailsApplication config
      * based on ConfigurationHolder.config. Then set up the UnboundID
      * InMemoryServer.
+     *
+     * ~/bin/unboundid-ldapsdk-2.3.4-se/tools/in-memory-directory-server -b "dc=someu,dc=edu" -p 33389 -l test/ldif/directory.ldif -A -D "cn=directory manager" -w "password"
      */
     protected void setUp() {
         super.setUp()
@@ -40,13 +42,14 @@ class DirectoryServiceTests extends GroovyTestCase {
         def dirConfig = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory']
         def adConfig = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['ad']
 
+        /*
         dirInMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",
             dirConfig,
             "test/ldif/schema/directory-schema.ldif",
             "test/ldif/directory.ldif"
         )
-        
+        */
         adInMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",
             adConfig,

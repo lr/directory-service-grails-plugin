@@ -14,6 +14,9 @@ environments {
                 useSSL: false,
                 trustSSLCert: true,
                 followReferrals: true,
+                useConnectionPool: true,
+                initialConnections: 5,
+                maxConnections: 50,
                 bindDN: 'cn=Directory Manager',
                 bindPassword: 'password'
             ],

@@ -25,16 +25,20 @@ import com.unboundid.ldap.sdk.FailoverServerSet
 import com.unboundid.ldap.sdk.Filter as LDAPFilter
 import com.unboundid.ldap.sdk.LDAPConnection
 import com.unboundid.ldap.sdk.LDAPConnectionOptions
+import com.unboundid.ldap.sdk.LDAPConnectionPool
 import com.unboundid.ldap.sdk.LDAPException
+import com.unboundid.ldap.sdk.LDAPInterface
 import com.unboundid.ldap.sdk.LDAPResult
 import com.unboundid.ldap.sdk.LDAPSearchException
 import com.unboundid.ldap.sdk.Modification
 import com.unboundid.ldap.sdk.ModificationType
 import com.unboundid.ldap.sdk.ResultCode
+import com.unboundid.ldap.sdk.RoundRobinServerSet
 import com.unboundid.ldap.sdk.SearchResult
 import com.unboundid.ldap.sdk.SearchResultEntry
 import com.unboundid.ldap.sdk.SearchRequest
 import com.unboundid.ldap.sdk.SearchScope
+import com.unboundid.ldap.sdk.SimpleBindRequest
 import com.unboundid.ldap.sdk.controls.ServerSideSortRequestControl
 import com.unboundid.ldap.sdk.controls.SortKey
 import com.unboundid.util.ssl.SSLUtil
@@ -134,7 +138,7 @@ class DirectoryService {
     def grailsApplication
 
     /* Holds the current LDAPConnection. */
-    private LDAPConnection conn = null
+    private conn = [:]
     
     /* Map that holds any ServerSet objects that are created during the duration
        of this object's life. */
@@ -349,7 +353,12 @@ class DirectoryService {
                     entry.errors['save'] = e.getMessage()
                 }
                 finally {
-                    conn?.close()
+                    if (conn?.metaClass.respondsTo(conn, "getHealthCheck")) {
+                        conn?.releaseConnection()
+                    }
+                    else {
+                        conn?.close()
+                    }
                 }
             }
             else {
@@ -447,11 +456,11 @@ class DirectoryService {
                 else {
                     sslUtil = new SSLUtil()
                 }
-                return new FailoverServerSet(
+                return new RoundRobinServerSet(
                     addressesArray, portsIntArray, sslUtil.createSSLSocketFactory(), options)
             }
             else {
-                return new FailoverServerSet(addressesArray, portsIntArray, options)
+                return new RoundRobinServerSet(addressesArray, portsIntArray, options)
             }
         }
         catch (GeneralSecurityException gse) {
@@ -476,14 +485,35 @@ class DirectoryService {
     def connection(String base) {
         def sourceName = sourceNameFromBase(base)
         def serverSet = serverSetForSourceName(sourceName)
-        LDAPConnection conn = serverSet?.getConnection()
         def source = grailsApplication.config.grails.plugins.directoryservice.sources[sourceName]
-        // If there is a bindDN, then bind, otherwise, treat as 
-        // anonymous.
-        if (source.bindDN) {
-            conn?.bind(source.bindDN, source.bindPassword)
+        if (source.useConnectionPool) {
+            if (!conn[sourceName] || conn[sourceName]?.isClosed()) {
+                if (source.bindDN) {
+                    SimpleBindRequest bindRequest =
+                        new SimpleBindRequest(source.bindDN, source.bindPassword)
+                    conn[sourceName] = new LDAPConnectionPool(serverSet, bindRequest,
+                        source.initialConnections, source.maxConnections)
+                }
+                else {
+                    conn[sourceName] = serverSet?.getConnection()
+                    // If there is a bindDN, then bind, otherwise, treat as 
+                    // anonymous.
+                    if (source.bindDN) {
+                        conn[sourceName]?.bind(source.bindDN, source.bindPassword)
+                    }
+                }
+            }
+            return conn[sourceName]
         }
-        return conn
+        else {
+            def localConn = serverSet?.getConnection()
+            // If there is a bindDN, then bind, otherwise, treat as 
+            // anonymous.
+            if (source.bindDN) {
+                localConn?.bind(source.bindDN, source.bindPassword)
+            }
+            return localConn
+        }
     }
 
     /**
@@ -573,7 +603,12 @@ class DirectoryService {
             return new LinkedList<SearchResultEntry>()
         }
         finally {
-            conn?.close()
+            if (conn?.metaClass.respondsTo(conn, "getHealthCheck")) {
+                conn?.releaseConnection()
+            }
+            else {
+                conn?.close()
+            }
         }
     }
 

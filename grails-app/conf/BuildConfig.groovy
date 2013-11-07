@@ -34,6 +34,6 @@ grails.project.dependency.resolution = {
               ":release:1.0.0") {
             export = false
         }
-        test(':spock:0.6') { export = false }
+        //test(':spock:0.6') { export = false }
     }
 }
