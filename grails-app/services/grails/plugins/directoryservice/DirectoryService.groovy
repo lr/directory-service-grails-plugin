@@ -474,13 +474,13 @@ class DirectoryService {
      * in base.
      * 
      * This method also performs the bind to the server using the bindDN and
-     * bindPassword associated with the source for provided base. If there are
+     * bindPassword associated with the source for provided base. If there
      * is no bindDN in the source, then the connection is returned
      * unauthenticated, i.e., it is an anonymous bind.
      *
      * @param base          The search base that will be used to look
      * up the source map, and then the corresponding serverSet for that source.
-     * @return The authenticated LDAPConnection.
+     * @return The LDAPConnection object.
      */
     def connection(String base) {
         def sourceName = sourceNameFromBase(base)
@@ -495,12 +495,16 @@ class DirectoryService {
                         source.initialConnections, source.maxConnections)
                 }
                 else {
-                    conn[sourceName] = serverSet?.getConnection()
+                    SimpleBindRequest bindRequest =
+                        new SimpleBindRequest()
+                    //conn[sourceName] = serverSet?.getConnection() # To be removed (3/25/2014)
+                    conn[sourceName] = new LDAPConnectionPool(serverSet, bindRequest,
+                        source.initialConnections, source.maxConnections)
                     // If there is a bindDN, then bind, otherwise, treat as 
-                    // anonymous.
-                    if (source.bindDN) {
-                        conn[sourceName]?.bind(source.bindDN, source.bindPassword)
-                    }
+                    // anonymous. # To be removed (3/25/2014)
+                    //if (source.bindDN) {
+                    //    conn[sourceName]?.bind(source.bindDN, source.bindPassword)
+                    //}
                 }
             }
             return conn[sourceName]

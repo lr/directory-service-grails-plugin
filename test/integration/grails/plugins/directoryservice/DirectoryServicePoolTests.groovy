@@ -31,4 +31,40 @@ class DirectoryServicePoolTests extends GroovyTestCase {
         }
     }
     
+    /**
+     * Tests to make sure a bind actually uses the pool. By calling
+     * the search over and over, we are testing that we are using the pool.
+     */
+    void testBind() {
+        def people = directoryService.findPeopleWhere(sn:'williams')
+        assertNotNull people
+        assertEquals people.size(), 4
+        
+        def people2 = directoryService.findPeopleWhere(sn:'williams')
+        assertNotNull people2
+        assertEquals people2.size(), 4
+        
+        def people3 = directoryService.findPeopleWhere(sn:'williams')
+        assertNotNull people3
+        assertEquals people3.size(), 4
+    }
+    
+    /**
+     * Tests to make sure the anonymous bind actually uses the pool. By calling
+     * the search over and over, we are testing that we are using the pool.
+     */
+    void testAnonBind() {
+        def people = directoryService.findAnonPeepsWhere(sn:'williams')
+        assertNotNull people
+        assertEquals people.size(), 4
+        
+        def people2 = directoryService.findAnonPeepsWhere(sn:'williams')
+        assertNotNull people2
+        assertEquals people2.size(), 4
+        
+        def people3 = directoryService.findAnonPeepsWhere(sn:'williams')
+        assertNotNull people3
+        assertEquals people3.size(), 4
+    }
+    
 }

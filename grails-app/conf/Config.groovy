@@ -35,6 +35,16 @@ environments {
                 useSSL: false,
                 trustSSLCert: true,
                 followReferrals: true
+            ],
+            directoryAnonymousWithPool:[
+                address: 'localhost',
+                port: '33389',
+                useSSL: false,
+                trustSSLCert: true,
+                followReferrals: true,
+                useConnectionPool: true,
+                initialConnections: 5,
+                maxConnections: 50
             ]
         ]
         
@@ -104,6 +114,13 @@ environments {
                 plural: 'peeps',
                 rdnAttribute: 'uid',
                 source: 'directoryAnonymous',
+                attributes: ['cn', 'sn', 'creatorsName']
+            ],
+            'ou=PEople,dc=someu,dc=edu':[
+                singular: 'anonPeep',
+                plural: 'anonPeeps',
+                rdnAttribute: 'uid',
+                source: 'directoryAnonymousWithPool',
                 attributes: ['cn', 'sn', 'creatorsName']
             ]
         ]
