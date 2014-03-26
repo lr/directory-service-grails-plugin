@@ -1,13 +1,9 @@
 .DS_Store
 *.iws
-*Db.properties
-*Db.script
 .classpath
 .project
 .settings
 eclipse
-stacktrace.log
-target
-/plugins
-/web-app/plugins
-/web-app/WEB-INF/classes
+*.log
+/target
+/web-app
