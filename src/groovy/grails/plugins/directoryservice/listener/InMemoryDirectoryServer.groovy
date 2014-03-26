@@ -15,6 +15,9 @@
  */
 package grails.plugins.directoryservice.listener
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 import com.unboundid.ldap.listener.InMemoryDirectoryServer as InMemServer
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig
 import com.unboundid.ldap.listener.InMemoryListenerConfig
@@ -24,8 +27,6 @@ import com.unboundid.ldap.sdk.LDAPException
 import com.unboundid.ldap.sdk.schema.Schema
 import com.unboundid.ldif.LDIFException
 import com.unboundid.ldif.LDIFReader
-
-import org.apache.log4j.Logger
 
 /**
  * This class is a wrapper around the UnboundID InMemoryDirectoryServer.
@@ -86,7 +87,7 @@ import org.apache.log4j.Logger
  */
 class InMemoryDirectoryServer {
 
-    private Logger log = Logger.getLogger(getClass().name)
+    private Logger log = LoggerFactory.getLogger(getClass().name)
 
     private LDAPConnection conn
 

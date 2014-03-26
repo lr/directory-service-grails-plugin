@@ -17,7 +17,8 @@ package grails.plugins.directoryservice
 
 import java.security.GeneralSecurityException
 
-import org.apache.log4j.Logger
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import com.unboundid.ldap.sdk.DN
 import com.unboundid.ldap.sdk.Filter as LDAPFilter
@@ -122,7 +123,7 @@ class DirectoryService {
     static transactional = false
 
     /* Logger for this class. */
-    private Logger log = Logger.getLogger(getClass().name)
+    private Logger log = LoggerFactory.getLogger(getClass().name)
 
     /* grailsApplication, which is necessary for configuration info. */
     def grailsApplication
