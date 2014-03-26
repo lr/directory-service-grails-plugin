@@ -208,6 +208,17 @@ class DirectoryServiceTests extends GroovyTestCase {
     }
     
     /**
+     * Test findPeopleWhere with size limit
+     */
+    void testFindPeopleWhereWithSizeLimit() {
+        def filter = directoryService.createFilter('(&(sn=wa*))')
+        assert filter instanceof LDAPFilter      
+        def people = directoryService.findPeopleWhere(filter, [sizeLimit:10])
+        assertNotNull people
+        assertEquals 10, people.size()
+    }
+    
+    /**
      * Test findAllPeopleWhere with multiple arguments.
      */
     void testFindPeopleWhereMultipleArgs() {
@@ -216,6 +227,7 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertEquals people.size(), 2
         assertEquals people[0].getAttributeValue("l"), 'Berkeley'
     }
+    
     
     /**
      * Test findAllPeopleWhere with multiple arguments, and sort
@@ -228,6 +240,32 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertEquals people[1].cn, 'Williams, Matthew'
         assertEquals people[2].cn, 'Williams, Russ'
         assertEquals people[3].cn, 'Williams, Sandy'
+        
+        people = directoryService.findPeopleWhere(sn:'williams', l:'berkeley', [sort:'cn'])
+        assertNotNull people
+        assertEquals people.size(), 2
+        assertEquals people[0].cn, 'Williams, Jim'
+        assertEquals people[1].cn, 'Williams, Matthew'
+    }
+    
+    /**
+     * Test findAllPeopleWhere with multiple arguments, size limit and sort
+     */
+    void testFindPeopleWhereMultipleArgsWithSizeLimitAndSort() {
+        def people = directoryService.findPeopleWhere(sn:'williams', st:'ca', [sort:'cn'])
+        assertNotNull people
+        assertEquals people.size(), 4
+        assertEquals people[0].cn, 'Williams, Jim'
+        assertEquals people[1].cn, 'Williams, Matthew'
+        assertEquals people[2].cn, 'Williams, Russ'
+        assertEquals people[3].cn, 'Williams, Sandy'
+        
+        people = directoryService.findPeopleWhere(sn:'williams', st:'ca', [sizeLimit:3, sort:'cn'])
+        assertNotNull people
+        assertEquals people.size(), 3
+        assertEquals people[0].cn, 'Williams, Jim'
+        assertEquals people[1].cn, 'Williams, Matthew'
+        assertEquals people[2].cn, 'Williams, Russ'
         
         people = directoryService.findPeopleWhere(sn:'williams', l:'berkeley', [sort:'cn'])
         assertNotNull people
@@ -256,7 +294,25 @@ class DirectoryServiceTests extends GroovyTestCase {
         
         def people = directoryService.findEntriesUsingFilter(peopleBaseDn, filter)
         assertNotNull people
-        assertEquals people.size(), 16
+        assertEquals 16, people.size()
+    }
+    
+    void testFindAllUsingFilterWithSizeLimit() {
+        def filter = directoryService.createFilter('(&(sn=wa*))')
+        assert filter instanceof LDAPFilter
+        
+        def people = directoryService.findEntriesUsingFilter(peopleBaseDn, filter, [sizeLimit:10])
+        assertNotNull people
+        assertEquals 10, people.size()
+    }
+    
+    void testFindAllUsingFilterWithTimeLimit() {
+        def filter = directoryService.createFilter('(&(sn=wa*))')
+        assert filter instanceof LDAPFilter
+        
+        def people = directoryService.findEntriesUsingFilter(peopleBaseDn, filter, [timeLimit:10])
+        assertNotNull people
+        assertEquals 16, people.size()
     }
     
     /**

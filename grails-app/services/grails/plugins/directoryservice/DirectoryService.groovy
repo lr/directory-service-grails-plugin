@@ -581,26 +581,36 @@ class DirectoryService {
      * @return A List of SearchResultEntry objects.
      */
     def searchUsingFilter(final String base, final String filter,
-        sortParams=null, String... attrs='*') {
+        searchParams=null, String... attrs='*') {
 
         SearchRequest searchRequest = new SearchRequest(
                 base, 
                 SearchScope.SUB, 
                 filter,
                 attrs)
-        if (sortParams && sortParams instanceof Map && sortParams.sort) {
-            searchRequest.addControl(new ServerSideSortRequestControl(
-                    new SortKey(sortParams.sort)))
+        if (searchParams && searchParams instanceof Map) {
+            if (searchParams.sort) {
+                searchRequest.addControl(new ServerSideSortRequestControl(
+                    new SortKey(searchParams.sort)))
+            }
+            if (searchParams.sizeLimit && searchParams.sizeLimit > 0) {
+                searchRequest.setSizeLimit(searchParams.sizeLimit)
+            }
+            if (searchParams.timeLimit && searchParams.timeLimit > 0) {
+                searchRequest.setTimeLimitSeconds(searchParams.timeLimit)
+            }
         }
         def conn = connection(base)
         try {
             SearchResult results = conn.search(searchRequest)
             List<SearchResultEntry> entries = results.getSearchEntries()
             return entries
-        }
+        } 
         catch (LDAPSearchException lse) {
-            log.error "Exception while searching: ${lse.getMessage()}"
-            return new LinkedList<SearchResultEntry>()
+            log.warn "Exception while searching: ${lse.getMessage()}"
+            List<SearchResultEntry> entries = lse.getSearchEntries()
+            return entries
+            //return new LinkedList<SearchResultEntry>()
         }
         finally {
             if (conn?.metaClass.respondsTo(conn, "getHealthCheck")) {
