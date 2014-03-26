@@ -16,35 +16,26 @@
 package grails.plugins.directoryservice
 
 import java.security.GeneralSecurityException
-import java.util.LinkedList
-import java.util.ArrayList
+
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import com.unboundid.ldap.sdk.DN
-import com.unboundid.ldap.sdk.Entry
-import com.unboundid.ldap.sdk.FailoverServerSet
 import com.unboundid.ldap.sdk.Filter as LDAPFilter
-import com.unboundid.ldap.sdk.LDAPConnection
 import com.unboundid.ldap.sdk.LDAPConnectionOptions
 import com.unboundid.ldap.sdk.LDAPConnectionPool
 import com.unboundid.ldap.sdk.LDAPException
-import com.unboundid.ldap.sdk.LDAPInterface
-import com.unboundid.ldap.sdk.LDAPResult
 import com.unboundid.ldap.sdk.LDAPSearchException
-import com.unboundid.ldap.sdk.Modification
-import com.unboundid.ldap.sdk.ModificationType
-import com.unboundid.ldap.sdk.ResultCode
 import com.unboundid.ldap.sdk.RoundRobinServerSet
+import com.unboundid.ldap.sdk.SearchRequest
 import com.unboundid.ldap.sdk.SearchResult
 import com.unboundid.ldap.sdk.SearchResultEntry
-import com.unboundid.ldap.sdk.SearchRequest
 import com.unboundid.ldap.sdk.SearchScope
 import com.unboundid.ldap.sdk.SimpleBindRequest
 import com.unboundid.ldap.sdk.controls.ServerSideSortRequestControl
 import com.unboundid.ldap.sdk.controls.SortKey
 import com.unboundid.util.ssl.SSLUtil
 import com.unboundid.util.ssl.TrustAllTrustManager
-
-import org.apache.log4j.Logger
 
 /**
  * DirectoryService is a Grails Service that makes interacting with an LDAP
@@ -77,7 +68,7 @@ import org.apache.log4j.Logger
  *           'bindPassword': 'password'
  *       ]
  *   ]
- *   
+ *
  *   grails.plugins.directoryservice.dit = [
  *       'ou=people,dc=someu,dc=edu':[
  *           'singular':'person',
@@ -132,18 +123,18 @@ class DirectoryService {
     static transactional = false
 
     /* Logger for this class. */
-    private Logger log = Logger.getLogger(DirectoryService.class)
+    private Logger log = LoggerFactory.getLogger(getClass().name)
 
     /* grailsApplication, which is necessary for configuration info. */
     def grailsApplication
 
     /* Holds the current LDAPConnection. */
     private conn = [:]
-    
+
     /* Map that holds any ServerSet objects that are created during the duration
        of this object's life. */
     private Map serverSets = [:]
-    
+
     /**
      * Catches the following methods:
      *
@@ -166,7 +157,7 @@ class DirectoryService {
                     }
                     if (method) {
                         return args.size() > 1 ?
-                            findEntries(method.key, args[0], args[1]) : 
+                            findEntries(method.key, args[0], args[1]) :
                                 findEntries(method.key, args[0])
                     }
                     else {
@@ -189,7 +180,7 @@ class DirectoryService {
                 if (method) {
                     //return findAllUsingFilter(method.key, args[0])
                     return args.size() > 1 ?
-                        findEntriesUsingFilter(method.key, args[0], args[1]) : 
+                        findEntriesUsingFilter(method.key, args[0], args[1]) :
                             findEntriesUsingFilter(method.key, args[0])
                 }
             }
@@ -219,10 +210,10 @@ class DirectoryService {
                 }
             }
         }
-        
+
         throw new MissingMethodException(name, delegate, args)
     }
-    
+
     /**
      * Performs a find based on the passed in baseDN and args and returns
      * the first entry found. If no entry is found, it returns null.
@@ -239,9 +230,9 @@ class DirectoryService {
             return entries[0]
         }
         return null
-        
+
     }
-    
+
     /**
      * Performs a find based on the passed in {@code baseDN} and {@code args}
      * and returns a List of all of the results.
@@ -254,7 +245,7 @@ class DirectoryService {
     def findEntries(String baseDN, Map args, sortParams=null) {
         return findEntriesUsingFilter(baseDN, andFilterFromArgs(args), sortParams)
     }
-    
+
     /**
      * Performs a find based on the passed in {@code baseDN} and {@code filter}
      * and returns a List of all of the results.
@@ -280,7 +271,7 @@ class DirectoryService {
         }
         return list
     }
-    
+
     /**
      * Creates an AND filter from the passed in map of args.
      *
@@ -290,7 +281,7 @@ class DirectoryService {
      */
     def andFilterFromArgs(Map args) {
         LDAPFilter filter
-                
+
         if (args.length == 1) {
             filter = LDAPFilter.createEqualityFilter(args.key, args.value)
             return filter
@@ -319,7 +310,7 @@ class DirectoryService {
             return filter
         }
         catch (LDAPException e) {
-            log.error "Error creating filter from string: ${e.getMessage()}"
+            log.error "Error creating filter from string: $e.message", e
         }
         return filterString
     }
@@ -337,7 +328,7 @@ class DirectoryService {
      *
      * @param entry         The DirectoryServiceEntry to save.
      * @return {@code true} on success, {@code false} otherwise.
-     * @throws 
+     * @throws
      */
     def save(DirectoryServiceEntry entry) {
         def conn = connection(entry?.baseDN)
@@ -349,7 +340,7 @@ class DirectoryService {
                     return true
                 }
                 catch (LDAPException e) {
-                    log.error "Could not save/modify ${entry?.entry?.getDN()}: ${e.getMessage()}"
+                    log.error "Could not save/modify ${entry?.entry?.getDN()}: $e.message", e
                     entry.errors['save'] = e.getMessage()
                 }
                 finally {
@@ -367,7 +358,7 @@ class DirectoryService {
             }
         }
         else {
-            def reason = 
+            def reason =
                 "Could not save/modify because a connection to the directory server could not be established. "
             entry.errors['save'] = reason
             log.error reason
@@ -408,7 +399,7 @@ class DirectoryService {
             return serverSet
         }
     }
-    
+
     /**
      * Creates a new FailoverServerSet from the passed in args.
      *
@@ -426,15 +417,15 @@ class DirectoryService {
      */
     def serverSetForSource(String addresses, String ports,
         boolean useSSL, boolean trustSSLCert, boolean followReferrals=true) {
-        
-        final String[] addressesArray = 
+
+        final String[] addressesArray =
             addresses?.replaceAll(' ', '')?.split(',')
-            
-        final String[] portsStringArray = 
+
+        final String[] portsStringArray =
             ports?.replaceAll(' ', '')?.split(',')
-        
+
         int[] portsIntArray = new int[portsStringArray.length]
-        
+
         if (portsStringArray.length == 1) {
             portsIntArray[0] = Integer.parseInt(portsStringArray[0])
         }
@@ -443,10 +434,10 @@ class DirectoryService {
                 portsIntArray[i] = Integer.parseInt(obj)
             }
         }
-        
+
         LDAPConnectionOptions options = new LDAPConnectionOptions()
         options.setFollowReferrals(followReferrals)
-        
+
         try {
             if (useSSL) {
                 SSLUtil sslUtil
@@ -464,7 +455,7 @@ class DirectoryService {
             }
         }
         catch (GeneralSecurityException gse) {
-            log.error "Error connecting via SSL: " + gse.toString()
+            log.error "Error connecting via SSL: $gse", gse
             return null
         }
     }
@@ -472,7 +463,7 @@ class DirectoryService {
     /**
      * Get a connection from the ServerSet that is associated with the passed
      * in base.
-     * 
+     *
      * This method also performs the bind to the server using the bindDN and
      * bindPassword associated with the source for provided base. If there
      * is no bindDN in the source, then the connection is returned
@@ -500,7 +491,7 @@ class DirectoryService {
                     //conn[sourceName] = serverSet?.getConnection() # To be removed (3/25/2014)
                     conn[sourceName] = new LDAPConnectionPool(serverSet, bindRequest,
                         source.initialConnections, source.maxConnections)
-                    // If there is a bindDN, then bind, otherwise, treat as 
+                    // If there is a bindDN, then bind, otherwise, treat as
                     // anonymous. # To be removed (3/25/2014)
                     //if (source.bindDN) {
                     //    conn[sourceName]?.bind(source.bindDN, source.bindPassword)
@@ -511,7 +502,7 @@ class DirectoryService {
         }
         else {
             def localConn = serverSet?.getConnection()
-            // If there is a bindDN, then bind, otherwise, treat as 
+            // If there is a bindDN, then bind, otherwise, treat as
             // anonymous.
             if (source.bindDN) {
                 localConn?.bind(source.bindDN, source.bindPassword)
@@ -537,7 +528,7 @@ class DirectoryService {
         }
         return dit.source
     }
-    
+
     /**
      * Takes in the passed base and returns the corresponding
      * source from grails.plugins.directoryservice.source.
@@ -553,7 +544,7 @@ class DirectoryService {
     }
 
     /**
-     * Returns a list of SearchResultEntry objects. Returns an empty 
+     * Returns a list of SearchResultEntry objects. Returns an empty
      * list if any exceptions are thrown. This method returns
      * #searchUsingFilter(final String base, final String filter, String... attrs='*')
      *
@@ -570,9 +561,9 @@ class DirectoryService {
         def filter = createFilter("(${attribute}=${value})")
         return searchUsingFilter(base, filter.toString(), sortParams, attrs)
     }
-    
+
     /**
-     * Returns a list of SearchResultEntry objects. Returns an empty 
+     * Returns a list of SearchResultEntry objects. Returns an empty
      * list if any exceptions are thrown.
      *
      * It performs the search using a scope of SearchScope.SUB.
@@ -588,8 +579,8 @@ class DirectoryService {
         searchParams=null, String... attrs='*') {
 
         SearchRequest searchRequest = new SearchRequest(
-                base, 
-                SearchScope.SUB, 
+                base,
+                SearchScope.SUB,
                 filter,
                 attrs)
         if (searchParams && searchParams instanceof Map) {
@@ -609,9 +600,9 @@ class DirectoryService {
             SearchResult results = conn.search(searchRequest)
             List<SearchResultEntry> entries = results.getSearchEntries()
             return entries
-        } 
+        }
         catch (LDAPSearchException lse) {
-            log.warn "Exception while searching: ${lse.getMessage()}"
+            log.warn "Exception while searching: $lse.message", lse
             List<SearchResultEntry> entries = lse.getSearchEntries()
             return entries
             //return new LinkedList<SearchResultEntry>()
@@ -625,5 +616,4 @@ class DirectoryService {
             }
         }
     }
-
 }

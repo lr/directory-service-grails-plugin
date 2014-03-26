@@ -1,14 +1,8 @@
 package grails.plugins.directoryservice
 
-import grails.test.mixin.*
-import org.junit.*
+import grails.plugins.directoryservice.listener.InMemoryDirectoryServer
 
 import com.unboundid.ldap.sdk.Entry
-import com.unboundid.ldap.sdk.Filter as LDAPFilter
-import com.unboundid.ldap.sdk.LDAPConnection
-import com.unboundid.ldap.sdk.SearchResultEntry
-
-import grails.plugins.directoryservice.listener.InMemoryDirectoryServer
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
@@ -17,7 +11,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
 
     /* DirectoryService to use for all tests. */
     def directoryService
-    
+
     /* DirectoryServiceEntry */
     def dse
 
@@ -32,16 +26,16 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      */
     protected void setUp() {
         super.setUp()
-        
+
         def config = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory']
-        
+
         inMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",
             config,
             "test/ldif/schema/directory-schema.ldif",
             "test/ldif/directory.ldif"
         )
-        
+
         // Set up lse to be the person with uid=1
         dse = directoryService.findPersonWhere('uid':'6')
     }
@@ -55,7 +49,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      */
     void testUnboundIDEntry() {
         assertEquals dse.entry.getDN(), 'uid=6,ou=people,dc=someu,dc=edu'
-        assertEquals dse.entry.getAttributeValueAsDate('someuEduEmpExpDate').toString(), 
+        assertEquals dse.entry.getAttributeValueAsDate('someuEduEmpExpDate').toString(),
             'Fri Dec 31 15:59:59 PST 9999'
     }
 
@@ -65,21 +59,21 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     void testGetAttributeValue() {
         assertEquals dse.getAttributeValue('sn'), 'Nguyen'
     }
-    
+
     /**
      * Test getAttributeValues from the set entry object.
      */
     void testGetAttributeValues() {
         assertEquals dse.getAttributeValues('cn').size(), 2
     }
-    
+
     /**
      * Test values from the set entry object.
      */
      void testValues() {
          assertEquals dse.cnValues().size(), 2
      }
-    
+
     /**
      * Test invoke getValue using attribute name as method.
      */
@@ -88,7 +82,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.sn(), 'Nguyen'
         assertEquals dse.givenName(), 'Julie'
     }
-    
+
     /**
      * Test invoke getValue using attribute name as property.
      */
@@ -97,7 +91,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.sn, 'Nguyen'
         assertEquals dse.givenName, 'Julie'
     }
-    
+
     /**
      * Test attribute as Date.
      */
@@ -105,7 +99,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.someuEduEmpExpDateAsDate().toString(),
             'Fri Dec 31 15:59:59 PST 9999'
     }
-    
+
     /**
      * Test attribute as Boolean.
      */
@@ -113,7 +107,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertTrue dse.someuEduFacultyFlagAsBoolean()
         assertTrue Boolean.parseBoolean(dse.someuEduFacultyFlag)
     }
-    
+
     /**
      * Test isDirty()
      */
@@ -121,7 +115,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertFalse dse.isDirty()
         assertFalse dse.isDirty('mail')
     }
-    
+
     /**
      * Simple test to make sure the Entry is really and entry, and not a
      * SearchResultEntry, as SearchResultEntry objects do not allow mods.
@@ -130,7 +124,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assert dse.entry instanceof Entry
         dse.entry.setAttribute('mail', 'new.name@someu.edu')
     }
-    
+
     /**
      * Test modification of one attribute using the updateModifications()
      * method directly.
@@ -142,18 +136,18 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         dse.updateModifications('mail', 'new.name@someu.edu')
         assertEquals dse.modifications.size(), 1
         assertEquals dse.modifications.get(0).getValues().length, 1
-        
+
         // Update mail again, but it should replace it, and not add
         dse.updateModifications('mail', 'newname2.name@someu.edu')
         assertEquals dse.modifications.size(), 1
         assertEquals dse.modifications.get(0).getValues().length, 1
-        
+
         dse.updateModifications('mail', 'new.name@someu.edu', 'newname2.name@someu.edu')
         assertEquals dse.modifications.size(), 1
         assertEquals dse.modifications.get(0).getValues().length, 2
     }
     */
-    
+
     /**
      * Test modifications with more than one attribute using the
      * updateModifications() method directly.
@@ -164,24 +158,24 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.modifications.size(), 0
         dse.updateModifications('mail', 'new.name@someu.edu')
         assertEquals dse.modifications.size(), 1
-        
+
         assertEquals dse.getAttributeValues('cn').size(), 2
         dse.updateModifications('cn', 'Julie Nguyen', 'Nguyen, Julie', 'Julie A Nguyen', 'Nguyen, Julie A')
         assertEquals dse.modifications.size(), 2
         assertEquals dse.modifications.get(1).getValues().length, 4
-        
+
         // Double check that mail is still 1
         assertEquals dse.modifications.get(0).getValues().length, 1
-        
+
         dse.updateModifications('mail', 'new.name@someu.edu', 'Julie.Nguyen@someu.edu')
         assertEquals dse.modifications.size(), 2
         assertEquals dse.modifications.get(0).getValues().length, 2
-        
+
         // Double check that cn is still 4
         assertEquals dse.modifications.get(1).getValues().length, 4
     }
     */
-    
+
     /**
      * Test propertyMissing() with a single value.
      */
@@ -195,7 +189,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.modifications.size(), 1
         assertEquals dse.modifications.get(0).getValues().length, 1
     }
-    
+
     /**
      * Test propertyMissing with multiple values.
      */
@@ -207,13 +201,13 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         //assertEquals dse.mail, ['new.name@someu.edu', 'another.email@someu.edu']
         assertEquals dse.modifications.size(), 1
         assertEquals dse.modifications.get(0).getValues().length, 2
-        
+
         dse.cn = ['Julie Nguyen', 'Nguyen, Julie', 'Julie A Nguyen', 'Nguyen, Julie A']
         assertEquals dse.modifications.size(), 2
         assertEquals dse.modifications.get(0).getValues().length, 4
         assertEquals dse.getAttributeValues('cn').length, 4
     }
-    
+
     /**
      * Test adding attribute that does not exist in the entry. The number of
      * attributes is 28 because we are getting operational attributes.
@@ -228,7 +222,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.modifications.size(), 0
         assertEquals dse.entry.getAttributes().size(), 28
     }
-    
+
     /**
      * Test propertyMissing with deleting values.
      */
@@ -243,7 +237,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.modifications.size(), 1
         assertEquals dse.mail, 'some.mail@someu.edu'
     }
-    
+
     /**
      * Test discard.
      */
@@ -256,5 +250,4 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
         assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
         assertNull dse.carLicense
     }
-
 }

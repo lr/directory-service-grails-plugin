@@ -15,13 +15,8 @@
  */
 package grails.plugins.directoryservice
 
-import java.util.LinkedList
-import java.util.ArrayList
-
 import com.unboundid.ldap.sdk.Entry
-import com.unboundid.ldap.sdk.LDAPException
 import com.unboundid.ldap.sdk.Modification
-import com.unboundid.ldap.sdk.ModificationType
 import com.unboundid.ldap.sdk.SearchResultEntry
 
 /**
@@ -35,29 +30,29 @@ import com.unboundid.ldap.sdk.SearchResultEntry
  * @author Lucas Rockwell
  */
 class DirectoryServiceEntry {
-    
+
     /**
      * The original searchResultEntry.
      *
      * Gets reset to a copy of entry on cleanupAfterSave()
      */
-    def SearchResultEntry searchResultEntry
-    
+    SearchResultEntry searchResultEntry
+
     /**
      * UnboundID Entry object.
      *
      * Gets reset to searchResultEntry.duplicate() by discard().
      */
-    def Entry entry
-    
+    Entry entry
+
     /**
      * The base DN which was used for searching for this entry. It is
      * important that we have this because we need it when we save or
      * delete the entry, i.e., it is critical that we map this entry to its
      * source.
      */
-    def String baseDN
-    
+    String baseDN
+
     /**
      * Simple map for keeping track of whether or not an attribute has changed.
      * We keep this up-to-date as well as modifications because it is a lot
@@ -67,7 +62,7 @@ class DirectoryServiceEntry {
      * Gets reset by discard() and cleanupAfterSave().
      */
     private Map mods = [:]
-    
+
     /**
      * Simple map for keeping track of any errors which might occur when using
      * the object. For now, if directoryService.save(this) throws an error, it
@@ -80,18 +75,18 @@ class DirectoryServiceEntry {
      * change.
      */
     def errors = [:]
-    
+
     /**
      * Holds the actual directory modifications.
      *
      * Gets reset by discard() and cleanupAfterSave().
      */
-    private ArrayList<Modification> modifications = new ArrayList<Modification>()
-    
+    private List<Modification> modifications = []
+
     /**
      * Constructs a new DirectoryServiceEntry object by passing in
      * an UnboundID SearchResultEntry. It then takes the SearchResultEntry
-     * and calls {@code duplicate()} on it so that we end up with 
+     * and calls {@code duplicate()} on it so that we end up with
      * an Entry object which and then be modified.
      *
      * @param searchResultEntry     The search result entry that will
@@ -99,13 +94,13 @@ class DirectoryServiceEntry {
      * @param baseDN                The baseDN which was used to get the
      * connection to the appropriate directory.
      */
-    def DirectoryServiceEntry(SearchResultEntry searchResultEntry,
+    DirectoryServiceEntry(SearchResultEntry searchResultEntry,
         String baseDN) {
         this.searchResultEntry = searchResultEntry
         this.entry = searchResultEntry.duplicate()
         this.baseDN = baseDN
     }
-    
+
     /**
      * Any property which is called on this class is passed as a
      * getAttributeValue() method call to the {@code entry} object which is
@@ -128,12 +123,12 @@ class DirectoryServiceEntry {
             throw new MissingPropertyException(name)
         }
     }
-    
+
     /**
      * This propertyMissing gets invoked when a value is supplied with the
-     * property name, so we override it so that we can set values in the 
+     * property name, so we override it so that we can set values in the
      * entry object. We also set the mods map, and update the modifications
-     * ArrayList.
+     * List.
      */
     def propertyMissing(String name, value) {
         if (entry) {
@@ -143,7 +138,7 @@ class DirectoryServiceEntry {
                     entry.setAttribute(name, value)
                 }
                 else {
-                    entry.setAttribute(name, 
+                    entry.setAttribute(name,
                         value.toArray(new String[value.size()]))
                 }
             }
@@ -158,14 +153,14 @@ class DirectoryServiceEntry {
                 updateModifications(name, value)
             }
             else {
-                updateModifications(name, 
+                updateModifications(name,
                     value?.toArray(new String[value ? value.size(): 1]))
             }
             */
             updateModifications()
         }
     }
-    
+
     /**
      * Intercepts the following methods:
      *
@@ -212,7 +207,7 @@ class DirectoryServiceEntry {
             throw new MissingMethodException(name, delegate, args)
         }
     }
-    
+
     /**
      * Discards any changes made to the object. Reinitializes both the
      * {@code mods} map and the {@code modifications} array, and sets
@@ -221,10 +216,10 @@ class DirectoryServiceEntry {
     def discard() {
         mods = [:]
         errors = [:]
-        modifications = new ArrayList<Modification>()
+        modifications = []
         entry = searchResultEntry.duplicate()
     }
-    
+
     /**
      * Similar to discard(), but instead of resetting the entry, it recreates
      * the searchResultEntry from the entry object, as we want the state of
@@ -233,11 +228,11 @@ class DirectoryServiceEntry {
     def cleanupAfterSave() {
         mods = [:]
         errors = [:]
-        modifications = new ArrayList<Modification>()
-        searchResultEntry = 
+        modifications = []
+        searchResultEntry =
             new SearchResultEntry(entry, searchResultEntry.getControls())
     }
-    
+
     /**
      * Checks to see if this object has been modified. You can also pass in
      * an optional attribute name to check to see if just that one attribute
@@ -259,13 +254,13 @@ class DirectoryServiceEntry {
         }
         return false
     }
-    
+
     /**
      * Note for 0.6.1: There is no reason to maintain this since the UnboundID SDK has
      * a Entry.diff() method that does this for us! Plus, this was not a
      * documented API, so I feel OK removing it.
      *
-     * Updates the modifications ArrayList with the UnboundID Modification
+     * Updates the modifications List with the UnboundID Modification
      * that will be used when the entry is updated in the directory.
      *
      * This is called by the propertyMissing(String name, value) method, so
@@ -310,7 +305,7 @@ class DirectoryServiceEntry {
         }
     }
     */
-    
+
     /**
      * Updates the {@code modifications} list by calling the UnboundID
      * Entry.diff() method against the {@code searchResultEntry} and the
@@ -320,5 +315,4 @@ class DirectoryServiceEntry {
     def updateModifications() {
         modifications = Entry.diff(searchResultEntry, entry, true, false)
     }
-
 }
