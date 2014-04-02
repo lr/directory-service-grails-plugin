@@ -56,7 +56,7 @@ grails.plugins.directoryservice.sources = [
         useSSL: true,
         trustSSLCert: true
         bindDN: 'cn=some bind DN',
-        bindPassword: 'MyPassw0rd!'
+        bindPassword: 'MyPassw0rd!',
         useConnectionPool: true,
         initialConnections: 2,
         maxConnections: 5
