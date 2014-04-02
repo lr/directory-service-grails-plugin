@@ -12,7 +12,7 @@ Official documentation can be found at http://lr.github.com/directory-service/.
 To install the plugin, add the following to the `plugins` section of BuildConfig.groovy:
 
 ```groovy
-runtime ":directory-service:0.10.0"
+runtime ":directory-service:0.10.1"
 ```
 
 ## Configure
