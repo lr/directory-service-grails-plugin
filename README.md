@@ -1,32 +1,18 @@
 DirectoryService
 ===========
 
-DirectoryService is a [Grails](http://grails.org/) [plugin](http://grails.org/plugins/) that allows you to interact with a v3-compliant LDAP server with minimal effort. It is built on top of the [UnboundID](http://www.unboundid.com/) [LDAP SDK](http://www.unboundid.com/products/ldap-sdk/).
+DirectoryService is a [Grails](http://grails.org/) [plugin](http://grails.org/plugins/) that allows you to interact with a v3-compliant LDAP server with minimal effort. It is built on top of the [UnboundID](http://www.unboundid.com/) [LDAP SDK](http://www.unboundid.com/products/ldap-sdk/) ([UnboundID LDAP SDK Java docs](https://www.unboundid.com/products/ldap-sdk/docs/javadoc/index.html)).
 
 DirectoryService is made up of two key classes, the DirectoryService Grails Service class, and the DirectoryServiceEntry class, the class to which results are mapped. See the official documentation for more information about each of these classes.
 
-Official documentation can be found at [http://lr.github.com/directory-service/].
+Official documentation can be found at http://lr.github.com/directory-service/.
 
 ## Install
 
-Since DirectoryService is not an official Grails plugin yet, you will have to compile it yourself and then load it into your project locally.
-
-### Compile Plugin
-
-Download one of the tagged versions, and then from inside of the project, run the following command:
+To install the plugin, add the following to the `plugins` section of BuildConfig.groovy:
 
 ```groovy
-grails package-plugin
-```
-
-This will create a file called `grails-directory-service-<version>.zip`, where `<version>` is the version of the plugin.
-
-### Add To Your Project
-
-Once you have the `.zip` created, switch to your Grails project and run the following command from the base directory of your project:
-
-```groovy
-grails install-plugin <path to>/grails-directory-service-<version>.zip
+runtime ":directory-service:0.10.0"
 ```
 
 ## Configure
@@ -52,7 +38,10 @@ ds.sources = [
         useSSL: boolean,
         trustSSLCert: boolean,
         bindDN: String,
-        bindPassword: String
+        bindPassword: String,
+        useConnectionPool: boolean, // Optional
+        initialConnections: integer, // Optional
+        maxConnections: integer // Optional
     ],
 ]
 ```
@@ -68,6 +57,9 @@ grails.plugins.directoryservice.sources = [
         trustSSLCert: true
         bindDN: 'cn=some bind DN',
         bindPassword: 'MyPassw0rd!'
+        useConnectionPool: true,
+        initialConnections: 2,
+        maxConnections: 5
     ],
     'adGC':[
         address: 'adgc.someu.edu',
@@ -231,8 +223,23 @@ Not implemented yet.
 
 ### Delete
 
-Not implemented yet.
+Although not officially implemented, you can do the following to delete an object:
+
+* Call `directoryService.connection(baseDN)?.delete(DN of object to delete)` and pass it the value of one of the base DNs for the `grails.plugins.directoryservice.dit` map.
+
+So, using the `grails.plugins.directoryservice.dit` map above, to delete a person, you would do the following:
+
+`directoryService.connection('ou=people,dc=someu,dc=edu')?.delete('uid=12345,ou=people,dc=someu,dc=edu')`
+
+Or, if you have the object that you want to delete:
+
+```
+def person = directoryService.findPersonWhere(uid:'12345')
+directoryService.connection('ou=people,dc=someu,dc=edu')?.delete(person.dn)
+```
+
+See the [UnboundID LDAP SDK Java docs](https://www.unboundid.com/products/ldap-sdk/docs/javadoc/index.html) for more info about the capabilities of the SDK.
 
 ## License
 
-DirectoryService is licensed under the terms of the [Apache License, Version 2.0 (LICENSE-2.0)](http://www.apache.org/licenses/LICENSE-2.0). The UnboundID LDAP SDK is licensed under the terms of three different licenses. Please see the [UnboundID LDAP SDK for Java docs page](http://www.unboundid.com/products/ldap-sdk/docs/) for more information.
+DirectoryService is licensed under the terms of the [Apache License, Version 2.0 (LICENSE-2.0)](http://www.apache.org/licenses/LICENSE-2.0). The UnboundID LDAP SDK is licensed under the terms of three different licenses. Please see the [UnboundID LDAP SDK for Java docs page](https://www.unboundid.com/products/ldap-sdk/docs/javadoc/index.html) for more information.

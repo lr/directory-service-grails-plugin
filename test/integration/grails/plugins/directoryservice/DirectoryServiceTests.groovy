@@ -38,14 +38,13 @@ class DirectoryServiceTests extends GroovyTestCase {
         def dirConfig = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory']
         def adConfig = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['ad']
 
-        /*
         dirInMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",
             dirConfig,
             "test/ldif/schema/directory-schema.ldif",
             "test/ldif/directory.ldif"
         )
-        */
+
         adInMemServer = new InMemoryDirectoryServer(
             "dc=someu,dc=edu",
             adConfig,
@@ -471,6 +470,18 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertTrue person.isDirty()
         directoryService.save(person)
         assertFalse person.isDirty()
+     }
+     
+     /**
+      * Test deleting an object using the connection.
+      */
+     void testDeleteUsingConnection() {
+         def person = directoryService.getPerson('2')
+         assertNotNull person
+         directoryService.connection(peopleBaseDn)?.delete(person.dn)
+         
+         person = directoryService.getPerson('2')
+         assertNull person
      }
 
 }
