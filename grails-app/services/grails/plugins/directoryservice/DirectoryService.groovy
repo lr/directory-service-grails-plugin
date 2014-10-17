@@ -145,7 +145,7 @@ class DirectoryService {
      *   <li>get&lt;singular&gt;(RDN attribute value)</li>
      * </ul>
      */
-    def methodMissing(String name, args) {
+    def methodMissing(String name, Object[] args) {
         if (args) {
             def method
 
@@ -212,7 +212,7 @@ class DirectoryService {
             }
         }
 
-        throw new MissingMethodException(name, delegate, args)
+        throw new MissingMethodException(name, this.getClass(), args)
     }
 
 
