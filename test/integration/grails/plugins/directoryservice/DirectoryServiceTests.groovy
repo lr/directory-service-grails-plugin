@@ -1,12 +1,9 @@
 package grails.plugins.directoryservice
-
-import grails.plugins.directoryservice.listener.InMemoryDirectoryServer
-
-import com.unboundid.ldap.sdk.Entry
 import com.unboundid.ldap.sdk.Filter as LDAPFilter
-
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
+ *
+ * This test class assumes that an inMemServer and adInMemServer are defined in resources.groovy
  */
 class DirectoryServiceTests extends GroovyTestCase {
 
@@ -22,41 +19,8 @@ class DirectoryServiceTests extends GroovyTestCase {
     /* Used for testing the Economics accounts branch. */
     def accountsEconomicsBaseDn = 'ou=Economics,ou=accounts,dc=someu,dc=edu'
 
-    def dirInMemServer
+    def inMemServer
     def adInMemServer
-
-    /**
-     * Set up by creating an DirectoryService and setting grailsApplication config
-     * based on ConfigurationHolder.config. Then set up the UnboundID
-     * InMemoryServer.
-     *
-     * ~/bin/unboundid-ldapsdk-2.3.4-se/tools/in-memory-directory-server -b "dc=someu,dc=edu" -p 33389 -l test/ldif/directory.ldif -A -D "cn=directory manager" -w "password"
-     */
-    protected void setUp() {
-        super.setUp()
-
-        def dirConfig = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory']
-        def adConfig = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['ad']
-
-        dirInMemServer = new InMemoryDirectoryServer(
-            "dc=someu,dc=edu",
-            dirConfig,
-            "test/ldif/schema/directory-schema.ldif",
-            "test/ldif/directory.ldif"
-        )
-
-        adInMemServer = new InMemoryDirectoryServer(
-            "dc=someu,dc=edu",
-            adConfig,
-            "test/ldif/schema/ad-schema.ldif",
-            "test/ldif/accounts.ldif"
-        )
-    }
-
-    protected void tearDown() {
-        dirInMemServer?.shutDown()
-        adInMemServer?.shutDown()
-    }
 
     /*
      * Test the getting the source from the provided base.

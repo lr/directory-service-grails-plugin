@@ -1,13 +1,14 @@
 package grails.plugins.directoryservice
 
-import grails.plugins.directoryservice.listener.InMemoryDirectoryServer
-
 import com.unboundid.ldap.sdk.Entry
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 class DirectoryServiceEntryTests extends GroovyTestCase {
+
+    /* grailsApplication, which is necessary for configuration info. */
+    def grailsApplication
 
     /* DirectoryService to use for all tests. */
     def directoryService
@@ -17,32 +18,32 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
 
     def inMemServer
 
-    /**
-     * Set up by creating an DirectoryService and setting grailsApplication config
-     * based on ConfigurationHolder.config. Then set up the UnboundID
-     * InMemoryDirectoryServer, and then set the port in LdapService to the
-     * port that was created with the InMemoryDirectoryServer started (it is
-     * random each time it starts).
-     */
+//    /**
+//     * Set up by creating an DirectoryService and setting grailsApplication config
+//     * based on ConfigurationHolder.config. Then set up the UnboundID
+//     * InMemoryDirectoryServer, and then set the port in LdapService to the
+//     * port that was created with the InMemoryDirectoryServer started (it is
+//     * random each time it starts).
+//     */
     protected void setUp() {
-        super.setUp()
-
-        def config = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory']
-
-        inMemServer = new InMemoryDirectoryServer(
-            "dc=someu,dc=edu",
-            config,
-            "test/ldif/schema/directory-schema.ldif",
-            "test/ldif/directory.ldif"
-        )
-
+//        super.setUp()
+//
+//        def config = grailsApplication.config.grails.plugins.directoryservice.sourcesForInMemoryServer.directory
+//
+//        inMemServer = new InMemoryDirectoryServer(
+//            "dc=someu,dc=edu",
+//            config,
+//            "test/ldif/schema/directory-schema.ldif",
+//            "test/ldif/directory.ldif"
+//        )
+//
         // Set up lse to be the person with uid=1
-        dse = directoryService.findPersonWhere('uid':'6')
+        dse = directoryService.findPersonWhere('uid': '6')
     }
-
-    protected void tearDown() {
-        inMemServer?.shutDown()
-    }
+//
+//    protected void tearDown() {
+//        inMemServer?.shutDown()
+//    }
 
     /**
      * Test that the underlying Entry still works.
@@ -50,7 +51,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     void testUnboundIDEntry() {
         assertEquals dse.entry.getDN(), 'uid=6,ou=people,dc=someu,dc=edu'
         assertEquals dse.entry.getAttributeValueAsDate('someuEduEmpExpDate').toString(),
-            'Fri Dec 31 15:59:59 PST 9999'
+                'Fri Dec 31 15:59:59 PST 9999'
     }
 
     /**
@@ -70,9 +71,9 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     /**
      * Test values from the set entry object.
      */
-     void testValues() {
-         assertEquals dse.cnValues().size(), 2
-     }
+    void testValues() {
+        assertEquals dse.cnValues().size(), 2
+    }
 
     /**
      * Test invoke getValue using attribute name as method.
@@ -97,7 +98,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      */
     void testAttributeAsDate() {
         assertEquals dse.someuEduEmpExpDateAsDate().toString(),
-            'Fri Dec 31 15:59:59 PST 9999'
+                'Fri Dec 31 15:59:59 PST 9999'
     }
 
     /**

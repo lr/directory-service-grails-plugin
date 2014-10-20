@@ -130,8 +130,6 @@ class InMemoryDirectoryServer {
      * of the directory. If you do want to import any data, you can leave this
      * as an empty string, or {@code null}. If you do not add at least the
      * domain object and one OU, you will have to add programatically.
-     * @see #setup(String baseDN, String bindDN, String bindPassword,
-     *     int port, String schemaPath, String contentsPath)
      * @see #startListening()
      */
     InMemoryDirectoryServer(String baseDN, Map props, String schemaPath,
@@ -149,7 +147,7 @@ class InMemoryDirectoryServer {
             startListening()
         }
         catch(LDAPException e) {
-            log.error "Could not start InMemoryDirectoryServer listener: $e.message", e
+            log.error "Could not start InMemoryDirectoryServer listener: $e.message $props", e
         }
     }
 

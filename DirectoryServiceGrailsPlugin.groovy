@@ -1,5 +1,5 @@
 class DirectoryServiceGrailsPlugin {
-    def version = "0.10.1"
+    def version = "0.11.0-SNAPSHOT"
     def grailsVersion = "2.0 > *"
     def title = "Directory Service Plugin"
     def description = 'Makes interacting with directory (LDAP) servers a breeze'

@@ -15,7 +15,7 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
      * Test that we can read from the sources map properly.
      */
     void testConfig() {
-        assertEquals grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory'].port,  '33389'
+        assertEquals config['directory'].port, '33389'
     }
 
     /**
@@ -42,26 +42,26 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
      * was set up properly.
      */
     void testListenAndSearch() {
-        def config = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory']
+        def config = config['directory']
 
         def server = new InMemoryDirectoryServer(
-            "dc=someu,dc=edu",
-            config,
-            "test/ldif/schema/directory-schema.ldif",
-            "test/ldif/directory.ldif"
+                "dc=someu,dc=edu",
+                config,
+                "test/ldif/schema/directory-schema.ldif",
+                "test/ldif/directory.ldif"
         )
 
         def conn = new LDAPConnection(
-            "localhost",
-            Integer.parseInt(config.port),
-            config.bindDN,
-            config.bindPassword
+                "localhost",
+                Integer.parseInt(config.port),
+                config.bindDN,
+                config.bindPassword
         )
 
         def result = conn.search(
-            peopleBaseDN,
-            SearchScope.SUB,
-            "sn=Hampshire"
+                peopleBaseDN,
+                SearchScope.SUB,
+                "sn=Hampshire"
         )
 
         def entries = result.getSearchEntries()
@@ -76,13 +76,13 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
      * Test exporting of data from the server.
      */
     void testExport() {
-        def config = grails.util.GrailsConfig.grails.plugins.directoryservice.sourcesForInMemoryServer['directory']
+        def config = config['directory']
 
         def server = new InMemoryDirectoryServer(
-            "dc=someu,dc=edu",
-            config,
-            "test/ldif/schema/directory-schema.ldif",
-            "test/ldif/directory.ldif"
+                "dc=someu,dc=edu",
+                config,
+                "test/ldif/schema/directory-schema.ldif",
+                "test/ldif/directory.ldif"
         )
 
         def path = "/tmp/myexport.ldif"
@@ -90,5 +90,20 @@ class InMemoryDirectoryServerTests extends GroovyTestCase {
         def reader = new LDIFReader(path)
         def entry = reader.readEntry()
         assertEquals entry.getDN(), 'dc=someu,dc=edu'
+        server.shutDown()
+    }
+
+
+    private static Map getConfig() {
+        [
+                directory: [
+                        address     : 'localhost',
+                        port        : '33389',
+                        useSSL      : false,
+                        trustSSLCert: true,
+                        bindDN      : 'cn=Directory Manager',
+                        bindPassword: 'password'
+                ]
+        ]
     }
 }
