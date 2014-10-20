@@ -145,7 +145,7 @@ class DirectoryService {
      *   <li>get&lt;singular&gt;(RDN attribute value)</li>
      * </ul>
      */
-    def methodMissing(String name, Object[] args) {
+    def methodMissing(String name, args) {
         if (args) {
             def method
 
