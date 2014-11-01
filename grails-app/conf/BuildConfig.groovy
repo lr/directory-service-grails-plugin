@@ -12,7 +12,7 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-        runtime 'com.unboundid:unboundid-ldapsdk:2.3.1'
+        runtime 'com.unboundid:unboundid-ldapsdk:2.3.6'
     }
 
     plugins {
