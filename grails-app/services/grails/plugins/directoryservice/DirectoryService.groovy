@@ -148,11 +148,12 @@ class DirectoryService {
     def methodMissing(String name, args) {
         if (args) {
             def method
+
             if (args[0] instanceof Map) {
                 // If it is a find*, we want to inspect it...
                 if (name.matches(/^find(\w+)*$/)) {
                     // Check for find*Where (plural)
-                    method = grailsApplication.config.grails.plugins.directoryservice.dit.find {
+                    method = directoryServiceConfig.dit.find {
                         name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
                     }
                     if (method) {
@@ -162,7 +163,7 @@ class DirectoryService {
                     }
                     else {
                         // Didn't find plural, so check for singular
-                        method = grailsApplication.config.grails.plugins.directoryservice.dit.find {
+                        method = directoryServiceConfig.dit.find {
                             name.matches(/^find${it.value.singular?.capitalize()}Where*$/)
                         }
                         if (method) {
@@ -174,7 +175,7 @@ class DirectoryService {
                 }
             }
             else if (args[0] instanceof LDAPFilter) {
-                method = grailsApplication.config.grails.plugins.directoryservice.dit.find {
+                method = directoryServiceConfig.dit.find {
                     name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
                 }
                 if (method) {
@@ -186,11 +187,11 @@ class DirectoryService {
             }
             else if (args[0] instanceof String) {
                 if (name.matches(/^get(\w+)$/)) {
-                    method = grailsApplication.config.grails.plugins.directoryservice.dit.find {
+                    method = directoryServiceConfig.dit.find {
                         name.matches(/^get${it.value.singular?.capitalize()}$/)
                     }
                     if (method) {
-                        def dit = grailsApplication.config.grails.plugins.directoryservice.dit[method.key]
+                        def dit = directoryServiceConfig.dit[method.key]
                         return findEntry(method.key, [(dit.rdnAttribute):args[0]])
                     }
                 }
@@ -211,8 +212,9 @@ class DirectoryService {
             }
         }
 
-        throw new MissingMethodException(name, delegate, args)
+        throw new MissingMethodException(name, this.getClass(), args)
     }
+
 
     /**
      * Performs a find based on the passed in baseDN and args and returns
@@ -256,7 +258,7 @@ class DirectoryService {
      * @return List of LdapServiceEntry objects.
      */
     def findEntriesUsingFilter(String baseDN, LDAPFilter filter, sortParams=null) {
-        def dit = grailsApplication.config.grails.plugins.directoryservice.dit[baseDN]
+        def dit = directoryServiceConfig.dit[baseDN]
         List<SearchResultEntry> entries
         if (dit?.attributes) {
             entries = searchUsingFilter(baseDN, filter.toString(), sortParams,
@@ -387,7 +389,7 @@ class DirectoryService {
             return serverSets[sourceName]
         }
         else {
-            def source = grailsApplication.config.grails.plugins.directoryservice.sources[sourceName]
+            def source = directoryServiceConfig.sources[sourceName]
             def serverSet = serverSetForSource(
                 source.address,
                 source.port,
@@ -476,7 +478,7 @@ class DirectoryService {
     def connection(String base) {
         def sourceName = sourceNameFromBase(base)
         def serverSet = serverSetForSourceName(sourceName)
-        def source = grailsApplication.config.grails.plugins.directoryservice.sources[sourceName]
+        def source = directoryServiceConfig.sources[sourceName]
         if (source.useConnectionPool) {
             if (!conn[sourceName] || conn[sourceName]?.isClosed()) {
                 if (source.bindDN) {
@@ -520,7 +522,7 @@ class DirectoryService {
      * @return The map which contains the source for this base.
      */
     def sourceNameFromBase(String base) {
-        def dit = grailsApplication.config.grails.plugins.directoryservice.dit[base]
+        def dit = directoryServiceConfig.dit[base]
         // Might be looking for subentries, so we need to get the parent
         // and try again
         if (!dit) {
@@ -539,8 +541,8 @@ class DirectoryService {
      * base.
      */
     def sourceFromBase(String base) {
-        def dit = grailsApplication.config.grails.plugins.directoryservice.dit[base]
-        return grailsApplication.config.grails.plugins.directoryservice.sources[dit.source]
+        def dit = directoryServiceConfig.dit[base]
+        return directoryServiceConfig.sources[dit.source]
     }
 
     /**
@@ -616,4 +618,13 @@ class DirectoryService {
             }
         }
     }
+
+    /**
+     * DRY place to get config
+     * @return
+     */
+    private Map getDirectoryServiceConfig() {
+        grailsApplication.config.grails.plugins.directoryservice
+    }
+
 }

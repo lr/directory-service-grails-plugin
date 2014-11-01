@@ -1,5 +1,9 @@
 .DS_Store
 *.iws
+*.ipr
+*.iml
+*.ids
+/out
 .classpath
 .project
 .settings
