@@ -75,7 +75,7 @@ class DirectoryServiceEntry implements Serializable {
      * implements the Spring Errors interface, so the error handling will
      * change.
      */
-    def errors = [:]
+    Map errors = [:]
 
     /**
      * Holds the actual directory modifications.
