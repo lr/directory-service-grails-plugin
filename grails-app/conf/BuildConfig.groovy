@@ -6,6 +6,8 @@ grails.project.dependency.resolution = {
     log 'warn'
 
     repositories {
+        grailsPlugins()
+        grailsHome()
         grailsCentral()
         mavenLocal()
         mavenCentral()
@@ -16,9 +18,12 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        build ':release:2.2.1', ':rest-client-builder:1.0.3', {
+        //noinspection GroovyAssignabilityCheck
+        build(":release:3.0.1",
+                ":rest-client-builder:2.0.3") {
             export = false
         }
+
 
         //test(':spock:0.6') { export = false }
     }

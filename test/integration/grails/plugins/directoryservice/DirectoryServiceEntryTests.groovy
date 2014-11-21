@@ -12,45 +12,20 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
 
     /* DirectoryService to use for all tests. */
     def directoryService
-
-    /* DirectoryServiceEntry */
-    def dse
-
-    def inMemServer
-
-//    /**
-//     * Set up by creating an DirectoryService and setting grailsApplication config
-//     * based on ConfigurationHolder.config. Then set up the UnboundID
-//     * InMemoryDirectoryServer, and then set the port in LdapService to the
-//     * port that was created with the InMemoryDirectoryServer started (it is
-//     * random each time it starts).
-//     */
-    protected void setUp() {
-//        super.setUp()
-//
-//        def config = grailsApplication.config.grails.plugins.directoryservice.sourcesForInMemoryServer.directory
-//
-//        inMemServer = new InMemoryDirectoryServer(
-//            "dc=someu,dc=edu",
-//            config,
-//            "test/ldif/schema/directory-schema.ldif",
-//            "test/ldif/directory.ldif"
-//        )
-//
-        // Set up lse to be the person with uid=1
-        dse = directoryService.findPersonWhere('uid': '6')
+    private dse
+    private getDirectoryServiceEntry() {
+        if(!dse) {
+            dse = directoryService.findPersonWhere('uid': '6')
+        }
+        return dse
     }
-//
-//    protected void tearDown() {
-//        inMemServer?.shutDown()
-//    }
 
     /**
      * Test that the underlying Entry still works.
      */
     void testUnboundIDEntry() {
-        assertEquals dse.entry.getDN(), 'uid=6,ou=people,dc=someu,dc=edu'
-        assertEquals dse.entry.getAttributeValueAsDate('someuEduEmpExpDate').toString(),
+        assertEquals directoryServiceEntry.entry.getDN(), 'uid=6,ou=people,dc=someu,dc=edu'
+        assertEquals directoryServiceEntry.entry.getAttributeValueAsDate('someuEduEmpExpDate').toString(),
                 'Fri Dec 31 15:59:59 PST 9999'
     }
 
@@ -58,46 +33,46 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      * Test getAttributeValue from the set entry object.
      */
     void testGetAttributeValue() {
-        assertEquals dse.getAttributeValue('sn'), 'Nguyen'
+        assertEquals directoryServiceEntry.getAttributeValue('sn'), 'Nguyen'
     }
 
     /**
      * Test getAttributeValues from the set entry object.
      */
     void testGetAttributeValues() {
-        assertEquals dse.getAttributeValues('cn').size(), 2
+        assertEquals directoryServiceEntry.getAttributeValues('cn').size(), 2
     }
 
     /**
      * Test values from the set entry object.
      */
     void testValues() {
-        assertEquals dse.cnValues().size(), 2
+        assertEquals directoryServiceEntry.cnValues().size(), 2
     }
 
     /**
      * Test invoke getValue using attribute name as method.
      */
     void testAttributeNameAsMethod() {
-        assertEquals dse.dn(), 'uid=6,ou=people,dc=someu,dc=edu'
-        assertEquals dse.sn(), 'Nguyen'
-        assertEquals dse.givenName(), 'Julie'
+        assertEquals directoryServiceEntry.dn(), 'uid=6,ou=people,dc=someu,dc=edu'
+        assertEquals directoryServiceEntry.sn(), 'Nguyen'
+        assertEquals directoryServiceEntry.givenName(), 'Julie'
     }
 
     /**
      * Test invoke getValue using attribute name as property.
      */
     void testAttributeNameAsProperty() {
-        assertEquals dse.dn, 'uid=6,ou=people,dc=someu,dc=edu'
-        assertEquals dse.sn, 'Nguyen'
-        assertEquals dse.givenName, 'Julie'
+        assertEquals directoryServiceEntry.dn, 'uid=6,ou=people,dc=someu,dc=edu'
+        assertEquals directoryServiceEntry.sn, 'Nguyen'
+        assertEquals directoryServiceEntry.givenName, 'Julie'
     }
 
     /**
      * Test attribute as Date.
      */
     void testAttributeAsDate() {
-        assertEquals dse.someuEduEmpExpDateAsDate().toString(),
+        assertEquals directoryServiceEntry.someuEduEmpExpDateAsDate().toString(),
                 'Fri Dec 31 15:59:59 PST 9999'
     }
 
@@ -105,16 +80,16 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      * Test attribute as Boolean.
      */
     void testAttributeAsBoolean() {
-        assertTrue dse.someuEduFacultyFlagAsBoolean()
-        assertTrue Boolean.parseBoolean(dse.someuEduFacultyFlag)
+        assertTrue directoryServiceEntry.someuEduFacultyFlagAsBoolean()
+        assertTrue Boolean.parseBoolean(directoryServiceEntry.someuEduFacultyFlag)
     }
 
     /**
      * Test isDirty()
      */
     void testIsDirty() {
-        assertFalse dse.isDirty()
-        assertFalse dse.isDirty('mail')
+        assertFalse directoryServiceEntry.isDirty()
+        assertFalse directoryServiceEntry.isDirty('mail')
     }
 
     /**
@@ -122,8 +97,8 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      * SearchResultEntry, as SearchResultEntry objects do not allow mods.
      */
     void testSetOfEntry() {
-        assert dse.entry instanceof Entry
-        dse.entry.setAttribute('mail', 'new.name@someu.edu')
+        assert directoryServiceEntry.entry instanceof Entry
+        directoryServiceEntry.entry.setAttribute('mail', 'new.name@someu.edu')
     }
 
     /**
@@ -181,32 +156,32 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      * Test propertyMissing() with a single value.
      */
     void testPropertyMissingSingleVal() {
-        assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
-        dse.mail = 'new.name@someu.edu'
-        assertTrue dse.isDirty()
-        assertTrue dse.isDirty('mail')
-        assertEquals dse.mail, 'new.name@someu.edu'
-        assertEquals dse.mods['mail'], 'new.name@someu.edu'
-        assertEquals dse.modifications.size(), 1
-        assertEquals dse.modifications.get(0).getValues().length, 1
+        assertEquals directoryServiceEntry.mail, 'Julie.Nguyen@someu.edu'
+        directoryServiceEntry.mail = 'new.name@someu.edu'
+        assertTrue directoryServiceEntry.isDirty()
+        assertTrue directoryServiceEntry.isDirty('mail')
+        assertEquals directoryServiceEntry.mail, 'new.name@someu.edu'
+        assertEquals directoryServiceEntry.mods['mail'], 'new.name@someu.edu'
+        assertEquals directoryServiceEntry.modifications.size(), 1
+        assertEquals directoryServiceEntry.modifications.get(0).getValues().length, 1
     }
 
     /**
      * Test propertyMissing with multiple values.
      */
     void testPropertyMissingMultipleVals() {
-        assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
-        dse.mail = ['new.name@someu.edu', 'another.email@someu.edu']
-        assertTrue dse.isDirty()
-        assertTrue dse.isDirty('mail')
+        assertEquals directoryServiceEntry.mail, 'Julie.Nguyen@someu.edu'
+        directoryServiceEntry.mail = ['new.name@someu.edu', 'another.email@someu.edu']
+        assertTrue directoryServiceEntry.isDirty()
+        assertTrue directoryServiceEntry.isDirty('mail')
         //assertEquals dse.mail, ['new.name@someu.edu', 'another.email@someu.edu']
-        assertEquals dse.modifications.size(), 1
-        assertEquals dse.modifications.get(0).getValues().length, 2
+        assertEquals directoryServiceEntry.modifications.size(), 1
+        assertEquals directoryServiceEntry.modifications.get(0).getValues().length, 2
 
-        dse.cn = ['Julie Nguyen', 'Nguyen, Julie', 'Julie A Nguyen', 'Nguyen, Julie A']
-        assertEquals dse.modifications.size(), 2
-        assertEquals dse.modifications.get(0).getValues().length, 4
-        assertEquals dse.getAttributeValues('cn').length, 4
+        directoryServiceEntry.cn = ['Julie Nguyen', 'Nguyen, Julie', 'Julie A Nguyen', 'Nguyen, Julie A']
+        assertEquals directoryServiceEntry.modifications.size(), 2
+        assertEquals directoryServiceEntry.modifications.get(0).getValues().length, 4
+        assertEquals directoryServiceEntry.getAttributeValues('cn').length, 4
     }
 
     /**
@@ -214,41 +189,41 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      * attributes is 28 because we are getting operational attributes.
      */
     void testPropertyMissingAddAttribute() {
-        assertEquals dse.entry.getAttributes().size(), 28
-        dse.carLicense = 'B12345C'
-        assertEquals dse.modifications.size(), 1
-        assertEquals dse.entry.getAttributes().size(), 29
-        assertEquals dse.carLicense, 'B12345C'
-        dse.carLicense = null
-        assertEquals dse.modifications.size(), 0
-        assertEquals dse.entry.getAttributes().size(), 28
+        assertEquals directoryServiceEntry.entry.getAttributes().size(), 28
+        directoryServiceEntry.carLicense = 'B12345C'
+        assertEquals directoryServiceEntry.modifications.size(), 1
+        assertEquals directoryServiceEntry.entry.getAttributes().size(), 29
+        assertEquals directoryServiceEntry.carLicense, 'B12345C'
+        directoryServiceEntry.carLicense = null
+        assertEquals directoryServiceEntry.modifications.size(), 0
+        assertEquals directoryServiceEntry.entry.getAttributes().size(), 28
     }
 
     /**
      * Test propertyMissing with deleting values.
      */
     void testPropertyMissingRemoveValue() {
-        assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
-        dse.mail = ''
-        assertNull dse.mail
-        assertEquals dse.modifications.size(), 1
-        assertEquals dse.modifications[0].getModificationType().getName(), 'REPLACE'
+        assertEquals directoryServiceEntry.mail, 'Julie.Nguyen@someu.edu'
+        directoryServiceEntry.mail = ''
+        assertNull directoryServiceEntry.mail
+        assertEquals directoryServiceEntry.modifications.size(), 1
+        assertEquals directoryServiceEntry.modifications[0].getModificationType().getName(), 'REPLACE'
 
-        dse.mail = 'some.mail@someu.edu'
-        assertEquals dse.modifications.size(), 1
-        assertEquals dse.mail, 'some.mail@someu.edu'
+        directoryServiceEntry.mail = 'some.mail@someu.edu'
+        assertEquals directoryServiceEntry.modifications.size(), 1
+        assertEquals directoryServiceEntry.mail, 'some.mail@someu.edu'
     }
 
     /**
      * Test discard.
      */
     void testDiscard() {
-        dse.mail = null
-        dse.carLicense = 'B12345C'
-        assertNull dse.mail
-        assertEquals dse.carLicense, 'B12345C'
-        dse.discard()
-        assertEquals dse.mail, 'Julie.Nguyen@someu.edu'
-        assertNull dse.carLicense
+        directoryServiceEntry.mail = null
+        directoryServiceEntry.carLicense = 'B12345C'
+        assertNull directoryServiceEntry.mail
+        assertEquals directoryServiceEntry.carLicense, 'B12345C'
+        directoryServiceEntry.discard()
+        assertEquals directoryServiceEntry.mail, 'Julie.Nguyen@someu.edu'
+        assertNull directoryServiceEntry.carLicense
     }
 }
