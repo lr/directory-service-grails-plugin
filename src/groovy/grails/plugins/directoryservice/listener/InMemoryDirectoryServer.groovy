@@ -19,6 +19,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import com.unboundid.ldap.listener.InMemoryDirectoryServer as InMemServer
+import com.unboundid.ldap.listener.InMemoryDirectoryServerSnapshot
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig
 import com.unboundid.ldap.listener.InMemoryListenerConfig
 import com.unboundid.ldap.sdk.Entry
@@ -280,5 +281,13 @@ class InMemoryDirectoryServer {
         finally {
             ldifReader.close()
         }
+    }
+
+    InMemoryDirectoryServerSnapshot createSnapshot() {
+        return server.createSnapshot()
+    }
+
+    def restoreSnapshot(InMemoryDirectoryServerSnapshot snapshot) {
+        server.restoreSnapshot(snapshot)
     }
 }
