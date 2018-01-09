@@ -20,6 +20,7 @@ import java.security.GeneralSecurityException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.unboundid.asn1.ASN1OctetString
 import com.unboundid.ldap.sdk.DN
 import com.unboundid.ldap.sdk.Filter as LDAPFilter
 import com.unboundid.ldap.sdk.LDAPConnectionOptions
@@ -33,6 +34,7 @@ import com.unboundid.ldap.sdk.SearchResultEntry
 import com.unboundid.ldap.sdk.SearchScope
 import com.unboundid.ldap.sdk.SimpleBindRequest
 import com.unboundid.ldap.sdk.controls.ServerSideSortRequestControl
+import com.unboundid.ldap.sdk.controls.SimplePagedResultsControl
 import com.unboundid.ldap.sdk.controls.SortKey
 import com.unboundid.util.ssl.SSLUtil
 import com.unboundid.util.ssl.TrustAllTrustManager
@@ -617,6 +619,7 @@ class DirectoryService {
                 SearchScope.SUB,
                 filter,
                 ldapControls?.attrs ? (String[])ldapControls?.attrs : attrs)
+        
         if (ldapControls && ldapControls instanceof Map) {
             if (ldapControls.sort) {
                 searchRequest.addControl(new ServerSideSortRequestControl(
@@ -631,15 +634,38 @@ class DirectoryService {
         }
         def conn = connection(base)
         try {
-            SearchResult results = conn.search(searchRequest)
-            List<SearchResultEntry> entries = results.getSearchEntries()
+            List<SearchResultEntry> entries = []
+            if (ldapControls.pagedSearch) {
+                ASN1OctetString resumeCookie = null
+                int numSearches = 0
+                while (true) {
+                    searchRequest.setControls(
+                        new SimplePagedResultsControl(
+                            ldapControls?.pageSize ?: 500, resumeCookie))
+                    numSearches++
+                    SearchResult results = conn.search(searchRequest)
+                    entries += results.getSearchEntries()
+                    SimplePagedResultsControl responseControl =
+                            SimplePagedResultsControl.get(results)
+                    if (responseControl.moreResultsToReturn()) {
+                        resumeCookie = responseControl.getCookie()
+                    }
+                    else {
+                        log.warn "Paged Search - pages completed: ${numSearches}"
+                        break
+                    }
+                }
+            }
+            else {
+                SearchResult results = conn.search(searchRequest)
+                entries = results.getSearchEntries()
+            }
             return entries
         }
         catch (LDAPSearchException lse) {
-            log.warn "Exception while searching: $lse.message", lse
+            log.warn "Exception while searching: ${lse.message}", lse
             List<SearchResultEntry> entries = lse.getSearchEntries()
             return entries
-            //return new LinkedList<SearchResultEntry>()
         }
         finally {
             if (conn?.metaClass.respondsTo(conn, "getHealthCheck")) {

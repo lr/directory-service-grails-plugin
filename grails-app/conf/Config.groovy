@@ -131,4 +131,6 @@ log4j = {
           'org.springframework',
           'org.hibernate',
           'net.sf.ehcache.hibernate'
+    
+    warn 'grails.plugins.directoryservice'
 }

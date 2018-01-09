@@ -543,6 +543,42 @@ class DirectoryServiceTests extends GroovyTestCase {
      }
 
      /**
+      * Tests paged searching. We have to resort to some trickery to see if we
+      * can test the size. To ensure we are actually doing a paged search, we
+      * have enabled warn logging and can now verify the number of paged searches
+      * in the log.
+      */
+     void testPagedSearch() {
+         def people = directoryService.findPeopleWhere("(&(uid=*))", [pagedSearch: true, pageSize: 10])
+         assertNotNull people
+         assertEquals people.size(), 385
+         
+         people = directoryService.findPeopleWhere("(&(uid=*))",
+             [sort: 'cn', attrs:['givenName', 'sn'], pagedSearch: true, pageSize: 10])
+         assertNotNull people
+         assertEquals people.size(), 385
+         
+         // If the sizeLimit is 10 or more, we will always get the entire amount
+         // of results.
+         people = directoryService.findPeopleWhere("(&(uid=*))",
+             [sort: 'cn', attrs:['givenName', 'sn'], pagedSearch: true, pageSize: 10, sizeLimit: 10])
+         assertNotNull people
+         assertEquals people.size(), 385
+         
+         people = directoryService.findPeopleWhere("(&(uid=*))",
+             [sort: 'cn', attrs:['givenName', 'sn'], pagedSearch: true, pageSize: 10, sizeLimit: 15])
+         assertNotNull people
+         assertEquals people.size(), 385
+         
+         // Each page size is 10, and we limit the number of results to 9, so
+         // that means, desipte pagings, we are only going to get 9.
+         people = directoryService.findPeopleWhere("(&(uid=*))",
+             [sort: 'cn', attrs:['givenName', 'sn'], pagedSearch: true, pageSize: 10, sizeLimit: 9])
+         assertNotNull people
+         assertEquals people.size(), 9
+     }
+
+     /**
       * Test save().
       */
      void testSave() {
