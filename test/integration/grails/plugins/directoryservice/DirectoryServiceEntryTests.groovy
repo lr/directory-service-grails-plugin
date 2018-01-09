@@ -51,7 +51,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
     void testUnboundIDEntry() {
         assertEquals dse.entry.getDN(), 'uid=6,ou=people,dc=someu,dc=edu'
         assertEquals dse.entry.getAttributeValueAsDate('someuEduEmpExpDate').toString(),
-                'Fri Dec 31 15:59:59 PST 9999'
+                'Fri Dec 31 18:59:59 EST 9999'
     }
 
     /**
@@ -98,7 +98,7 @@ class DirectoryServiceEntryTests extends GroovyTestCase {
      */
     void testAttributeAsDate() {
         assertEquals dse.someuEduEmpExpDateAsDate().toString(),
-                'Fri Dec 31 15:59:59 PST 9999'
+                'Fri Dec 31 18:59:59 EST 9999'
     }
 
     /**
