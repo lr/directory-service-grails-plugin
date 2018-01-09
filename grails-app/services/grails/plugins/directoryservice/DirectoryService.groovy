@@ -149,6 +149,30 @@ class DirectoryService {
         if (args) {
             def method
 
+            if (name.matches(/^get(\w+)$/) && args[0] instanceof String) {
+                method = directoryServiceConfig.dit.find {
+                    name.matches(/^get${it.value.singular?.capitalize()}$/)
+                }
+                if (method) {
+                    def dit = directoryServiceConfig.dit[method.key]
+                    return findEntry(method.key, [(dit.rdnAttribute):args[0]])
+                }
+            }
+            else if (name == 'findSubentriesWhere' && args.size() > 1 ) {
+                // args[0] must have the DN, args[1] is the map, and
+                // args[2] would be the sortParams.
+                if (args[1] instanceof LDAPFilter) {
+                    return args.size() > 2 ?
+                        findEntriesUsingFilter(args[0], args[1], args[2]) :
+                            findEntriesUsingFilter(args[0], args[1])
+                }
+                else {
+                    return args.size() > 2 ?
+                        findEntries(args[0], args[1], args[2]) :
+                            findEntries(args[0], args[1])
+                }
+            }
+
             if (args[0] instanceof Map) {
                 // If it is a find*, we want to inspect it...
                 if (name.matches(/^find(\w+)*$/)) {
@@ -174,44 +198,39 @@ class DirectoryService {
                     }
                 }
             }
-            else if (args[0] instanceof LDAPFilter) {
+            else if (args[0] instanceof LDAPFilter || args[0] instanceof String) {
+                def ldapFilter = args[0]
+                if (args[0] instanceof String) {
+                    ldapFilter = LDAPFilter.create(args[0])
+                }
                 method = directoryServiceConfig.dit.find {
                     name.matches(/^find${it.value.plural?.capitalize()}Where*$/)
                 }
                 if (method) {
                     //return findAllUsingFilter(method.key, args[0])
                     return args.size() > 1 ?
-                        findEntriesUsingFilter(method.key, args[0], args[1]) :
-                            findEntriesUsingFilter(method.key, args[0])
+                        findEntriesUsingFilter(method.key, ldapFilter, args[1]) :
+                            findEntriesUsingFilter(method.key, ldapFilter)
                 }
-            }
-            else if (args[0] instanceof String) {
-                if (name.matches(/^get(\w+)$/)) {
+                else {
+                    // Didn't find plural, so check for singular
                     method = directoryServiceConfig.dit.find {
-                        name.matches(/^get${it.value.singular?.capitalize()}$/)
+                        name.matches(/^find${it.value.singular?.capitalize()}Where*$/)
                     }
                     if (method) {
-                        def dit = directoryServiceConfig.dit[method.key]
-                        return findEntry(method.key, [(dit.rdnAttribute):args[0]])
-                    }
-                }
-                else if (name == 'findSubentriesWhere' && args.size() > 1 ) {
-                    // args[0] must have the DN, args[1] is the map, and
-                    // args[2] would be the sortParams.
-                    if (args[1] instanceof LDAPFilter) {
-                        return args.size() > 2 ?
-                            findEntriesUsingFilter(args[0], args[1], args[2]) :
-                                findEntriesUsingFilter(args[0], args[1])
-                    }
-                    else {
-                        return args.size() > 2 ?
-                            findEntries(args[0], args[1], args[2]) :
-                                findEntries(args[0], args[1])
+                        // No need to worry about sort because we
+                        // only return one max, anyway.
+                        def foundEntries = findEntriesUsingFilter(method.key, ldapFilter)
+                        if (foundEntries?.size() >= 1) {
+                            return foundEntries[0]
+                        }
+                        else {
+                            return null
+                        }
                     }
                 }
             }
         }
-
         throw new MissingMethodException(name, this.getClass(), args)
     }
 

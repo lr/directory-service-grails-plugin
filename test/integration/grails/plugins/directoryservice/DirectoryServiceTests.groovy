@@ -290,6 +290,30 @@ class DirectoryServiceTests extends GroovyTestCase {
     }
 
     /**
+     * Test that we can find a single person by using a filter.
+     */
+    void testFindOnePersonUsingFilter() {
+        def filter = directoryService.createFilter('(&(givenName=Catherine)(sn=Smith)(|(uid=288)))')
+        def person = directoryService.findPersonWhere(filter)
+        assertNotNull person
+        assertEquals person.cn, 'Smith, Catherine'
+        assertEquals person.givenName, 'Catherine'
+        assertEquals person.sn, 'Smith'
+    }
+
+    /**
+     * Test that we can find a single person by using a filter.
+     */
+    void testFindOnePersonUsingString() {
+        def filter = '(&(givenName=Catherine)(sn=Smith)(|(uid=288)))'
+        def person = directoryService.findPersonWhere(filter)
+        assertNotNull person
+        assertEquals person.cn, 'Smith, Catherine'
+        assertEquals person.givenName, 'Catherine'
+        assertEquals person.sn, 'Smith'
+    }
+
+    /**
      * Test the findAllPeopleWhere method when supplying a filter and a sort
      * attribute.
      */
