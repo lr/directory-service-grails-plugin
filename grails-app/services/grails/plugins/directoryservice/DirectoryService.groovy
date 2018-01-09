@@ -155,12 +155,14 @@ class DirectoryService {
                 }
                 if (method) {
                     def dit = directoryServiceConfig.dit[method.key]
-                    return findEntry(method.key, [(dit.rdnAttribute):args[0]])
+                    return args.size() > 1 ?
+                        findEntry(method.key, [(dit.rdnAttribute):args[0]], args[1]) : 
+                            findEntry(method.key, [(dit.rdnAttribute):args[0]])
                 }
             }
             else if (name == 'findSubentriesWhere' && args.size() > 1 ) {
                 // args[0] must have the DN, args[1] is the map, and
-                // args[2] would be the sortParams.
+                // args[2] would be the ldapControls.
                 if (args[1] instanceof LDAPFilter) {
                     return args.size() > 2 ?
                         findEntriesUsingFilter(args[0], args[1], args[2]) :
@@ -193,7 +195,9 @@ class DirectoryService {
                         if (method) {
                             // No need to worry about sort because we
                             // only return one max, anyway.
-                            return findEntry(method.key, args[0])
+                            return args.size() > 1 ?
+                                findEntry(method.key, args[0], args[1]) :
+                                    findEntry(method.key, args[0])
                         }
                     }
                 }
@@ -220,7 +224,8 @@ class DirectoryService {
                     if (method) {
                         // No need to worry about sort because we
                         // only return one max, anyway.
-                        def foundEntries = findEntriesUsingFilter(method.key, ldapFilter)
+                        def foundEntries = args.size() > 1 ? findEntriesUsingFilter(method.key, ldapFilter, args[1]) :
+                            findEntriesUsingFilter(method.key, ldapFilter)
                         if (foundEntries?.size() >= 1) {
                             return foundEntries[0]
                         }
@@ -245,8 +250,8 @@ class DirectoryService {
      * @return A DirectoryServiceEntry, which is the first result of the resulting
      * search.
      */
-    def findEntry(String baseDN, Map args) {
-        def entries = findEntries(baseDN, args)
+    def findEntry(String baseDN, Map args, ldapControls=[:]) {
+        def entries = findEntries(baseDN, args, ldapControls)
         if (entries) {
             return entries[0]
         }
@@ -260,11 +265,13 @@ class DirectoryService {
      *
      * @param baseDN        The base DN to use in the search.
      * @param args          The map of key:value pairs which will be turned
-     * into an AND filter.
+     *                      into an AND filter.
+     * @param ldapControls  Any additional LDAP Controls to pass in, like sorting
+     *                      attributes to return, etc.
      * @return List of LdapServiceEntry objects.
      */
-    def findEntries(String baseDN, Map args, sortParams=null) {
-        return findEntriesUsingFilter(baseDN, andFilterFromArgs(args), sortParams)
+    def findEntries(String baseDN, Map args, ldapControls=[:]) {
+        return findEntriesUsingFilter(baseDN, andFilterFromArgs(args), ldapControls)
     }
 
     /**
@@ -273,19 +280,22 @@ class DirectoryService {
      *
      * @param baseDN        The base DN to use in the search.
      * @param filter        The com.unboundid.ldap.sdk.Filter to use in the
-     * search request
+     *                      search request
+     * @param ldapControls  Any additional LDAP Controls to pass in, like sorting
+     *                      attributes to return, etc.
      * @return List of LdapServiceEntry objects.
      */
-    def findEntriesUsingFilter(String baseDN, LDAPFilter filter, sortParams=null) {
+    def findEntriesUsingFilter(String baseDN, LDAPFilter filter, ldapControls=[:]) {
         def dit = directoryServiceConfig.dit[baseDN]
-        List<SearchResultEntry> entries
-        if (dit?.attributes) {
-            entries = searchUsingFilter(baseDN, filter.toString(), sortParams,
-                (String[])dit.attributes)
+        def attrsToReturn = (String[])['*']
+        if (ldapControls?.attrs) {
+            attrsToReturn = (String[])ldapControls?.attrs
         }
-        else {
-            entries = searchUsingFilter(baseDN, filter.toString(), sortParams)
+        else if (dit?.attributes) {
+            attrsToReturn = (String[])dit?.attributes
         }
+        List<SearchResultEntry> entries = searchUsingFilter(baseDN, filter.toString(),
+            ldapControls, attrsToReturn)
         def list = []
         entries.each {
             list.add(new DirectoryServiceEntry(it, baseDN))
@@ -296,8 +306,7 @@ class DirectoryService {
     /**
      * Creates an AND filter from the passed in map of args.
      *
-     * @param args          The arguments to use for creating the
-     * filter.
+     * @param args          The arguments to use for creating the filter.
      * @return An AND LDAPFilter that was created from the passed in map of args.
      */
     def andFilterFromArgs(Map args) {
@@ -398,8 +407,8 @@ class DirectoryService {
      * it returns that. If not, it creates a new one, stores it for later,
      * and then returns it.
      *
-     * @param sourceName            The name of the source to use for creating
-     * the ServerSet.
+     * @param sourceName        The name of the source to use for creating
+     *                          the ServerSet.
      * @return A ServerSet which can be used for getting a connection.
      * @see #serverSetForSource(String addresses, String ports, boolean useSSL, boolean trustSSLCert, boolean followReferrals=true)
      */
@@ -425,15 +434,15 @@ class DirectoryService {
      * Creates a new FailoverServerSet from the passed in args.
      *
      * @param addresses         One or more addresses, separated by a "," if
-     * more than one.
+     *                          more than one.
      * @param ports             One or more ports, separated by a "," if more
-     * than one. The number of ports and addresses must match.
+     *                          than one. The number of ports and addresses must match.
      * @param useSSL            Whether or not to use SSL for the connection.
      * @param trustSSLCert      Whether or not to implicitly trust the SSL
-     * certificate. If this is {@code false}, then your JVM must trust the SSL
-     * certificate.
+     *                          certificate. If this is {@code false}, then your
+     *                          JVM must trust the SSL certificate.
      * @param followReferrals   Whether or not to follow referrals. This defaults
-     * to true.
+     *                          to true.
      * @return A FailoverServerSet which is created based on the passed in args.
      */
     def serverSetForSource(String addresses, String ports,
@@ -490,8 +499,9 @@ class DirectoryService {
      * is no bindDN in the source, then the connection is returned
      * unauthenticated, i.e., it is an anonymous bind.
      *
-     * @param base          The search base that will be used to look
-     * up the source map, and then the corresponding serverSet for that source.
+     * @param base      The search base that will be used to look
+     *                  up the source map, and then the corresponding serverSet
+     *                  for that source.
      * @return The LDAPConnection object.
      */
     def connection(String base) {
@@ -536,8 +546,8 @@ class DirectoryService {
      * Returns the {@code ldap.sources} Map based on the passed in
      * base, which should be a key in the {@code ldap.dit} Map.
      *
-     * @param base          The search base that will be used to look
-     * up the source map.
+     * @param base      The search base that will be used to look
+     *                  up the source map.
      * @return The map which contains the source for this base.
      */
     def sourceNameFromBase(String base) {
@@ -555,7 +565,7 @@ class DirectoryService {
      * source from grails.plugins.directoryservice.source.
      *
      * @param base      The search base which will be used as the key
-     * for the lookup in the grails.plugins.directoryservice.source.
+     *                  for the lookup in the grails.plugins.directoryservice.source.
      * @return The Map which corresponds to the source for the provided
      * base.
      */
@@ -569,18 +579,20 @@ class DirectoryService {
      * list if any exceptions are thrown. This method returns
      * #searchUsingFilter(final String base, final String filter, String... attrs='*')
      *
+     * @param base          The search base.
      * @param attribute     The attribute to search for.
      * @param value         The value of attribute.
-     * @param base          The search base.
+     * @param ldapControls  Any additional LDAP Controls to pass in, like sorting
+     *                      attributes to return, etc.
      * @param attrs         The attributes to return. By default it will return
-     * everything the bind has access to.
+     *                      everything the bind has access to.
      * @return A List of SearchResultEntry objects.
      * @see #searchUsingFilter(final String base, final String filter, String... attrs='*')
      */
-    def search(String base, String attribute, String value, sortParams,
+    def search(String base, String attribute, String value, ldapControls=[:],
         String... attrs='*') {
         def filter = createFilter("(${attribute}=${value})")
-        return searchUsingFilter(base, filter.toString(), sortParams, attrs)
+        return searchUsingFilter(base, filter.toString(), ldapControls, attrs)
     }
 
     /**
@@ -589,31 +601,32 @@ class DirectoryService {
      *
      * It performs the search using a scope of SearchScope.SUB.
      *
+     * @param base          The search base.
      * @param attribute     The attribute to search for.
      * @param value         The value of attribute.
-     * @param base          The search base.
+     * @param ldapControls  Any additional LDAP Controls to pass in, like sorting
+     *                      attributes to return, etc.
      * @param attrs         The attributes to return. By default it will return
-     * everything the bind has access to.
+     *                      everything the bind has access to.
      * @return A List of SearchResultEntry objects.
      */
     def searchUsingFilter(final String base, final String filter,
-        searchParams=null, String... attrs='*') {
-
+        ldapControls=[:], String... attrs='*') {
         SearchRequest searchRequest = new SearchRequest(
                 base,
                 SearchScope.SUB,
                 filter,
-                attrs)
-        if (searchParams && searchParams instanceof Map) {
-            if (searchParams.sort) {
+                ldapControls?.attrs ? (String[])ldapControls?.attrs : attrs)
+        if (ldapControls && ldapControls instanceof Map) {
+            if (ldapControls.sort) {
                 searchRequest.addControl(new ServerSideSortRequestControl(
-                    new SortKey(searchParams.sort)))
+                    new SortKey(ldapControls.sort)))
             }
-            if (searchParams.sizeLimit && searchParams.sizeLimit > 0) {
-                searchRequest.setSizeLimit(searchParams.sizeLimit)
+            if (ldapControls.sizeLimit && ldapControls.sizeLimit > 0) {
+                searchRequest.setSizeLimit(ldapControls.sizeLimit)
             }
-            if (searchParams.timeLimit && searchParams.timeLimit > 0) {
-                searchRequest.setTimeLimitSeconds(searchParams.timeLimit)
+            if (ldapControls.timeLimit && ldapControls.timeLimit > 0) {
+                searchRequest.setTimeLimitSeconds(ldapControls.timeLimit)
             }
         }
         def conn = connection(base)

@@ -386,9 +386,10 @@ class DirectoryServiceTests extends GroovyTestCase {
      }
 
      /**
-      * Test that we are only returning the cn, sn, and creatorsName.
+      * Test that we are only returning the cn, sn, and creatorsName as that is
+      * what is listed in the DIT config.
       */
-     void testOnlySnAndCnReturned() {
+     void testOnlySnAndCnReturnedViaDITConfig() {
         def person = directoryService.findPeepWhere(uid:'3')
         assertNotNull person
         assertEquals person.sn, 'Rockland'
@@ -397,6 +398,71 @@ class DirectoryServiceTests extends GroovyTestCase {
         assertNull person.givenName
         assertNull person.employeeNumber
         assertNull person.mail
+     }
+
+     /**
+      * Test that we are only returning the cn, sn, and creatorsName because
+      * we are specifying only those attributes (when searching using a String)
+      */
+     void testOnlySnAndCnReturnedAsArgumentsUsingStringFilter() {
+         def person = directoryService.findPersonWhere('(&(uid=3))', [attrs:['sn', 'cn', 'creatorsName']])
+         assertNotNull person
+         assertEquals person.sn, 'Rockland'
+         assertEquals person.cn, 'Rockland, Mabel'
+         assertEquals person.creatorsName, 'cn=Internal Root User'
+         assertNull person.givenName
+         assertNull person.employeeNumber
+         assertNull person.mail
+     }
+     
+     /**
+      * Test that we are only returning the cn, sn, and creatorsName because
+      * we are specifying only those attributes (when searching using a Filter)
+      */
+     void testOnlySnAndCnReturnedAsArgumentsUsingFilter() {
+         def filter = directoryService.createFilter('(&(uid=3))')
+         def person = directoryService.findPersonWhere(filter, [attrs:['sn', 'cn', 'creatorsName']])
+         assertNotNull person
+         assertEquals person.sn, 'Rockland'
+         assertEquals person.cn, 'Rockland, Mabel'
+         assertEquals person.creatorsName, 'cn=Internal Root User'
+         assertNull person.givenName
+         assertNull person.employeeNumber
+         assertNull person.mail
+     }
+     
+     /**
+      * Test that we are only returning sn, and creatorsName because
+      * we are specifying only those attributes (when searching using a String)
+      */
+     void testOnlySnIsReturnedAsSpecifingJustTwoRecordsAsArgumentsUsingStringFilter() {
+         def people = directoryService.findPeopleWhere('(&(sn=smith))', [attrs:['sn'], sizeLimit:2])
+         assertNotNull people
+         def person = people[0]
+         assertEquals people.size(), 2
+         assertEquals person.sn, 'Smith'
+         assertNull person.cn
+         assertNull person.givenName
+         assertNull person.employeeNumber
+         assertNull person.mail
+     }
+     
+     /**
+      * Test that we are only returning sn, and creatorsName because
+      * we are specifying only those attributes (when searching using a String)
+      */
+     void testOnlyCNIsReturnedForTwoRecordsSortedByCN() {
+         def people = directoryService.findPeopleWhere('(&(sn=smith))', [attrs:['cn'], sizeLimit:2, sort:'cn'])
+         assertNotNull people
+         def person = people[0]
+         assertEquals people.size(), 2
+         assertEquals person.cn, 'Smith, Catherine'
+         assertNull person.sn
+         assertNull person.givenName
+         assertNull person.employeeNumber
+         assertNull person.mail
+         
+         assertEquals people[1].cn, 'Smith, John'
      }
 
      /**
@@ -411,7 +477,69 @@ class DirectoryServiceTests extends GroovyTestCase {
         def account = directoryService.getAccount('Lavers, Matthew')
         assertNotNull account
         assertEquals account.uid, '139'
+     }
+     
+     /**
+      * Test get, which operates on the RDN attribute of the dit object
+      * specified, but only return the specified attributes.
+      */
+     void testGetWithSpecifiedAttrs() {
+        def person = directoryService.getPerson('1', [attrs:['uid']])
+        assertNotNull person
+        assertEquals person.uid, '1'
+        assertNull person.givenName
+        assertNull person.sn
 
+        def account = directoryService.getAccount('Lavers, Matthew', [attrs:['uid']])
+        assertNotNull account
+        assertEquals account.uid, '139'
+        assertNull person.givenName
+        assertNull person.sn
+     }
+
+     /**
+      * Tests searchUsingFilter using a variety of the features.
+      */
+     void testSearchUsingFilter() {
+         def baseDN = 'ou=people,dc=someu,dc=edu'
+         def filter = '(&(sn=smith))'
+         def people = directoryService.searchUsingFilter(baseDN, filter)
+         assertEquals people.size(), 5
+         
+         people = directoryService.searchUsingFilter(baseDN, filter, [sort:'cn'])
+         assertEquals people.size(), 5
+         assertEquals people[0].getAttributeValue('givenName'), 'Catherine'
+         assertNotNull people[0].getAttributeValue('mail')
+         
+         people = directoryService.searchUsingFilter(baseDN, filter, [sort:'cn', attrs:['givenName']])
+         assertEquals people.size(), 5
+         assertEquals people[0].getAttributeValue('givenName'), 'Catherine'
+         assertNull people[0].getAttributeValue('mail')
+         assertNull people[1].getAttributeValue('mail')
+         
+         // Supplying attrs at the end of the method.
+         people = directoryService.searchUsingFilter(baseDN, filter, [sort:'cn'], 'sn', 'cn')
+         assertEquals people.size(), 5
+         assertEquals people[0].getAttributeValue('sn'), 'Smith'
+         assertEquals people[0].getAttributeValue('cn'), 'Smith, Catherine'
+         assertEquals people[1].getAttributeValue('sn'), 'Smith'
+         assertEquals people[1].getAttributeValue('cn'), 'Smith, John'
+         assertNull people[0].getAttributeValue('givenName')
+         assertNull people[0].getAttributeValue('mail')
+         assertNull people[1].getAttributeValue('givenName')
+         assertNull people[1].getAttributeValue('mail')
+         
+         // Supplying attrs in the map overrides the attrs at the end of the method.
+         people = directoryService.searchUsingFilter(baseDN, filter, [sort:'cn', attrs:['sn', 'cn']], 'givenName', 'mail')
+         assertEquals people.size(), 5
+         assertEquals people[0].getAttributeValue('sn'), 'Smith'
+         assertEquals people[0].getAttributeValue('cn'), 'Smith, Catherine'
+         assertEquals people[1].getAttributeValue('sn'), 'Smith'
+         assertEquals people[1].getAttributeValue('cn'), 'Smith, John'
+         assertNull people[0].getAttributeValue('givenName')
+         assertNull people[0].getAttributeValue('mail')
+         assertNull people[1].getAttributeValue('givenName')
+         assertNull people[1].getAttributeValue('mail')
      }
 
      /**
