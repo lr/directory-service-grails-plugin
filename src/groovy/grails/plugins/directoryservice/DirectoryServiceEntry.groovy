@@ -29,7 +29,8 @@ import com.unboundid.ldap.sdk.SearchResultEntry
  *
  * @author Lucas Rockwell
  */
-class DirectoryServiceEntry {
+class DirectoryServiceEntry implements Serializable {
+    private static final long serialVersionUID = -648257487032312756L;
 
     /**
      * The original searchResultEntry.
@@ -74,7 +75,7 @@ class DirectoryServiceEntry {
      * implements the Spring Errors interface, so the error handling will
      * change.
      */
-    def errors = [:]
+    Map errors = [:]
 
     /**
      * Holds the actual directory modifications.
