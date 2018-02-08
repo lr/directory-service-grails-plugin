@@ -636,4 +636,21 @@ class DirectoryServiceTests extends GroovyTestCase {
          assertNull person
      }
 
+     /**
+      * Test snapshotting
+      */
+     void testSnapshot() {
+         def snapshot = inMemServer.createSnapshot()
+         def person = directoryService.getPerson('1')
+         assertNotNull person
+         
+         directoryService.connection(peopleBaseDn)?.delete(person.dn)  
+         person = directoryService.getPerson('1')
+         assertNull person
+
+         inMemServer.restoreSnapshot(snapshot)
+         person = directoryService.getPerson('1')
+         assertNotNull person
+    }
+
 }
