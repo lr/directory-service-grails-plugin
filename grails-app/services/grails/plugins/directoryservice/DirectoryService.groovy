@@ -647,7 +647,7 @@ class DirectoryService {
                     entries += results.getSearchEntries()
                     SimplePagedResultsControl responseControl =
                             SimplePagedResultsControl.get(results)
-                    if (responseControl.moreResultsToReturn()) {
+                    if (responseControl?.moreResultsToReturn()) {
                         resumeCookie = responseControl.getCookie()
                     }
                     else {
